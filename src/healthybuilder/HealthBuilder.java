@@ -4,33 +4,37 @@
  * and open the template in the editor.
  */
 package healthybuilder;
+
 import java.awt.Frame;
+import java.net.URL;
 import util.ConexaoBD;
-import tela.FrmJanelaPrincipal;
 import tela.IfrLogin;
 
 /**
  *
  * @author bbt-1
  */
-public class HealthyBuilder {
+public class HealthBuilder {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // abrir uma tela de Login
-                
+
         // deixa de existir
         if (ConexaoBD.getInstance() != null) {
             System.out.println("abriu");
-            new FrmJanelaPrincipal().setVisible(true);
             new IfrLogin(new Frame(), true).setVisible(true);
         } else {
             System.out.println("deu problema");
         }
     }
-    
+
+    public static URL getIconURL(String filename) {
+        return HealthBuilder.class.getResource("../icons/" + filename);
+    }
+
 //    private static boolean abrirConexao () {
 //          try {
 //            String dbdriver = "org.postgresql.Driver";

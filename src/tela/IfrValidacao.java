@@ -218,12 +218,11 @@ public class IfrValidacao extends javax.swing.JInternalFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // captura item selecionado na combo e converte para um obj ComboItem
         ComboItem ci = (ComboItem) cmbApresentacao.getSelectedItem();
-        
+
         // consulta descficao do obj e atribui valor ao TextField
         tfdValorCombo.setText(ci.getDescricao());
         tfdIdComboItem.setText(String.valueOf(ci.getCodigo()));
     }//GEN-LAST:event_jButton3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;

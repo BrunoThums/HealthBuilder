@@ -69,7 +69,7 @@ public class ApresentacaoDAO implements IDAOT<Apresentacao> {
             System.out.println("SQL: " + sql);
 
             st.executeUpdate(sql);
-            
+
             return true;
 
         } catch (Exception e) {
@@ -109,6 +109,7 @@ public class ApresentacaoDAO implements IDAOT<Apresentacao> {
 
                 apresentacao.setId(resultadoQ.getInt("id"));
                 apresentacao.setDescricao(resultadoQ.getString("descricao"));
+                //apresentacao = Apresentacao.from(resultadoQ);
             }
 
         } catch (Exception e) {
@@ -155,6 +156,7 @@ public class ApresentacaoDAO implements IDAOT<Apresentacao> {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
                 dadosTabela[lin][1] = resultadoQ.getString("descricao");
+                
 
                 // caso a coluna precise exibir uma imagem
 //                if (resultadoQ.getBoolean("Situacao")) {

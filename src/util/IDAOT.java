@@ -11,10 +11,8 @@ import java.util.ArrayList;
  *
  * @author pretto
  */
-
 // Utiliza Generics como tipo de dado
-
-public interface IDAOT <T> {
+public interface IDAOT<T> {
 
     public boolean salvar(T o);
 

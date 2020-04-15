@@ -6,7 +6,7 @@ package util;
  */
 /**
  *
- * @author fabricio.pretto
+ * @author bruno.thums
  */
 import java.sql.*;
 import java.io.*;
@@ -20,22 +20,23 @@ public class ConexaoBD {
     public ConexaoBD() {
         try {
             // Carrega informações do arquivo de propriedades
-            Properties prop = new Properties();
-            prop.load(new FileInputStream("db.properties"));
-            String dbdriver = prop.getProperty("db.driver");
-            String dburl = prop.getProperty("db.url");
-            String dbuser = prop.getProperty("db.user");
-            String dbsenha = "postgres";
-
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("db.properties"));
+            String DRIVER = properties.getProperty("DRIVER");
+            String URL = properties.getProperty("URL");
+            String DATABASE = properties.getProperty("DATABASE");
+            String USERNAME = properties.getProperty("USERNAME");
+            String PASSWORD = properties.getProperty("PASSWORD");
+            String URI = URL + "/" + DATABASE;
             // Carrega Driver do Banco de Dados
-            Class.forName(dbdriver);
+            Class.forName(DRIVER);
 
-            if (dbuser.length() != 0) // conexão COM usuário e senha
+            if (USERNAME.length() != 0) // conexão COM usuário e senha
             {
-                conexao = DriverManager.getConnection(dburl, dbuser, dbsenha);
+                conexao = DriverManager.getConnection(URI, USERNAME, PASSWORD);
             } else // conexão SEM usuário e senha
             {
-                conexao = DriverManager.getConnection(dburl);
+                conexao = DriverManager.getConnection(URI);
             }
 
         } catch (Exception e) {
@@ -70,4 +71,3 @@ public class ConexaoBD {
         }
     }
 }
-

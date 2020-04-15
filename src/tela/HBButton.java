@@ -10,5 +10,5 @@ package tela;
  * @author bbt-1
  */
 public class HBButton extends javax.swing.JToggleButton {
-    
+
 }

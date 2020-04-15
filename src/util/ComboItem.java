@@ -1,6 +1,7 @@
 package util;
 
 public class ComboItem {
+
     private int codigo;
     private String descricao;
 
@@ -33,8 +34,8 @@ public class ComboItem {
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         return descricao;
     }
-    
+
 }

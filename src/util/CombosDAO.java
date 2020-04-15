@@ -17,7 +17,7 @@ public class CombosDAO {
 
     // construtor 1
     public void popularCombo(String tabela, JComboBox combo) {
-        
+
         combo.removeAllItems();
 
         ComboItem item = new ComboItem();
@@ -46,7 +46,7 @@ public class CombosDAO {
     public void popularCombo(String tabela, String campo1, String campo2, JComboBox combo, String complementoSQL) {
 
         combo.removeAllItems();
-        
+
         ComboItem item = new ComboItem();
         item.setCodigo(0);
         item.setDescricao("Selecione");

@@ -7,7 +7,9 @@ package tela;
 
 import java.awt.Color;
 import javax.swing.JFormattedTextField;
+import javax.swing.text.Style;
 import util.Formatacao;
+import util.Styler;
 import util.Validacao;
 
 /**
@@ -18,12 +20,16 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
 
     /**
      * Creates new form Registro
+     *
+     * @param parent
+     * @param modal
      */
     public IfrRegistroUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        Formatacao.formatarData((JFormattedTextField) tfDataNasc);
-        Formatacao.formatarCpf((JFormattedTextField) tfCPF);
+        tfUsuario.setBorder(Styler.getTitledBorder("Usuário", true, new java.awt.Font("Lucida Calligraphy", 0, 11)));
+        Formatacao.formatarData((JFormattedTextField) tffDataNasc);
+        Formatacao.formatarCpf((JFormattedTextField) tffCPF);
     }
 
     /**
@@ -37,14 +43,14 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         tfUsuario = new javax.swing.JTextField();
-        tfDataNasc = new javax.swing.JTextField();
         tfEndereco = new javax.swing.JTextField();
-        tfCPF = new javax.swing.JTextField();
         tfEmail = new javax.swing.JTextField();
         pfSenha = new javax.swing.JPasswordField();
         pfSenha2 = new javax.swing.JPasswordField();
         btnRegistrar = new javax.swing.JToggleButton();
         lblRegistre = new javax.swing.JLabel();
+        tffDataNasc = new javax.swing.JFormattedTextField();
+        tffCPF = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,21 +58,7 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
 
         tfUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuário", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfDataNasc.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data de Nascimento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-        tfDataNasc.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfDataNascFocusLost(evt);
-            }
-        });
-
         tfEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Endereço", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-
-        tfCPF.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CPF", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-        tfCPF.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tfCPFFocusLost(evt);
-            }
-        });
 
         tfEmail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
@@ -86,38 +78,56 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
         lblRegistre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Usuario32x32.png"))); // NOI18N
         lblRegistre.setText("Registre-se");
 
+        tffDataNasc.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data de Nascimento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tffDataNasc.setText(" ");
+        tffDataNasc.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tffDataNascFocusLost(evt);
+            }
+        });
+
+        tffCPF.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CPF", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tffCPF.setText(" ");
+        tffCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tffCPFFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pfSenha2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblRegistre)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tffDataNasc)
+                            .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pfSenha2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(pfSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(tfUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(tfEndereco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(lblRegistre, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tffCPF))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblRegistre)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tffDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tffCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,25 +157,25 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void tfCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfCPFFocusLost
-        if (tfCPF.getText().trim().length() == 14) {
-            if (Validacao.validarCPF(Formatacao.removerFormatacao(tfCPF.getText()))) {
-                tfCPF.setForeground(Color.BLUE);
+    private void tffDataNascFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataNascFocusLost
+        if (tffDataNasc.getText().trim().length() == 10) {
+            if (Validacao.validarDataFormatada(tffDataNasc.getText())) {
+                tffDataNasc.setForeground(Color.BLUE);
             } else {
-                tfCPF.setForeground(Color.RED);
+                tffDataNasc.setForeground(Color.RED);
             }
         }
-    }//GEN-LAST:event_tfCPFFocusLost
+    }//GEN-LAST:event_tffDataNascFocusLost
 
-    private void tfDataNascFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDataNascFocusLost
-        if (tfDataNasc.getText().trim().length() == 10) {
-            if (Validacao.validarDataFormatada(tfDataNasc.getText())) {
-                tfDataNasc.setForeground(Color.BLUE);
+    private void tffCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffCPFFocusLost
+        if (tffCPF.getText().trim().length() == 14) {
+            if (Validacao.validarCPF(Formatacao.removerFormatacao(tffCPF.getText()))) {
+                tffCPF.setForeground(Color.BLUE);
             } else {
-                tfDataNasc.setForeground(Color.RED);
+                tffCPF.setForeground(Color.RED);
             }
         }
-    }//GEN-LAST:event_tfDataNascFocusLost
+    }//GEN-LAST:event_tffCPFFocusLost
 
     /**
      * @param args the command line arguments
@@ -218,10 +228,10 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel lblRegistre;
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JPasswordField pfSenha2;
-    private javax.swing.JTextField tfCPF;
-    private javax.swing.JTextField tfDataNasc;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfEndereco;
     private javax.swing.JTextField tfUsuario;
+    private javax.swing.JFormattedTextField tffCPF;
+    private javax.swing.JFormattedTextField tffDataNasc;
     // End of variables declaration//GEN-END:variables
 }

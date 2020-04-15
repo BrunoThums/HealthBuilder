@@ -16,7 +16,7 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
      */
     public FrmJanelaPrincipal() {
         initComponents();
-        
+
         // abre tela maximizada
         this.setExtendedState(MAXIMIZED_BOTH);
     }
@@ -34,7 +34,6 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         mnBarra = new javax.swing.JMenuBar();
         mnHome = new javax.swing.JMenu();
         mnCadastros = new javax.swing.JMenu();
-        mniHome = new javax.swing.JMenuItem();
         mniCadExe = new javax.swing.JMenuItem();
         mniCadAli = new javax.swing.JMenuItem();
         mniCadCompra = new javax.swing.JMenuItem();
@@ -44,17 +43,17 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         mnAjuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("AutoMed System - Terça");
+        setTitle("HealthBuilder");
 
         javax.swing.GroupLayout DesktopPainelLayout = new javax.swing.GroupLayout(DesktopPainel);
         DesktopPainel.setLayout(DesktopPainelLayout);
         DesktopPainelLayout.setHorizontalGroup(
             DesktopPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 658, Short.MAX_VALUE)
         );
         DesktopPainelLayout.setVerticalGroup(
             DesktopPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 378, Short.MAX_VALUE)
         );
 
         mnHome.setText("Home");
@@ -66,14 +65,6 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         mnBarra.add(mnHome);
 
         mnCadastros.setText("Cadastros");
-
-        mniHome.setText("Home");
-        mniHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniHomeActionPerformed(evt);
-            }
-        });
-        mnCadastros.add(mniHome);
 
         mniCadExe.setText("Exercício");
         mniCadExe.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +90,7 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         });
         mnCadastros.add(mniCadCompra);
 
-        mniCadMachucado.setText("Machucado");
+        mniCadMachucado.setText("Reações Corporais");
         mniCadMachucado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniCadMachucadoActionPerformed(evt);
@@ -130,11 +121,17 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(DesktopPainel)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DesktopPainel)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(DesktopPainel)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(DesktopPainel)
+                .addContainerGap())
         );
 
         pack();
@@ -145,12 +142,6 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         DesktopPainel.add(ifrValidacao);
         ifrValidacao.setVisible(true);
     }//GEN-LAST:event_mniExemploActionPerformed
-
-    private void mniHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniHomeActionPerformed
-        IfrApresentacao ifrApresentacao = new IfrApresentacao();
-        DesktopPainel.add(ifrApresentacao);
-        ifrApresentacao.setVisible(true);
-    }//GEN-LAST:event_mniHomeActionPerformed
 
     private void mniCadExeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadExeActionPerformed
         IfrRegExercicio RegExe = new IfrRegExercicio();
@@ -236,6 +227,5 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniCadExe;
     private javax.swing.JMenuItem mniCadMachucado;
     private javax.swing.JMenuItem mniExemplo;
-    private javax.swing.JMenuItem mniHome;
     // End of variables declaration//GEN-END:variables
 }

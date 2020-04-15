@@ -6,26 +6,24 @@
 package tela;
 
 import java.awt.Frame;
-import java.awt.Toolkit;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author bbt-1
  */
-public final class IfrLogin extends javax.swing.JDialog {
+public final class IfrLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form LogIn
+     *
      * @param parent
      * @param modal
      */
     public IfrLogin(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
         initComponents();
-        //changeProgramIcon("user16x16");
-        //ImagemHB.setIcon(new ImageIcon("HealthBuilder224x224.jpg"));
+        changeProgramIcon("user16x16.png");
+        imagemHB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/HealthBuilder224x224.jpg")));
     }
 
     /**
@@ -40,7 +38,7 @@ public final class IfrLogin extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
         Painel = new javax.swing.JPanel();
-        ImagemHB = new javax.swing.JLabel();
+        imagemHB = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblBemVindo = new javax.swing.JLabel();
         lblInfoLogin = new javax.swing.JLabel();
@@ -60,8 +58,6 @@ public final class IfrLogin extends javax.swing.JDialog {
         setBackground(new java.awt.Color(255, 255, 255));
 
         Painel.setBackground(new java.awt.Color(255, 255, 255));
-
-        ImagemHB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/HealthBuilder224x224.jpg"))); // NOI18N
 
         lblTitulo.setFont(new java.awt.Font("Vivaldi", 1, 24)); // NOI18N
         lblTitulo.setText("HealthyBuilder");
@@ -126,38 +122,37 @@ public final class IfrLogin extends javax.swing.JDialog {
                         .addComponent(lblTitulo))
                     .addGroup(PainelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(ImagemHB)))
+                        .addComponent(imagemHB)))
                 .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PainelLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
+                        .addGap(5, 5, 5)
                         .addComponent(lblInfoLogin))
                     .addGroup(PainelLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
+                        .addGap(69, 69, 69)
                         .addComponent(lblBemVindo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(PainelLayout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addComponent(lblDica))
-                        .addGroup(PainelLayout.createSequentialGroup()
-                            .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(PainelLayout.createSequentialGroup()
-                                    .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblSenha)
-                                        .addComponent(lblUsuario))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                                        .addComponent(pfSenha)))
-                                .addGroup(PainelLayout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(lblPergunta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblEsqueceuSenha))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addGroup(PainelLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(lblDica))
+                    .addGroup(PainelLayout.createSequentialGroup()
+                        .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PainelLayout.createSequentialGroup()
+                                .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblSenha)
+                                    .addComponent(lblUsuario))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                                    .addComponent(pfSenha)))
+                            .addGroup(PainelLayout.createSequentialGroup()
+                                .addGap(0, 0, 0)
+                                .addComponent(lblPergunta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblEsqueceuSenha)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PainelLayout.setVerticalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,7 +162,7 @@ public final class IfrLogin extends javax.swing.JDialog {
                     .addGroup(PainelLayout.createSequentialGroup()
                         .addComponent(lblTitulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ImagemHB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(imagemHB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PainelLayout.createSequentialGroup()
                         .addComponent(lblBemVindo)
                         .addGap(18, 18, 18)
@@ -196,7 +191,9 @@ public final class IfrLogin extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,15 +262,20 @@ public final class IfrLogin extends javax.swing.JDialog {
             }
         });
     }
-    public void changeProgramIcon(String icon){
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(icon)));
+
+    private void changeProgramIcon(String icon) {
+        setIconImage(new ImageIcon(getClass().getResource("../icons/" + icon)).getImage());
+    }
+
+    public void programIcon(String icon) {
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ImagemHB;
     private javax.swing.JPanel Painel;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegistro;
+    private javax.swing.JLabel imagemHB;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBemVindo;

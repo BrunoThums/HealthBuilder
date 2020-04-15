@@ -122,7 +122,7 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
         jLabel2.setText("Últimas Atualizações");
 
         jTextField1.setEditable(false);
-        jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.white, java.awt.Color.white));
 
         jLabel3.setText("Saldo:");
 
@@ -410,7 +410,6 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
     private void btnRegExerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegExerMouseExited
         btnRegExer.setBorder(BorderFactory.createEmptyBorder());
     }//GEN-LAST:event_btnRegExerMouseExited
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;

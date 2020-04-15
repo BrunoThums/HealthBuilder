@@ -5,6 +5,8 @@
  */
 package tela;
 
+import util.CombosDAO;
+
 /**
  *
  * @author bbt-1
@@ -16,6 +18,7 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
      */
     public IfrRegAlimento() {
         initComponents();
+        new CombosDAO().popularCombo("apresentacao", cbTipoAlimentacao);
     }
 
     /**
@@ -28,24 +31,24 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         Painel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lblConsumoDeAlimento = new javax.swing.JLabel();
+        tfAlimentoConsumido = new javax.swing.JTextField();
+        lblPesquisaAlimento = new javax.swing.JLabel();
+        cbTipoAlimentacao = new javax.swing.JComboBox<>();
 
         Painel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
-        jLabel1.setText("Consumo de Alimento");
+        lblConsumoDeAlimento.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+        lblConsumoDeAlimento.setText("Consumo de Alimento");
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "O que você comeu?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfAlimentoConsumido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "O que você comeu?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("ver");
-        jLabel2.setBorder(new javax.swing.border.MatteBorder(null));
+        lblPesquisaAlimento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPesquisaAlimento.setText("ver");
+        lblPesquisaAlimento.setBorder(new javax.swing.border.MatteBorder(null));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Café da Manhã", "Almoço", "Lanche da Tarde", "Janta", "Lanche fora de hora" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Faz parte de qual refeição?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        cbTipoAlimentacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Café da Manhã", "Almoço", "Lanche da Tarde", "Janta", "Lanche fora de hora" }));
+        cbTipoAlimentacao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Faz parte de qual refeição?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         javax.swing.GroupLayout PainelLayout = new javax.swing.GroupLayout(Painel);
         Painel.setLayout(PainelLayout);
@@ -53,29 +56,29 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelLayout.createSequentialGroup()
                 .addContainerGap(89, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblConsumoDeAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(85, 85, 85))
             .addGroup(PainelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PainelLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfAlimentoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblPesquisaAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PainelLayout.setVerticalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PainelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel1)
+                .addComponent(lblConsumoDeAlimento)
                 .addGap(33, 33, 33)
                 .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(tfAlimentoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPesquisaAlimento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(101, Short.MAX_VALUE))
         );
 
@@ -93,12 +96,11 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> cbTipoAlimentacao;
+    private javax.swing.JLabel lblConsumoDeAlimento;
+    private javax.swing.JLabel lblPesquisaAlimento;
+    private javax.swing.JTextField tfAlimentoConsumido;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,7 @@ package entidade;
  * @author fabricio.pretto
  */
 public class Apresentacao {
+
     private int id;
     private String descricao;
 
@@ -29,4 +30,3 @@ public class Apresentacao {
         this.descricao = descricao;
     }
 }
-
