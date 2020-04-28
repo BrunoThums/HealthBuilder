@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -43,36 +43,39 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="tffDataNasc" max="32767" attributes="0"/>
-                              <Component id="btnRegistrar" min="-2" pref="60" max="-2" attributes="0"/>
-                              <Component id="pfSenha2" alignment="0" pref="172" max="32767" attributes="0"/>
-                              <Component id="pfSenha" alignment="0" pref="172" max="32767" attributes="0"/>
-                              <Component id="tfUsuario" alignment="0" pref="172" max="32767" attributes="0"/>
-                              <Component id="tfEndereco" alignment="0" pref="172" max="32767" attributes="0"/>
-                              <Component id="tfEmail" alignment="0" pref="172" max="32767" attributes="0"/>
-                              <Component id="lblRegistre" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="tfUsuario1" max="32767" attributes="0"/>
+                      <Component id="lblRegistre" alignment="1" pref="172" max="32767" attributes="0"/>
+                      <Component id="tffCPF" alignment="0" pref="172" max="32767" attributes="0"/>
+                      <Component id="tffDataNasc" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="btnRegistrar1" min="-2" pref="60" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnRegistrar" min="-2" pref="60" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="tffCPF" alignment="0" max="32767" attributes="0"/>
+                      <Component id="pfSenha2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="pfSenha" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfUsuario" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfEndereco" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfEmail" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfEmail1" alignment="1" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblRegistre" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                  <Component id="tfUsuario" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="tfUsuario1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="tfUsuario" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="tffDataNasc" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="tfEndereco" min="-2" max="-2" attributes="0"/>
@@ -80,13 +83,18 @@
                   <Component id="tffCPF" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tfEmail" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="tfEmail1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="pfSenha" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="pfSenha2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnRegistrar" min="-2" pref="23" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnRegistrar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="btnRegistrar1" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -96,7 +104,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder justification="1" position="1" title="Usu&#xe1;rio">
+                <TitledBorder justification="1" position="1" title="Sobrenome*">
                   <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                 </TitledBorder>
               </Border>
@@ -107,7 +115,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder position="1" title="Endere&#xe7;o">
+                <TitledBorder position="1" title="Endere&#xe7;o*">
                   <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                 </TitledBorder>
               </Border>
@@ -118,7 +126,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder position="1" title="Email">
+                <TitledBorder position="1" title="Email*">
                   <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                 </TitledBorder>
               </Border>
@@ -129,7 +137,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder position="1" title="Senha">
+                <TitledBorder position="1" title="Senha*">
                   <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                 </TitledBorder>
               </Border>
@@ -140,7 +148,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder position="1" title="Senha">
+                <TitledBorder position="1" title="Senha*">
                   <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                 </TitledBorder>
               </Border>
@@ -175,7 +183,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder position="1" title="Data de Nascimento">
+                <TitledBorder position="1" title="Data de Nascimento*">
                   <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                 </TitledBorder>
               </Border>
@@ -190,7 +198,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder position="1" title="CPF">
+                <TitledBorder position="1" title="CPF*">
                   <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                 </TitledBorder>
               </Border>
@@ -200,6 +208,41 @@
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffCPFFocusLost"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfEmail1">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder position="1" title="Login*">
+                  <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JToggleButton" name="btnRegistrar1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Fechar"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder/>
+              </Border>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrar1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfUsuario1">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder justification="1" position="1" title="Nome*">
+                  <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
+                </TitledBorder>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

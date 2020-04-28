@@ -30,9 +30,10 @@ public class HealthBuilder {
             System.out.println("deu problema");
         }
     }
+    
 
     public static URL getIconURL(String filename) {
-        return HealthBuilder.class.getResource("../icons/" + filename);
+        return HealthBuilder.class.getResource("/icons/" + filename);
     }
 
 //    private static boolean abrirConexao () {

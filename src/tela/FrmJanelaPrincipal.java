@@ -5,6 +5,9 @@
  */
 package tela;
 
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+
 /**
  *
  * @author fabricio.pretto
@@ -16,11 +19,17 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
      */
     public FrmJanelaPrincipal() {
         initComponents();
-
+        colocaIcone(mnHome, "home.png");
+        inicializaIcones();
         // abre tela maximizada
         this.setExtendedState(MAXIMIZED_BOTH);
     }
-
+    void inicializaIcones(){
+        colocaIcone(mnHome, "home.png");
+    }
+    public void colocaIcone(JMenu a, String file) {
+        a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/" + file)));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,7 +39,7 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        DesktopPainel = new javax.swing.JDesktopPane();
+        desktopPainel = new javax.swing.JDesktopPane();
         mnBarra = new javax.swing.JMenuBar();
         mnHome = new javax.swing.JMenu();
         mnCadastros = new javax.swing.JMenu();
@@ -45,15 +54,15 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HealthBuilder");
 
-        javax.swing.GroupLayout DesktopPainelLayout = new javax.swing.GroupLayout(DesktopPainel);
-        DesktopPainel.setLayout(DesktopPainelLayout);
-        DesktopPainelLayout.setHorizontalGroup(
-            DesktopPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 658, Short.MAX_VALUE)
+        javax.swing.GroupLayout desktopPainelLayout = new javax.swing.GroupLayout(desktopPainel);
+        desktopPainel.setLayout(desktopPainelLayout);
+        desktopPainelLayout.setHorizontalGroup(
+            desktopPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 678, Short.MAX_VALUE)
         );
-        DesktopPainelLayout.setVerticalGroup(
-            DesktopPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 378, Short.MAX_VALUE)
+        desktopPainelLayout.setVerticalGroup(
+            desktopPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         mnHome.setText("Home");
@@ -121,17 +130,11 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(DesktopPainel)
-                .addContainerGap())
+            .addComponent(desktopPainel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(DesktopPainel)
-                .addContainerGap())
+            .addComponent(desktopPainel)
         );
 
         pack();
@@ -139,84 +142,42 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
 
     private void mniExemploActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExemploActionPerformed
         IfrValidacao ifrValidacao = new IfrValidacao();
-        DesktopPainel.add(ifrValidacao);
+        desktopPainel.add(ifrValidacao);
         ifrValidacao.setVisible(true);
     }//GEN-LAST:event_mniExemploActionPerformed
 
     private void mniCadExeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadExeActionPerformed
-        IfrRegExercicio RegExe = new IfrRegExercicio();
-        DesktopPainel.add(RegExe);
+        IfCadExercicio RegExe = new IfCadExercicio();
+        desktopPainel.add(RegExe);
         RegExe.setVisible(true);
     }//GEN-LAST:event_mniCadExeActionPerformed
 
     private void mniCadAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadAliActionPerformed
         IfrRegAlimento RegAli = new IfrRegAlimento();
-        DesktopPainel.add(RegAli);
+        desktopPainel.add(RegAli);
         RegAli.setVisible(true);
     }//GEN-LAST:event_mniCadAliActionPerformed
 
     private void mniCadCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadCompraActionPerformed
         IfrRegCompra RegCompra = new IfrRegCompra();
-        DesktopPainel.add(RegCompra);
+        desktopPainel.add(RegCompra);
         RegCompra.setVisible(true);
     }//GEN-LAST:event_mniCadCompraActionPerformed
 
     private void mniCadMachucadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadMachucadoActionPerformed
-        IfrRegReacaoCorporal RegMachucado = new IfrRegReacaoCorporal();
-        DesktopPainel.add(RegMachucado);
+        IfrCadReacaoCorporal RegMachucado = new IfrCadReacaoCorporal();
+        desktopPainel.add(RegMachucado);
         RegMachucado.setVisible(true);
     }//GEN-LAST:event_mniCadMachucadoActionPerformed
 
     private void mnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnHomeMouseClicked
         IfrApresentacao ifrApresentacao = new IfrApresentacao();
-        DesktopPainel.add(ifrApresentacao);
+        desktopPainel.add(ifrApresentacao);
         ifrApresentacao.setVisible(true);
     }//GEN-LAST:event_mnHomeMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmJanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmJanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmJanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmJanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmJanelaPrincipal().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane DesktopPainel;
+    private javax.swing.JDesktopPane desktopPainel;
     private javax.swing.JMenu mnAjuda;
     private javax.swing.JMenuBar mnBarra;
     private javax.swing.JMenu mnCadastros;

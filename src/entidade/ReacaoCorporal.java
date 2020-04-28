@@ -12,24 +12,23 @@ import java.sql.SQLException;
  *
  * @author bbt-1
  */
-public class Perfil {
+public class ReacaoCorporal {
+    public Integer id;
+    public String descricao;
 
-    private int id;
-    private String descricao;
+    public static ReacaoCorporal from(ResultSet resultSet) throws SQLException {
+        ReacaoCorporal reacaoCorp = new ReacaoCorporal();
 
-    public static Perfil from(ResultSet resultSet) throws SQLException {
-        Perfil perfil = new Perfil();
-        
-        perfil.id = resultSet.getInt("idPerfil");
-        perfil.descricao = resultSet.getString("descricao");
+        reacaoCorp.id = resultSet.getInt("id");
+        reacaoCorp.descricao = resultSet.getString("descricao");
 
-        return perfil;
+        return reacaoCorp;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Perfil{id=").append(id);
+        sb.append("reacaoCorporal{id=").append(id);
         sb.append(", descricao=").append(descricao);
         sb.append('}');
         return sb.toString();

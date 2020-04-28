@@ -5,8 +5,18 @@
  */
 package tela;
 
+import com.sun.tools.javac.Main;
+import dao.UsuarioDAO;
+import entidade.Usuario;
 import java.awt.Frame;
+import java.io.InvalidObjectException;
+import java.lang.System.Logger;
+import java.security.NoSuchAlgorithmException;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import util.FabricaDAO;
+import util.Senha;
+import util.Validacoes;
 
 /**
  *
@@ -22,8 +32,7 @@ public final class IfrLogin extends javax.swing.JFrame {
      */
     public IfrLogin(java.awt.Frame parent, boolean modal) {
         initComponents();
-        changeProgramIcon("user16x16.png");
-        imagemHB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/HealthBuilder224x224.jpg")));
+        
     }
 
     /**
@@ -59,6 +68,8 @@ public final class IfrLogin extends javax.swing.JFrame {
 
         Painel.setBackground(new java.awt.Color(255, 255, 255));
 
+        imagemHB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/HealthBuilder224x224.jpg"))); // NOI18N
+
         lblTitulo.setFont(new java.awt.Font("Vivaldi", 1, 24)); // NOI18N
         lblTitulo.setText("HealthyBuilder");
 
@@ -68,12 +79,12 @@ public final class IfrLogin extends javax.swing.JFrame {
         lblInfoLogin.setFont(new java.awt.Font("High Tower Text", 0, 24)); // NOI18N
         lblInfoLogin.setText("Faça o login utilizando seu usuário e senha:");
 
-        lblUsuario.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("High Tower Text", 1, 18)); // NOI18N
         lblUsuario.setText("Usuário");
 
         tfUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
 
-        lblSenha.setFont(new java.awt.Font("High Tower Text", 0, 18)); // NOI18N
+        lblSenha.setFont(new java.awt.Font("High Tower Text", 1, 18)); // NOI18N
         lblSenha.setText("Senha");
 
         pfSenha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
@@ -108,7 +119,7 @@ public final class IfrLogin extends javax.swing.JFrame {
             }
         });
 
-        lblDica.setFont(new java.awt.Font("High Tower Text", 0, 15)); // NOI18N
+        lblDica.setFont(new java.awt.Font("High Tower Text", 1, 15)); // NOI18N
         lblDica.setText("Dica: não compartilhe sua senha com ninguém. Ela é sua identidade!");
 
         javax.swing.GroupLayout PainelLayout = new javax.swing.GroupLayout(Painel);
@@ -144,7 +155,6 @@ public final class IfrLogin extends javax.swing.JFrame {
                                     .addComponent(tfUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                                     .addComponent(pfSenha)))
                             .addGroup(PainelLayout.createSequentialGroup()
-                                .addGap(0, 0, 0)
                                 .addComponent(lblPergunta, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,57 +230,32 @@ public final class IfrLogin extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IfrLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IfrLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IfrLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IfrLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                IfrLogin dialog = new IfrLogin(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     private void changeProgramIcon(String icon) {
         setIconImage(new ImageIcon(getClass().getResource("../icons/" + icon)).getImage());
     }
+    private void login() throws InvalidObjectException, NoSuchAlgorithmException {
+        String username = tfUsuario.getText().trim();
+        String password = new String(pfSenha.getPassword());
 
-    public void programIcon(String icon) {
+        try {
+            Validacoes.notEmpty(0, username);
+            Validacoes.notEmpty(1, password);
 
+            Usuario user = FabricaDAO.getInstance(UsuarioDAO.class).getBy(username);
+            Validacoes.notNull(2, user);
+
+            Validacoes.isTrue(2, Senha.match(password, user.passwordHash));
+            Main.currentUser = user;
+            ((JFrame) stack.getHost()).dispose();
+
+        } catch (Validacoes.InvalidField e) {
+            Alert.showInfo((JFrame) stack.getHost(),
+                    "Usuário ou senha inválidos, tente novamente!"
+            );
+        } catch (InvalidObjectException | NoSuchAlgorithmException ex) {
+            Logger.error(getClass(), "error comparing hashes", ex);
+        }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
     private javax.swing.JButton btnLogin;
