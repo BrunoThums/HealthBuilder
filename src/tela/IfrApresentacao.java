@@ -491,7 +491,7 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRegComActionPerformed
 
     private void btnRegReacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegReacaoActionPerformed
-        IfrCadReacaoCorporal regrea = new IfrCadReacaoCorporal();
+        IfrRegReacaoCorporal regrea = new IfrRegReacaoCorporal();
         regrea.setVisible(true);
     }//GEN-LAST:event_btnRegReacaoActionPerformed
 

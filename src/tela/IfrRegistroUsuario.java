@@ -51,11 +51,12 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
         lblRegistre = new javax.swing.JLabel();
         tffDataNasc = new javax.swing.JFormattedTextField();
         tffCPF = new javax.swing.JFormattedTextField();
-        tfEmail1 = new javax.swing.JTextField();
+        tfLogin = new javax.swing.JTextField();
         btnRegistrar1 = new javax.swing.JToggleButton();
         tfUsuario1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Registre-se");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -97,7 +98,7 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
             }
         });
 
-        tfEmail1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         btnRegistrar1.setText("Fechar");
         btnRegistrar1.setBorder(new javax.swing.border.MatteBorder(null));
@@ -129,7 +130,7 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
                     .addComponent(tfUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfEndereco, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfEmail1))
+                    .addComponent(tfLogin))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,7 +151,7 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -212,8 +213,8 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JPasswordField pfSenha2;
     private javax.swing.JTextField tfEmail;
-    private javax.swing.JTextField tfEmail1;
     private javax.swing.JTextField tfEndereco;
+    private javax.swing.JTextField tfLogin;
     private javax.swing.JTextField tfUsuario;
     private javax.swing.JTextField tfUsuario1;
     private javax.swing.JFormattedTextField tffCPF;

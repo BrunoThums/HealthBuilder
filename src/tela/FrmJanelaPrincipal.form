@@ -51,21 +51,6 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mnValidacoes">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Valida&#xe7;&#xf5;es"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mniExemplo">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Exemplo"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniExemploActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="mnAjuda">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ajuda"/>

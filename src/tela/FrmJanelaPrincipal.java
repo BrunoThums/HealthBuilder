@@ -19,17 +19,10 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
      */
     public FrmJanelaPrincipal() {
         initComponents();
-        colocaIcone(mnHome, "home.png");
-        inicializaIcones();
         // abre tela maximizada
         this.setExtendedState(MAXIMIZED_BOTH);
     }
-    void inicializaIcones(){
-        colocaIcone(mnHome, "home.png");
-    }
-    public void colocaIcone(JMenu a, String file) {
-        a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/" + file)));
-    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,8 +40,6 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
         mniCadAli = new javax.swing.JMenuItem();
         mniCadCompra = new javax.swing.JMenuItem();
         mniCadMachucado = new javax.swing.JMenuItem();
-        mnValidacoes = new javax.swing.JMenu();
-        mniExemplo = new javax.swing.JMenuItem();
         mnAjuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,18 +100,6 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
 
         mnBarra.add(mnCadastros);
 
-        mnValidacoes.setText("Validações");
-
-        mniExemplo.setText("Exemplo");
-        mniExemplo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniExemploActionPerformed(evt);
-            }
-        });
-        mnValidacoes.add(mniExemplo);
-
-        mnBarra.add(mnValidacoes);
-
         mnAjuda.setText("Ajuda");
         mnBarra.add(mnAjuda);
 
@@ -139,12 +118,6 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mniExemploActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExemploActionPerformed
-        IfrValidacao ifrValidacao = new IfrValidacao();
-        desktopPainel.add(ifrValidacao);
-        ifrValidacao.setVisible(true);
-    }//GEN-LAST:event_mniExemploActionPerformed
 
     private void mniCadExeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadExeActionPerformed
         IfCadExercicio RegExe = new IfCadExercicio();
@@ -165,7 +138,7 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mniCadCompraActionPerformed
 
     private void mniCadMachucadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadMachucadoActionPerformed
-        IfrCadReacaoCorporal RegMachucado = new IfrCadReacaoCorporal();
+        IfrRegReacaoCorporal RegMachucado = new IfrRegReacaoCorporal();
         desktopPainel.add(RegMachucado);
         RegMachucado.setVisible(true);
     }//GEN-LAST:event_mniCadMachucadoActionPerformed
@@ -182,11 +155,9 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar mnBarra;
     private javax.swing.JMenu mnCadastros;
     private javax.swing.JMenu mnHome;
-    private javax.swing.JMenu mnValidacoes;
     private javax.swing.JMenuItem mniCadAli;
     private javax.swing.JMenuItem mniCadCompra;
     private javax.swing.JMenuItem mniCadExe;
     private javax.swing.JMenuItem mniCadMachucado;
-    private javax.swing.JMenuItem mniExemplo;
     // End of variables declaration//GEN-END:variables
 }

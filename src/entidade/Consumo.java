@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class Consumo {
     public Integer id;
-    public String alimento;
+    public String descricao;
     public String refeicao;
     public String data;
     public String tempo;
@@ -24,7 +24,7 @@ public class Consumo {
         Consumo cons = new Consumo();
 
         cons.id = resultSet.getInt("id");
-        cons.alimento = resultSet.getString("alimento");
+        cons.descricao = resultSet.getString("descricao");
         cons.refeicao = resultSet.getString("refeicao");
         cons.data = resultSet.getString("data");
         cons.tempo = resultSet.getString("tempo");
@@ -36,7 +36,7 @@ public class Consumo {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("consumo{id=").append(id);
-        sb.append(", alimento=").append(alimento);
+        sb.append(", descricao=").append(descricao);
         sb.append(", refeicao=").append(refeicao);
         sb.append(", data=").append(data);
         sb.append(", tempo=").append(tempo);

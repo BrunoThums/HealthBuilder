@@ -5,18 +5,10 @@
  */
 package tela;
 
-import com.sun.tools.javac.Main;
-import dao.UsuarioDAO;
-import entidade.Usuario;
 import java.awt.Frame;
 import java.io.InvalidObjectException;
-import java.lang.System.Logger;
 import java.security.NoSuchAlgorithmException;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import util.FabricaDAO;
-import util.Senha;
-import util.Validacoes;
 
 /**
  *
@@ -237,24 +229,6 @@ public final class IfrLogin extends javax.swing.JFrame {
         String username = tfUsuario.getText().trim();
         String password = new String(pfSenha.getPassword());
 
-        try {
-            Validacoes.notEmpty(0, username);
-            Validacoes.notEmpty(1, password);
-
-            Usuario user = FabricaDAO.getInstance(UsuarioDAO.class).getBy(username);
-            Validacoes.notNull(2, user);
-
-            Validacoes.isTrue(2, Senha.match(password, user.passwordHash));
-            Main.currentUser = user;
-            ((JFrame) stack.getHost()).dispose();
-
-        } catch (Validacoes.InvalidField e) {
-            Alert.showInfo((JFrame) stack.getHost(),
-                    "Usuário ou senha inválidos, tente novamente!"
-            );
-        } catch (InvalidObjectException | NoSuchAlgorithmException ex) {
-            Logger.error(getClass(), "error comparing hashes", ex);
-        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;

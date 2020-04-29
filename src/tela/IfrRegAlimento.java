@@ -40,20 +40,34 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel1 = new javax.swing.JPanel();
         lblConsumoDeAlimento1 = new javax.swing.JLabel();
+        jpnAtualizacoes2 = new javax.swing.JPanel();
+        PainelDeRolagem2 = new javax.swing.JScrollPane();
+        tblResumo2 = new javax.swing.JTable();
+        lblBusca2 = new javax.swing.JLabel();
+        tfBusca2 = new javax.swing.JTextField();
+        btnPesquisar2 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lblConsumoDeAlimento2 = new javax.swing.JLabel();
+
+        setTitle("Consumo");
+
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
 
         Painel.setBackground(new java.awt.Color(255, 255, 255));
 
         lblConsumoDeAlimento.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
         lblConsumoDeAlimento.setText("Consumo de Alimento");
 
-        tfAlimentoConsumido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "O que você comeu?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfAlimentoConsumido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "O que você comeu?*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         lblPesquisaAlimento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPesquisaAlimento.setText("ver");
         lblPesquisaAlimento.setBorder(new javax.swing.border.MatteBorder(null));
 
         cbTipoAlimentacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Café da Manhã", "Almoço", "Lanche da Tarde", "Janta", "Lanche fora de hora" }));
-        cbTipoAlimentacao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Faz parte de qual refeição?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        cbTipoAlimentacao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Faz parte de qual refeição?*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         jToggleButton2.setText("Fechar");
 
@@ -63,19 +77,17 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
         Painel.setLayout(PainelLayout);
         PainelLayout.setHorizontalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblConsumoDeAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PainelLayout.createSequentialGroup()
-                        .addComponent(tfAlimentoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPesquisaAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jToggleButton2)
+                .addContainerGap(95, Short.MAX_VALUE)
+                .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblConsumoDeAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PainelLayout.createSequentialGroup()
+                            .addComponent(tfAlimentoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblPesquisaAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jToggleButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToggleButton1)
                 .addContainerGap())
@@ -91,7 +103,7 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
                     .addComponent(lblPesquisaAlimento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                 .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton1)
                     .addComponent(jToggleButton2))
@@ -105,24 +117,132 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
         lblConsumoDeAlimento1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
         lblConsumoDeAlimento1.setText("Pesquisa de Consumo");
 
+        jpnAtualizacoes2.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblResumo2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        PainelDeRolagem2.setViewportView(tblResumo2);
+
+        lblBusca2.setText("Busca:");
+
+        tfBusca2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
+
+        btnPesquisar2.setText("Pesquisar");
+        btnPesquisar2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnPesquisar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisar2ActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpnAtualizacoes2Layout = new javax.swing.GroupLayout(jpnAtualizacoes2);
+        jpnAtualizacoes2.setLayout(jpnAtualizacoes2Layout);
+        jpnAtualizacoes2Layout.setHorizontalGroup(
+            jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PainelDeRolagem2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jpnAtualizacoes2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAtualizacoes2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnAtualizacoes2Layout.createSequentialGroup()
+                        .addComponent(lblBusca2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfBusca2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jpnAtualizacoes2Layout.setVerticalGroup(
+            jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAtualizacoes2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBusca2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBusca2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PainelDeRolagem2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(93, Short.MAX_VALUE)
                 .addComponent(lblConsumoDeAlimento1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(85, 85, 85))
+            .addComponent(jpnAtualizacoes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(20, 20, 20)
                 .addComponent(lblConsumoDeAlimento1)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpnAtualizacoes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Pesquisar", jPanel1);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblConsumoDeAlimento2.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+        lblConsumoDeAlimento2.setText("Registrar Alimento");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(90, Short.MAX_VALUE)
+                .addComponent(lblConsumoDeAlimento2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(lblConsumoDeAlimento2)
+                .addContainerGap(314, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Registrar Novo", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -138,16 +258,71 @@ public class IfrRegAlimento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar2ActionPerformed
+        new ApresentacaoDAO().popularTabela(tblResumo, tfBusca.getText());
+    }//GEN-LAST:event_btnPesquisar2ActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
+
+        id = Integer.parseInt(idString);
+
+        ApresentacaoDAO apDAO = new ApresentacaoDAO();
+
+        Apresentacao apresentacao = apDAO.consultar(id);
+
+        if (apresentacao != null) {
+            // define os valores do obj nos campos da tela
+            //tfdId.setText(String.valueOf(apresentacao.getId()));
+            //tfdDescricao.setText(apresentacao.getDescricao());
+
+            // mudar de aba
+            tbbRelatorios.setSelectedIndex(0);
+
+            // definir o foco
+            //tfdDescricao.requestFocus();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+
+        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
+
+            String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
+
+            int idExclusao = Integer.parseInt(idString);
+
+            ApresentacaoDAO apDAO = new ApresentacaoDAO();
+
+            if (apDAO.excluir(idExclusao)) {
+                JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
+                apDAO.popularTabela(tblResumo, tfBusca.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
+    private javax.swing.JScrollPane PainelDeRolagem2;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnPesquisar2;
     private javax.swing.JComboBox<String> cbTipoAlimentacao;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JPanel jpnAtualizacoes2;
+    private javax.swing.JLabel lblBusca2;
     private javax.swing.JLabel lblConsumoDeAlimento;
     private javax.swing.JLabel lblConsumoDeAlimento1;
+    private javax.swing.JLabel lblConsumoDeAlimento2;
     private javax.swing.JLabel lblPesquisaAlimento;
+    private javax.swing.JTable tblResumo2;
     private javax.swing.JTextField tfAlimentoConsumido;
+    private javax.swing.JTextField tfBusca2;
     // End of variables declaration//GEN-END:variables
 }

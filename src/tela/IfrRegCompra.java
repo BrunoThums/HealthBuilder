@@ -35,61 +35,81 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
         tfAlimentoComprado1 = new javax.swing.JTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
+        tfQuantidade = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         lblCompraDeAlimento1 = new javax.swing.JLabel();
+        jpnAtualizacoes2 = new javax.swing.JPanel();
+        PainelDeRolagem2 = new javax.swing.JScrollPane();
+        tblResumo2 = new javax.swing.JTable();
+        lblBusca2 = new javax.swing.JLabel();
+        tfBusca2 = new javax.swing.JTextField();
+        btnPesquisar2 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+
+        setTitle("Compra");
 
         Painel.setBackground(new java.awt.Color(255, 255, 255));
 
         lblCompraDeAlimento.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
         lblCompraDeAlimento.setText("Compra de Alimento");
 
-        tfAlimentoComprado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Qual alimento você comprou?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfAlimentoComprado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Qual alimento você comprou?*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         lblPesquisaAlimento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPesquisaAlimento.setText("ver");
         lblPesquisaAlimento.setBorder(new javax.swing.border.MatteBorder(null));
 
-        tfAlimentoComprado1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quanto custou?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfAlimentoComprado1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Quanto custou ao todo?*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         jToggleButton1.setText("Salvar");
 
         jToggleButton2.setText("Fechar");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+
+        tfQuantidade.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Qual a quantidade?*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         javax.swing.GroupLayout PainelLayout = new javax.swing.GroupLayout(Painel);
         Painel.setLayout(PainelLayout);
         PainelLayout.setHorizontalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PainelLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(lblCompraDeAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PainelLayout.createSequentialGroup()
-                        .addComponent(tfAlimentoComprado, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPesquisaAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tfAlimentoComprado1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jToggleButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToggleButton1)
                 .addContainerGap())
+            .addGroup(PainelLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PainelLayout.createSequentialGroup()
+                            .addComponent(tfAlimentoComprado, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblPesquisaAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfAlimentoComprado1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCompraDeAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         PainelLayout.setVerticalGroup(
             PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PainelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblCompraDeAlimento)
-                .addGap(35, 35, 35)
+                .addGap(28, 28, 28)
                 .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfAlimentoComprado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPesquisaAlimento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfAlimentoComprado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
                 .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jToggleButton1)
                     .addComponent(jToggleButton2))
@@ -103,6 +123,87 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
         lblCompraDeAlimento1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
         lblCompraDeAlimento1.setText("Pesquisa de Compra");
 
+        jpnAtualizacoes2.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblResumo2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        PainelDeRolagem2.setViewportView(tblResumo2);
+
+        lblBusca2.setText("Busca:");
+
+        tfBusca2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
+
+        btnPesquisar2.setText("Pesquisar");
+        btnPesquisar2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnPesquisar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisar2ActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("Editar");
+        btnEditar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpnAtualizacoes2Layout = new javax.swing.GroupLayout(jpnAtualizacoes2);
+        jpnAtualizacoes2.setLayout(jpnAtualizacoes2Layout);
+        jpnAtualizacoes2Layout.setHorizontalGroup(
+            jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PainelDeRolagem2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jpnAtualizacoes2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAtualizacoes2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpnAtualizacoes2Layout.createSequentialGroup()
+                        .addComponent(lblBusca2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfBusca2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jpnAtualizacoes2Layout.setVerticalGroup(
+            jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAtualizacoes2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBusca2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBusca2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PainelDeRolagem2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,13 +212,15 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
                 .addContainerGap(69, Short.MAX_VALUE)
                 .addComponent(lblCompraDeAlimento1)
                 .addGap(63, 63, 63))
+            .addComponent(jpnAtualizacoes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblCompraDeAlimento1)
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addGap(5, 5, 5)
+                .addComponent(jpnAtualizacoes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Pesquisa", jPanel1);
@@ -136,16 +239,74 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar2ActionPerformed
+        new ApresentacaoDAO().popularTabela(tblResumo, tfBusca.getText());
+    }//GEN-LAST:event_btnPesquisar2ActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
+
+        id = Integer.parseInt(idString);
+
+        ApresentacaoDAO apDAO = new ApresentacaoDAO();
+
+        Apresentacao apresentacao = apDAO.consultar(id);
+
+        if (apresentacao != null) {
+            // define os valores do obj nos campos da tela
+            //tfdId.setText(String.valueOf(apresentacao.getId()));
+            //tfdDescricao.setText(apresentacao.getDescricao());
+
+            // mudar de aba
+            tbbRelatorios.setSelectedIndex(0);
+
+            // definir o foco
+            //tfdDescricao.requestFocus();
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+
+        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
+
+            String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
+
+            int idExclusao = Integer.parseInt(idString);
+
+            ApresentacaoDAO apDAO = new ApresentacaoDAO();
+
+            if (apDAO.excluir(idExclusao)) {
+                JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
+                apDAO.popularTabela(tblResumo, tfBusca.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
+            }
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
+    private javax.swing.JScrollPane PainelDeRolagem2;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnPesquisar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JPanel jpnAtualizacoes2;
+    private javax.swing.JLabel lblBusca2;
     private javax.swing.JLabel lblCompraDeAlimento;
     private javax.swing.JLabel lblCompraDeAlimento1;
     private javax.swing.JLabel lblPesquisaAlimento;
+    private javax.swing.JTable tblResumo2;
     private javax.swing.JTextField tfAlimentoComprado;
     private javax.swing.JTextField tfAlimentoComprado1;
+    private javax.swing.JTextField tfBusca2;
+    private javax.swing.JTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables
 }

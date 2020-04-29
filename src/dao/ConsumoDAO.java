@@ -1,7 +1,11 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dao;
 
-import entidade.Usuario;
+import entidade.Consumo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,26 +14,21 @@ import java.util.logging.Logger;
 import util.ConexaoBD;
 import util.IDAOT;
 
-
-public class UsuarioDAO implements IDAOT<Usuario> {
+/**
+ *
+ * @author bbt-1
+ */
+public class ConsumoDAO implements IDAOT<Consumo> {
 
     @Override
-    public boolean salvar(Usuario o) {
-         String sql = "INSERT INTO usuario VALUES("
+    public boolean salvar(Consumo o) {
+         String sql = "INSERT INTO alimento VALUES("
                 + "default, "
-                + "'" + o.nome+ "',"
-                + "'" + o.sobrenome + "',"
-                + "'" + o.dataNasc + "',"
-                + "'" + o.endereco+ "',"
-                + "'" + o.CPF + "',"
-                + "'" + o.email + "',"
-                + "'" + o.login + "',"
-                + "'" + o.senha + "',"
-                + "'" + o.intolerancia+ "',"
-                + "'" + o.intolerancia1+ "',"
-                + "'" + o.peso+ "',"
-                + "'" + o.altura + "',"
-                + "'" + o.endereco+ "')";
+                + "'" + o.descricao+ "',"
+                + "'" + o.tempo + "',"
+                + "'" + o.data + "',"
+                + "'" + o.refeicao+ "',"
+                + "'" + o.reacaoCorporal + "')";
 
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
@@ -41,21 +40,13 @@ public class UsuarioDAO implements IDAOT<Usuario> {
     }
 
     @Override
-    public boolean atualizar(Usuario o) {
-String sql = "UPDATE usuario SET "
-                + "descricao='" + o.nome+ "',"
-                + "tempo='" + o.sobrenome+ "',"
-                + "data='" + o.dataNasc + "',"
-                + "intensidade='" + o.endereco+ "',"
-                + "CPF='" + o.CPF+ "',"
-                + "email='" + o.email+ "',"
-                + "login='" + o.login+ "',"
-                + "senha='" + o.senha+ "',"
-                + "intolerancia='" + o.intolerancia+ "',"
-                + "intolerancia1='" + o.intolerancia1+ "',"
-                + "peso='" + o.peso+ "',"
-                + "altura='" + o.altura+ "',"
-                + "endereco='" + o.endereco+ "',"
+    public boolean atualizar(Consumo o) {
+String sql = "UPDATE alimento SET "
+                + "descricao='" + o.descricao+ "',"
+                + "tempo='" + o.tempo+ "',"
+                + "data='" + o.data + "',"
+                + "refeicao='" + o.refeicao+ "',"
+                + "reacaoCorporal='" + o.reacaoCorporal+ "',"
                 + "WHERE id= " + o.id;
 
         try {
@@ -69,7 +60,7 @@ String sql = "UPDATE usuario SET "
 
     @Override
     public boolean excluir(int id) {
-        String sql = "DELETE FROM usuario WHERE id=" + id;
+        String sql = "DELETE FROM alimento WHERE id=" + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
@@ -80,18 +71,18 @@ String sql = "UPDATE usuario SET "
     }    
 
     @Override
-    public ArrayList<Usuario> consultarTodos() {
-  String sql = "SELECT * FROM usuario";
+    public ArrayList<Consumo> consultarTodos() {
+  String sql = "SELECT * FROM alimento";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Usuario> usuario = new ArrayList<>();
+            ArrayList<Consumo> alimento = new ArrayList<>();
             while (result.next()) {
-                usuario.add(Usuario.from(result));
+                alimento.add(Consumo.from(result));
             }
-            if (usuario.isEmpty()){ 
+            if (alimento.isEmpty()){ 
                 return null;
             }
-            return usuario;
+            return alimento;
         } catch (SQLException ex) {
             Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,18 +90,18 @@ String sql = "UPDATE usuario SET "
     }
 
     @Override
-    public ArrayList<Usuario> consultar(String criterio) {
-  String sql = "SELECT * FROM usuario WHERE " + criterio;
+    public ArrayList<Consumo> consultar(String criterio) {
+  String sql = "SELECT * FROM alimento WHERE " + criterio;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Usuario> usuario = new ArrayList<>();
+            ArrayList<Consumo> alimento = new ArrayList<>();
             while (result.next()) {
-                usuario.add(Usuario.from(result));
+                alimento.add(Consumo.from(result));
             }
-            if (usuario.isEmpty()){ 
+            if (alimento.isEmpty()){ 
                 return null;
             }
-            return usuario;
+            return alimento;
         } catch (SQLException ex) {
             Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -118,12 +109,12 @@ String sql = "UPDATE usuario SET "
     }
 
     @Override
-    public Usuario consultar(int id) {
-String sql = "SELECT * FROM usuario WHERE id=" + id;
+    public Consumo consultar(int id) {
+String sql = "SELECT * FROM alimento WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
-                return Usuario.from(result);
+                return Consumo.from(result);
             }
 
         } catch (SQLException ex) {

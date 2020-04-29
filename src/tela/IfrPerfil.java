@@ -51,6 +51,8 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tfIMC = new javax.swing.JTextField();
         cbMetabolismo = new javax.swing.JComboBox<>();
 
+        setTitle("Perfil");
+
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
         tfSobrenome.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sobrenome", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N

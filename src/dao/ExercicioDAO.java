@@ -1,7 +1,7 @@
 
 package dao;
 
-import entidade.Usuario;
+import entidade.Exercicio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,26 +10,17 @@ import java.util.logging.Logger;
 import util.ConexaoBD;
 import util.IDAOT;
 
-
-public class UsuarioDAO implements IDAOT<Usuario> {
+public class ExercicioDAO implements IDAOT<Exercicio> {
 
     @Override
-    public boolean salvar(Usuario o) {
-         String sql = "INSERT INTO usuario VALUES("
+    public boolean salvar(Exercicio o) {
+         String sql = "INSERT INTO exercicio VALUES("
                 + "default, "
-                + "'" + o.nome+ "',"
-                + "'" + o.sobrenome + "',"
-                + "'" + o.dataNasc + "',"
-                + "'" + o.endereco+ "',"
-                + "'" + o.CPF + "',"
-                + "'" + o.email + "',"
-                + "'" + o.login + "',"
-                + "'" + o.senha + "',"
-                + "'" + o.intolerancia+ "',"
-                + "'" + o.intolerancia1+ "',"
-                + "'" + o.peso+ "',"
-                + "'" + o.altura + "',"
-                + "'" + o.endereco+ "')";
+                + "'" + o.descricao+ "',"
+                + "'" + o.tempo + "',"
+                + "'" + o.data + "',"
+                + "'" + o.intensidade+ "',"
+                + "'" + o.reacaoCorporal + "')";
 
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
@@ -41,21 +32,13 @@ public class UsuarioDAO implements IDAOT<Usuario> {
     }
 
     @Override
-    public boolean atualizar(Usuario o) {
-String sql = "UPDATE usuario SET "
-                + "descricao='" + o.nome+ "',"
-                + "tempo='" + o.sobrenome+ "',"
-                + "data='" + o.dataNasc + "',"
-                + "intensidade='" + o.endereco+ "',"
-                + "CPF='" + o.CPF+ "',"
-                + "email='" + o.email+ "',"
-                + "login='" + o.login+ "',"
-                + "senha='" + o.senha+ "',"
-                + "intolerancia='" + o.intolerancia+ "',"
-                + "intolerancia1='" + o.intolerancia1+ "',"
-                + "peso='" + o.peso+ "',"
-                + "altura='" + o.altura+ "',"
-                + "endereco='" + o.endereco+ "',"
+    public boolean atualizar(Exercicio o) {
+String sql = "UPDATE exercicio SET "
+                + "descricao='" + o.descricao+ "',"
+                + "tempo='" + o.tempo+ "',"
+                + "data='" + o.data + "',"
+                + "intensidade='" + o.intensidade+ "',"
+                + "reacaoCorporal='" + o.reacaoCorporal+ "',"
                 + "WHERE id= " + o.id;
 
         try {
@@ -69,7 +52,7 @@ String sql = "UPDATE usuario SET "
 
     @Override
     public boolean excluir(int id) {
-        String sql = "DELETE FROM usuario WHERE id=" + id;
+        String sql = "DELETE FROM exercicio WHERE id=" + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
@@ -80,18 +63,18 @@ String sql = "UPDATE usuario SET "
     }    
 
     @Override
-    public ArrayList<Usuario> consultarTodos() {
-  String sql = "SELECT * FROM usuario";
+    public ArrayList<Exercicio> consultarTodos() {
+  String sql = "SELECT * FROM exercicio";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Usuario> usuario = new ArrayList<>();
+            ArrayList<Exercicio> exercicios = new ArrayList<>();
             while (result.next()) {
-                usuario.add(Usuario.from(result));
+                exercicios.add(Exercicio.from(result));
             }
-            if (usuario.isEmpty()){ 
+            if (exercicios.isEmpty()){ 
                 return null;
             }
-            return usuario;
+            return exercicios;
         } catch (SQLException ex) {
             Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,18 +82,18 @@ String sql = "UPDATE usuario SET "
     }
 
     @Override
-    public ArrayList<Usuario> consultar(String criterio) {
-  String sql = "SELECT * FROM usuario WHERE " + criterio;
+    public ArrayList<Exercicio> consultar(String criterio) {
+  String sql = "SELECT * FROM exercicio WHERE " + criterio;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Usuario> usuario = new ArrayList<>();
+            ArrayList<Exercicio> exercicios = new ArrayList<>();
             while (result.next()) {
-                usuario.add(Usuario.from(result));
+                exercicios.add(Exercicio.from(result));
             }
-            if (usuario.isEmpty()){ 
+            if (exercicios.isEmpty()){ 
                 return null;
             }
-            return usuario;
+            return exercicios;
         } catch (SQLException ex) {
             Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -118,12 +101,12 @@ String sql = "UPDATE usuario SET "
     }
 
     @Override
-    public Usuario consultar(int id) {
-String sql = "SELECT * FROM usuario WHERE id=" + id;
+    public Exercicio consultar(int id) {
+String sql = "SELECT * FROM exercicio WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
-                return Usuario.from(result);
+                return Exercicio.from(result);
             }
 
         } catch (SQLException ex) {

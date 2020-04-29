@@ -32,7 +32,7 @@ public class Usuario {
         user.id = resultSet.getInt("id");
         user.nome = resultSet.getString("nome");
         user.sobrenome = resultSet.getString("sobrenome");
-        user.dataNasc = resultSet.getString("dataNascimento");
+        user.dataNasc = resultSet.getString("data");
         user.endereco = resultSet.getString("endereco");
         user.CPF = resultSet.getString("CPF");
         user.email = resultSet.getString("email");
@@ -52,7 +52,7 @@ public class Usuario {
         sb.append("usuario{id=").append(id);
         sb.append(", nome=").append(nome);
         sb.append(", sobrenome=").append(sobrenome);
-        sb.append(", dataNascimento=").append(dataNasc);
+        sb.append(", data=").append(dataNasc);
         sb.append(", endereco=").append(endereco);
         sb.append(", email=").append(email);
         sb.append(", login=").append(login);
