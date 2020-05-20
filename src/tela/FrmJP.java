@@ -1,27 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela;
 
-import javax.swing.JLabel;
-import javax.swing.JMenu;
+import entidade.Usuario;
 
-/**
- *
- * @author fabricio.pretto
- */
-public class FrmJanelaPrincipal extends javax.swing.JFrame {
-
-    /**
-     * Creates new form JanelaPrincipal
-     */
-    public FrmJanelaPrincipal() {
+public class FrmJP extends javax.swing.JFrame {
+    public static Usuario usuario;
+    public FrmJP(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
         // abre tela maximizada
         this.setExtendedState(MAXIMIZED_BOTH);
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,7 +109,7 @@ public class FrmJanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniCadExeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadExeActionPerformed
-        IfCadExercicio RegExe = new IfCadExercicio();
+        IfrRegExercicio RegExe = new IfrRegExercicio();
         desktopPainel.add(RegExe);
         RegExe.setVisible(true);
     }//GEN-LAST:event_mniCadExeActionPerformed

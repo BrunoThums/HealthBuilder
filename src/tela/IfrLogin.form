@@ -39,10 +39,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="Painel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-          </Group>
+          <Component id="Painel" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -65,53 +62,60 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="imagemHB" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="lblTitulo" min="-2" pref="169" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                          <Component id="lblInfoLogin" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                          <Component id="lblBemVindo" min="-2" pref="250" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                          <Component id="lblDica" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lblSenha" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblDica" min="-2" pref="410" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lblSenha" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="tfUsuario" max="32767" attributes="0"/>
+                                              <Component id="pfSenha" min="-2" pref="196" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="lblPergunta" min="-2" pref="140" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btnRegistro" min="-2" pref="80" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btnLogin" min="-2" pref="50" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="tfUsuario" pref="196" max="32767" attributes="0"/>
-                                      <Component id="pfSenha" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="cbxLembrar" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblEsqueceuSenha" min="-2" pref="151" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblInfoLogin" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lblPergunta" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnRegistro" min="-2" pref="80" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnLogin" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="lblBemVindo" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="lblEsqueceuSenha" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -119,11 +123,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="imagemHB" max="32767" attributes="0"/>
+                          <Component id="imagemHB" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblBemVindo" min="-2" max="-2" attributes="0"/>
@@ -133,24 +137,24 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblUsuario" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="tfUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbxLembrar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="pfSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="lblSenha" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="lblEsqueceuSenha" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblEsqueceuSenha" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="btnLogin" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="lblPergunta" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnRegistro" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                  <Component id="btnRegistro" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="lblPergunta" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                          <Component id="lblDica" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblDica" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -178,7 +182,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Vivaldi" size="36" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Bem-vindo de volta!"/>
+            <Property name="text" type="java.lang.String" value="Bem-vindo!"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblInfoLogin">
@@ -232,7 +236,7 @@
         <Component class="javax.swing.JLabel" name="lblEsqueceuSenha">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="High Tower Text" size="14" style="1"/>
+              <Font name="High Tower Text" size="15" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="0" red="0" type="rgb"/>
@@ -262,7 +266,7 @@
         <Component class="javax.swing.JLabel" name="lblPergunta">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="High Tower Text" size="14" style="1"/>
+              <Font name="High Tower Text" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="N&#xe3;o possui uma conta?"/>
           </Properties>
@@ -289,6 +293,14 @@
               <Font name="High Tower Text" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Dica: n&#xe3;o compartilhe sua senha com ningu&#xe9;m. Ela &#xe9; sua identidade!"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="cbxLembrar">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="High Tower Text" size="14" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Lembrar-me"/>
           </Properties>
         </Component>
       </SubComponents>

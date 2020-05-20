@@ -306,9 +306,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnRegReacao" pref="92" max="32767" attributes="0"/>
                           <Component id="btnRegCom" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnRegAli" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnRegAli" alignment="0" pref="92" max="32767" attributes="0"/>
                           <Component id="btnRegExer" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="128" max="32767" attributes="0"/>
@@ -324,9 +323,7 @@
                       <Component id="btnRegAli" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnRegCom" min="-2" pref="23" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnRegReacao" min="-2" pref="23" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -371,19 +368,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegComActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnRegReacao">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Rea&#xe7;&#xe3;o Corporal"/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
-                    <EmptyBorder/>
-                  </Border>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegReacaoActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

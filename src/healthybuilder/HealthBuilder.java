@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package healthybuilder;
 
 import java.awt.Frame;
@@ -10,19 +5,13 @@ import java.net.URL;
 import util.ConexaoBD;
 import tela.IfrLogin;
 
-/**
- *
- * @author bbt-1
- */
 public class HealthBuilder {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // abrir uma tela de Login
 
-        // deixa de existir
         if (ConexaoBD.getInstance() != null) {
             System.out.println("abriu");
             new IfrLogin(new Frame(), true).setVisible(true);
@@ -30,7 +19,6 @@ public class HealthBuilder {
             System.out.println("deu problema");
         }
     }
-    
 
     public static URL getIconURL(String filename) {
         return HealthBuilder.class.getResource("/icons/" + filename);

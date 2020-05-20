@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidade;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author bbt-1
- */
 public class TipoAlimento {
+
     public Integer id;
     public String descricao;
     public String porcao;
@@ -30,6 +22,7 @@ public class TipoAlimento {
         tipoAli.descricao = resultSet.getString("descricao");
         tipoAli.porcao = resultSet.getString("porcao");
         tipoAli.valorEner = resultSet.getString("valorEnergetico");
+        tipoAli.proteina = resultSet.getString("proteina");
         tipoAli.acucares = resultSet.getString("acucares");
         tipoAli.gordTrans = resultSet.getString("gorduraTrans");
         tipoAli.gordSaturada = resultSet.getString("gorduraSaturada");
@@ -45,6 +38,7 @@ public class TipoAlimento {
         sb.append(", descricao=").append(descricao);
         sb.append(", porcao=").append(porcao);
         sb.append(", valorEnergetico=").append(valorEner);
+        sb.append(", proteina=").append(proteina);
         sb.append(", acucares=").append(acucares);
         sb.append(", gorduraTrans=").append(gordTrans);
         sb.append(", gorduraSaturada=").append(gordSaturada);

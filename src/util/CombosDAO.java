@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
 import java.sql.ResultSet;
 import javax.swing.JComboBox;
 
-/**
- *
- * @author pretto
- */
 public class CombosDAO {
 
     ResultSet resultado = null;

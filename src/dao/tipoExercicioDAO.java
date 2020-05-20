@@ -1,6 +1,6 @@
 package dao;
 
-import entidade.Exercicio;
+import entidade.TipoExercicio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,111 +12,105 @@ import javax.swing.table.TableColumn;
 import util.ConexaoBD;
 import util.IDAOT;
 
-public class ExercicioDAO implements IDAOT<Exercicio> {
+public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
+    
     ResultSet resultadoQ = null;
+    
     @Override
-    public boolean salvar(Exercicio o) {
-        String sql = "INSERT INTO exercicio VALUES("
+    public boolean salvar(TipoExercicio o) {
+        String sql = "INSERT INTO tipoExercicio VALUES("
                 + "default, "
-                + "'" + o.data + "',"
-                + "'" + o.tipoExercicio + "'," //°ext nome
-                + "'" + o.reacaoCorporal + "',"//ext nome
-                + "'" + o.tempo + "',"
-                + "'" + o.intensidade + "',"
-                + "'" + o.kcalTipoExercicio + "',"
-                + "'" + o.kcalTotal + "')";
+                + "'" + o.descricao + "',"
+                + "'" + o.subDescricao + "',"
+                + "'" + o.kcal + "')";
 
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     @Override
-    public boolean atualizar(Exercicio o) {
-        String sql = "UPDATE exercicio SET "
-                + "data='" + o.data + "',"
-                + "tipoExercicio_nome='" + o.tipoExercicio + "',"//ext nome
-                + "reacaoCorporal_nome='" + o.reacaoCorporal + "',"//ext nome
-                + "tempo='" + o.tempo + "',"
-                + "intensidade='" + o.intensidade + "',"
-                + "tipoExercicio_kcal='" + o.kcalTipoExercicio + "',"
-                + "kcalTotal='" + o.kcalTotal + "',"
+    public boolean atualizar(TipoExercicio o) {
+        String sql = "UPDATE tipoExercicio SET "
+                + "descricao='" + o.descricao + "',"
+                + "subDescricao='" + o.subDescricao + "',"
+                + "kcal='" + o.kcal + "',"
                 + "WHERE id= " + o.id;
 
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     @Override
     public boolean excluir(int id) {
-        String sql = "DELETE FROM exercicio WHERE id=" + id;
+        String sql = "DELETE FROM tipoExercicio WHERE id=" + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     @Override
-    public ArrayList<Exercicio> consultarTodos() {
-        String sql = "SELECT * FROM exercicio";
+    public ArrayList<TipoExercicio> consultarTodos() {
+        String sql = "SELECT * FROM tipoExercicio";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Exercicio> exercicio = new ArrayList<>();
+            ArrayList<TipoExercicio> tipoExercicio = new ArrayList<>();
             while (result.next()) {
-                exercicio.add(Exercicio.from(result));
+                tipoExercicio.add(TipoExercicio.from(result));
             }
-            if (exercicio.isEmpty()) {
+            if (tipoExercicio.isEmpty()) {
                 return null;
             }
-            return exercicio;
+            return tipoExercicio;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public ArrayList<Exercicio> consultar(String criterio) {
-        String sql = "SELECT * FROM exercicio WHERE " + criterio;
+    public ArrayList<TipoExercicio> consultar(String criterio) {
+        String sql = "SELECT * FROM tipoExercicio WHERE " + criterio;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Exercicio> exercicio = new ArrayList<>();
+            ArrayList<TipoExercicio> tipoExercicio = new ArrayList<>();
             while (result.next()) {
-                exercicio.add(Exercicio.from(result));
+                tipoExercicio.add(TipoExercicio.from(result));
             }
-            if (exercicio.isEmpty()) {
+            if (tipoExercicio.isEmpty()) {
                 return null;
             }
-            return exercicio;
+            return tipoExercicio;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public Exercicio consultar(int id) {
-        String sql = "SELECT * FROM exercicio WHERE id=" + id;
+    public TipoExercicio consultar(int id) {
+        String sql = "SELECT * FROM tipoExercicio WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
-                return Exercicio.from(result);
+                return TipoExercicio.from(result);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -126,13 +120,11 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[6];
+        Object[] cabecalho = new Object[4];
         cabecalho[0] = "Código";
-        cabecalho[1] = "Data";
-        cabecalho[2] = "Tipo de Exercício";
-        cabecalho[3] = "Reacao Corporal";
-        cabecalho[4] = "Tempo";    
-        cabecalho[5] = "Kcal Total";
+        cabecalho[1] = "Descricao";
+        cabecalho[2] = "SubDescricao";
+        cabecalho[3] = "Kcal";
 
         // cria matriz de acordo com nº de registros da tabela
         try {
@@ -161,11 +153,9 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
             while (resultadoQ.next()) {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
-                dadosTabela[lin][1] = resultadoQ.getString("data");
-                dadosTabela[lin][2] = resultadoQ.getString("tipoExercicio_nome");
-                dadosTabela[lin][3] = resultadoQ.getString("reacaoCorporal");
-                dadosTabela[lin][4] = resultadoQ.getString("tempo");
-                dadosTabela[lin][5] = resultadoQ.getString("kcalTotal");
+                dadosTabela[lin][1] = resultadoQ.getString("descricao");
+                dadosTabela[lin][2] = resultadoQ.getString("subDescricao");
+                dadosTabela[lin][3] = resultadoQ.getString("kcal");
                 lin++;
             }
         } catch (Exception e) {
@@ -201,22 +191,16 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
             column = tabela.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
-                    column.setPreferredWidth(20);
+                    column.setPreferredWidth(23);
                     break;
                 case 1:
-                    column.setPreferredWidth(75);
+                    column.setPreferredWidth(200);
                     break;
                 case 2:
-                    column.setPreferredWidth(119);
+                    column.setPreferredWidth(200);
                     break;
                 case 3:
-                    column.setPreferredWidth(119);
-                    break;
-                case 4:
-                    column.setPreferredWidth(70);
-                    break;
-                case 5:
-                    column.setPreferredWidth(70);
+                    column.setPreferredWidth(50);
                     break;
 
             }

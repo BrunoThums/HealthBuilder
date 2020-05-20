@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import entidade.Consumo;
@@ -14,103 +9,99 @@ import java.util.logging.Logger;
 import util.ConexaoBD;
 import util.IDAOT;
 
-/**
- *
- * @author bbt-1
- */
 public class ConsumoDAO implements IDAOT<Consumo> {
 
     @Override
     public boolean salvar(Consumo o) {
-         String sql = "INSERT INTO alimento VALUES("
+        String sql = "INSERT INTO consumo VALUES("
                 + "default, "
-                + "'" + o.descricao+ "',"
+                + "'" + o.descricao + "',"
                 + "'" + o.tempo + "',"
                 + "'" + o.data + "',"
-                + "'" + o.refeicao+ "',"
+                + "'" + o.refeicao + "',"
                 + "'" + o.reacaoCorporal + "')";
 
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     @Override
     public boolean atualizar(Consumo o) {
-String sql = "UPDATE alimento SET "
-                + "descricao='" + o.descricao+ "',"
-                + "tempo='" + o.tempo+ "',"
+        String sql = "UPDATE consumo SET "
+                + "descricao='" + o.descricao + "',"
+                + "tempo='" + o.tempo + "',"
                 + "data='" + o.data + "',"
-                + "refeicao='" + o.refeicao+ "',"
-                + "reacaoCorporal='" + o.reacaoCorporal+ "',"
+                + "refeicao='" + o.refeicao + "',"
+                + "reacaoCorporal='" + o.reacaoCorporal + "',"
                 + "WHERE id= " + o.id;
 
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     @Override
     public boolean excluir(int id) {
-        String sql = "DELETE FROM alimento WHERE id=" + id;
+        String sql = "DELETE FROM consumo WHERE id=" + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-    }    
+    }
 
     @Override
     public ArrayList<Consumo> consultarTodos() {
-  String sql = "SELECT * FROM alimento";
+        String sql = "SELECT * FROM consumo";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Consumo> alimento = new ArrayList<>();
+            ArrayList<Consumo> consumo = new ArrayList<>();
             while (result.next()) {
-                alimento.add(Consumo.from(result));
+                consumo.add(Consumo.from(result));
             }
-            if (alimento.isEmpty()){ 
+            if (consumo.isEmpty()) {
                 return null;
             }
-            return alimento;
+            return consumo;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
     public ArrayList<Consumo> consultar(String criterio) {
-  String sql = "SELECT * FROM alimento WHERE " + criterio;
+        String sql = "SELECT * FROM consumo WHERE " + criterio;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<Consumo> alimento = new ArrayList<>();
+            ArrayList<Consumo> consumo = new ArrayList<>();
             while (result.next()) {
-                alimento.add(Consumo.from(result));
+                consumo.add(Consumo.from(result));
             }
-            if (alimento.isEmpty()){ 
+            if (consumo.isEmpty()) {
                 return null;
             }
-            return alimento;
+            return consumo;
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
     public Consumo consultar(int id) {
-String sql = "SELECT * FROM alimento WHERE id=" + id;
+        String sql = "SELECT * FROM consumo WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
@@ -118,8 +109,9 @@ String sql = "SELECT * FROM alimento WHERE id=" + id;
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConsumoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;    }
+        return null;
+    }
 
 }

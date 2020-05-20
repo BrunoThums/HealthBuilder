@@ -1,11 +1,12 @@
 package util;
+
 import java.io.InvalidObjectException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
-        
+
 public class Senha {
 
     private static String encode(byte[] bytes) {

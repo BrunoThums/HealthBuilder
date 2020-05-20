@@ -1,15 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
 import javax.swing.JFormattedTextField;
 
-/**
- *
- * @author Fabricio Pretto
- */
 public class Validacao {
 
     private static final int[] pesoCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};

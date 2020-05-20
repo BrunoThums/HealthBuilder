@@ -1,8 +1,8 @@
 package util;
-import java.util.List;
-public interface DAO<Entity, Index> {
-    
 
+import java.util.List;
+
+public interface DAO<Entity, Index> {
 
     public final static String CREATE_MESSAGE = "Error creating %s=%s",
             UPDATE_MESSAGE = "Error updating %s=%s",
