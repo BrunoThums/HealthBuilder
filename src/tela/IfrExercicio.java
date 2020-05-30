@@ -14,11 +14,13 @@ import java.sql.Time;
 import javax.swing.JFormattedTextField;
 import util.Formatacao;
 import util.Verificacoes;
-public class IfrRegExercicio extends javax.swing.JInternalFrame {
+
+public class IfrExercicio extends javax.swing.JInternalFrame {
 
     int id = 0;
     Verificacoes v = new Verificacoes();
-    public IfrRegExercicio() {
+
+    public IfrExercicio() {
         initComponents();
         Formatacao.formatarData((JFormattedTextField) tffData);
     }
@@ -329,7 +331,7 @@ public class IfrRegExercicio extends javax.swing.JInternalFrame {
                 .addGap(125, 125, 125)
                 .addComponent(lblTituloPesqExer, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(122, 122, 122))
-            .addComponent(pnPesqExerTBL, javax.swing.GroupLayout.PREFERRED_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(pnPesqExerTBL, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
         pnPesqExerLayout.setVerticalGroup(
             pnPesqExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -551,13 +553,13 @@ public class IfrRegExercicio extends javax.swing.JInternalFrame {
                 || cbIntensidade.getSelectedIndex() == 0
                 || tfKcalExer.getText().isEmpty()
                 || tfKcalTotal.getText().isEmpty())) {
-            
+
             Exercicio e = new Exercicio();
             TipoExercicio t = new TipoExercicio();
             ReacaoCorporal r = new ReacaoCorporal();
             e.data = tffData.getText();
             t.descricao = tfTipoExercicio.getText();
-            r.descricao = tfReacaoCorporal.getText();
+            r.nome = tfReacaoCorporal.getText();
             e.tempo = converteHora(cbTempoHoras, cbTempoMinutos).toString();
             e.intensidade = cbIntensidade.getSelectedItem().toString();
             t.kcal = tfKcalExer.getText();
@@ -579,7 +581,7 @@ public class IfrRegExercicio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFecharRegTipoExerActionPerformed
 
     private void btnSalvarRegTipoExerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarRegTipoExerActionPerformed
-        if(!(tfNomeExercicio.getText().isEmpty()||tfSubCategoria.getText().isEmpty()||tfKcalHora.getText().isEmpty())){
+        if (!(tfNomeExercicio.getText().isEmpty() || tfSubCategoria.getText().isEmpty() || tfKcalHora.getText().isEmpty())) {
             TipoExercicio t = new TipoExercicio();
             t.descricao = tfNomeExercicio.getText();
             t.subDescricao = tfSubCategoria.getText();
@@ -620,7 +622,7 @@ public class IfrRegExercicio extends javax.swing.JInternalFrame {
             cbIntensidade.setSelectedItem(exercicio.intensidade);
             tfKcalExer.setText(exercicio.kcalTipoExercicio);
             tfKcalTotal.setText(exercicio.kcalTotal);
-            
+
             // mudar de aba
             tbPainel.setSelectedIndex(0);
 
@@ -665,7 +667,7 @@ public class IfrRegExercicio extends javax.swing.JInternalFrame {
             tfNomeExercicio.setText(tipoExe.descricao);
             tfSubCategoria.setText(tipoExe.subDescricao);
             tfKcalHora.setText(tipoExe.kcal);
-            
+
             // mudar de aba
             tbPainel.setSelectedIndex(2);
 
@@ -705,7 +707,7 @@ public class IfrRegExercicio extends javax.swing.JInternalFrame {
     private void tffDataKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataKeyTyped
         v.verificaNumeros(evt);
     }//GEN-LAST:event_tffDataKeyTyped
-    private Time converteHora(JComboBox hora, JComboBox min){ 
+    private Time converteHora(JComboBox hora, JComboBox min) {
         String[] time = new Time(Calendar.getInstance().getTime().getTime()).toString().split(":");
 
         String h = (String) hora.getSelectedItem();
@@ -713,7 +715,7 @@ public class IfrRegExercicio extends javax.swing.JInternalFrame {
 
         return Time.valueOf(String.join(":", h, m, "00"));
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane PainelDeRolagemNovo;
     private javax.swing.JButton btnEditar;

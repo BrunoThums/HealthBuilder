@@ -13,7 +13,9 @@ import util.ConexaoBD;
 import util.IDAOT;
 
 public class ExercicioDAO implements IDAOT<Exercicio> {
+
     ResultSet resultadoQ = null;
+
     @Override
     public boolean salvar(Exercicio o) {
         String sql = "INSERT INTO exercicio VALUES("
@@ -131,7 +133,7 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         cabecalho[1] = "Data";
         cabecalho[2] = "Tipo de Exercício";
         cabecalho[3] = "Reacao Corporal";
-        cabecalho[4] = "Tempo";    
+        cabecalho[4] = "Tempo";
         cabecalho[5] = "Kcal Total";
 
         // cria matriz de acordo com nº de registros da tabela

@@ -23,7 +23,7 @@ public class Exercicio {
         exe.reacaoCorporal = resultSet.getString("reacaoCorporal_nome");
         exe.tempo = resultSet.getString("tempo");
         exe.intensidade = resultSet.getString("intensidade");
-        exe.kcalTipoExercicio  = resultSet.getString("tipoExercicio_kcal ");
+        exe.kcalTipoExercicio = resultSet.getString("tipoExercicio_kcal ");
         exe.kcalTotal = resultSet.getString("kcalTotal");
         return exe;
     }

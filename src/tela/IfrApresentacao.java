@@ -445,17 +445,17 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
 
     private void btnRegExerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegExerActionPerformed
 
-        IfrRegExercicio regexer = new IfrRegExercicio();
+        IfrExercicio regexer = new IfrExercicio();
         //FrmJanelaPrincipal.class..add(regexer);
     }//GEN-LAST:event_btnRegExerActionPerformed
 
     private void btnRegAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegAliActionPerformed
-        IfrRegAlimento regali = new IfrRegAlimento();
+        IfrAlimento regali = new IfrAlimento();
         regali.setVisible(true);
     }//GEN-LAST:event_btnRegAliActionPerformed
 
     private void btnRegComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegComActionPerformed
-        IfrRegCompra regcom = new IfrRegCompra();
+        IfrCompra regcom = new IfrCompra();
         regcom.setVisible(true);
     }//GEN-LAST:event_btnRegComActionPerformed
 

@@ -6,11 +6,12 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import util.Validacao;
 
-public class IfrRegCompra extends javax.swing.JInternalFrame {
+public class IfrCompra extends javax.swing.JInternalFrame {
 
     int id = 0;
     Validacao v = new Validacao();
-    public IfrRegCompra() {
+
+    public IfrCompra() {
         initComponents();
     }
 
@@ -32,13 +33,13 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
         tffData2 = new javax.swing.JFormattedTextField();
         tfQuantidade1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        lblCompraDeAlimento1 = new javax.swing.JLabel();
-        jpnAtualizacoes2 = new javax.swing.JPanel();
-        PainelDeRolagem2 = new javax.swing.JScrollPane();
-        tblResumo2 = new javax.swing.JTable();
-        lblBusca2 = new javax.swing.JLabel();
-        tfBusca2 = new javax.swing.JTextField();
-        btnPesquisar2 = new javax.swing.JButton();
+        lblPesquisaCompra = new javax.swing.JLabel();
+        jpnAtualizacoes = new javax.swing.JPanel();
+        PainelDeRolagem = new javax.swing.JScrollPane();
+        tblResumo = new javax.swing.JTable();
+        lblBusca = new javax.swing.JLabel();
+        tfBusca = new javax.swing.JTextField();
+        btnPesquisar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
 
@@ -176,12 +177,12 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblCompraDeAlimento1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
-        lblCompraDeAlimento1.setText("Pesquisa de Compra");
+        lblPesquisaCompra.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+        lblPesquisaCompra.setText("Pesquisa de Compra");
 
-        jpnAtualizacoes2.setBackground(new java.awt.Color(255, 255, 255));
+        jpnAtualizacoes.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblResumo2.setModel(new javax.swing.table.DefaultTableModel(
+        tblResumo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -192,17 +193,17 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        PainelDeRolagem2.setViewportView(tblResumo2);
+        PainelDeRolagem.setViewportView(tblResumo);
 
-        lblBusca2.setText("Busca:");
+        lblBusca.setText("Busca:");
 
-        tfBusca2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
+        tfBusca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
 
-        btnPesquisar2.setText("Pesquisar");
-        btnPesquisar2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnPesquisar2.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisar2ActionPerformed(evt);
+                btnPesquisarActionPerformed(evt);
             }
         });
 
@@ -222,39 +223,39 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jpnAtualizacoes2Layout = new javax.swing.GroupLayout(jpnAtualizacoes2);
-        jpnAtualizacoes2.setLayout(jpnAtualizacoes2Layout);
-        jpnAtualizacoes2Layout.setHorizontalGroup(
-            jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PainelDeRolagem2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(jpnAtualizacoes2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jpnAtualizacoesLayout = new javax.swing.GroupLayout(jpnAtualizacoes);
+        jpnAtualizacoes.setLayout(jpnAtualizacoesLayout);
+        jpnAtualizacoesLayout.setHorizontalGroup(
+            jpnAtualizacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PainelDeRolagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jpnAtualizacoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAtualizacoes2Layout.createSequentialGroup()
+                .addGroup(jpnAtualizacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAtualizacoesLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpnAtualizacoes2Layout.createSequentialGroup()
-                        .addComponent(lblBusca2)
+                    .addGroup(jpnAtualizacoesLayout.createSequentialGroup()
+                        .addComponent(lblBusca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfBusca2)
+                        .addComponent(tfBusca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        jpnAtualizacoes2Layout.setVerticalGroup(
-            jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAtualizacoes2Layout.createSequentialGroup()
+        jpnAtualizacoesLayout.setVerticalGroup(
+            jpnAtualizacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAtualizacoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBusca2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfBusca2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jpnAtualizacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PainelDeRolagem2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-                .addGroup(jpnAtualizacoes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(PainelDeRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addGroup(jpnAtualizacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -266,17 +267,17 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(96, Short.MAX_VALUE)
-                .addComponent(lblCompraDeAlimento1)
+                .addComponent(lblPesquisaCompra)
                 .addGap(63, 63, 63))
-            .addComponent(jpnAtualizacoes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpnAtualizacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblCompraDeAlimento1)
+                .addComponent(lblPesquisaCompra)
                 .addGap(5, 5, 5)
-                .addComponent(jpnAtualizacoes2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpnAtualizacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tbCompra.addTab("Pesquisa", jPanel1);
@@ -295,12 +296,12 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisar2ActionPerformed
-        new CompraDAO().popularTabela(tblResumo2, tfBusca2.getText());
-    }//GEN-LAST:event_btnPesquisar2ActionPerformed
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        new CompraDAO().popularTabela(tblResumo, tfBusca.getText());
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        String idString = String.valueOf(tblResumo2.getValueAt(tblResumo2.getSelectedRow(), 0));
+        String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
 
         id = Integer.parseInt(idString);
 
@@ -326,7 +327,7 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
 
         if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
 
-            String idString = String.valueOf(tblResumo2.getValueAt(tblResumo2.getSelectedRow(), 0));
+            String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
 
             int idExclusao = Integer.parseInt(idString);
 
@@ -334,7 +335,7 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
 
             if (apDAO.excluir(idExclusao)) {
                 JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
-                apDAO.popularTabela(tblResumo2, tfBusca2.getText());
+                apDAO.popularTabela(tblResumo, tfBusca.getText());
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
             }
@@ -379,22 +380,22 @@ public class IfrRegCompra extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
-    private javax.swing.JScrollPane PainelDeRolagem2;
+    private javax.swing.JScrollPane PainelDeRolagem;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnPesquisar2;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JPanel jpnAtualizacoes2;
-    private javax.swing.JLabel lblBusca2;
+    private javax.swing.JPanel jpnAtualizacoes;
+    private javax.swing.JLabel lblBusca;
     private javax.swing.JLabel lblCompraDeAlimento;
-    private javax.swing.JLabel lblCompraDeAlimento1;
     private javax.swing.JLabel lblPesquisaAlimento;
+    private javax.swing.JLabel lblPesquisaCompra;
     private javax.swing.JTabbedPane tbCompra;
-    private javax.swing.JTable tblResumo2;
+    private javax.swing.JTable tblResumo;
     private javax.swing.JTextField tfAlimentoComprado;
-    private javax.swing.JTextField tfBusca2;
+    private javax.swing.JTextField tfBusca;
     private javax.swing.JTextField tfQuantidade;
     private javax.swing.JTextField tfQuantidade1;
     private javax.swing.JTextField tfValor;

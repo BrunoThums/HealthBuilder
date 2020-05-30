@@ -2,12 +2,53 @@ package tela;
 
 import dao.ReacaoCorporalDAO;
 import entidade.ReacaoCorporal;
+import io.github.wesauis.gastei.view.component.TableDataModel;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
-public class IfrRegReacaoCorporal extends javax.swing.JInternalFrame {
+public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
+
     int id = 0;
-    public IfrRegReacaoCorporal() {
+    
+    String filtro;
+
+    public IfrReacaoCorporal() {
+        filtro = "";
         initComponents();
+        tblResumo.setModel(new TableDataModel<ReacaoCorporal>() {
+            @Override
+            public List<ReacaoCorporal> getData() {
+                ArrayList<ReacaoCorporal> reacoes;
+                if (!filtro.isEmpty()) {
+                    reacoes = new ReacaoCorporalDAO().consultar(filtro);
+                } else {
+                    reacoes = new ReacaoCorporalDAO().consultarTodos();
+                }
+                if (reacoes == null) {
+                    reacoes = new ArrayList<>();
+                }
+                return reacoes;
+            }
+
+            @Override
+            public String[] getHeader() {
+                return new String[]{"Código", "Nome"};
+            }
+
+            @Override
+            public Object[] toTableRow(ReacaoCorporal t) {
+                return new Object[]{t.id, t.nome};
+            }
+        });
+    }
+
+    public void update() {
+        ((TableDataModel<ReacaoCorporal>) tblResumo.getModel()).update();
+    }
+
+    public ReacaoCorporal getValueAt(int row) {
+        return ((TableDataModel<ReacaoCorporal>) tblResumo.getModel()).getValueAt(row);
     }
 
     @SuppressWarnings("unchecked")
@@ -200,20 +241,20 @@ public class IfrRegReacaoCorporal extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        new ReacaoCorporalDAO().popularTabela(tblResumo, tfBusca.getText());
+        filtro = tfBusca.getText().trim();
+        update();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
 
-        id = Integer.parseInt(idString);
+        id = getValueAt(tblResumo.getSelectedRow()).id;
 
         ReacaoCorporalDAO rcDAO = new ReacaoCorporalDAO();
 
         ReacaoCorporal rc = rcDAO.consultar(id);
 
         if (rc != null) {
-            tfReacaoCorporal.setText(rc.descricao);
+            tfReacaoCorporal.setText(rc.nome);
 
             // mudar de aba
             tbPainel.setSelectedIndex(0);
@@ -226,15 +267,14 @@ public class IfrRegReacaoCorporal extends javax.swing.JInternalFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
 
-            String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
-
-            int idExclusao = Integer.parseInt(idString);
+            int idExclusao = getValueAt(tblResumo.getSelectedRow()).id;
 
             ReacaoCorporalDAO rcDAO = new ReacaoCorporalDAO();
 
             if (rcDAO.excluir(idExclusao)) {
                 JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
-                rcDAO.popularTabela(tblResumo, tfBusca.getText());
+                update();
+
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
             }
@@ -249,17 +289,16 @@ public class IfrRegReacaoCorporal extends javax.swing.JInternalFrame {
         if (tfReacaoCorporal.getText().isEmpty()) {
             JOptionPane.showInputDialog("Preencha todos os campos obrigatórios!");
         } else {
-                ReacaoCorporal c = new ReacaoCorporal();
-                c.descricao = tfReacaoCorporal.getText();
-                
-                if(new ReacaoCorporalDAO().salvar(c)){
-                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                    tfReacaoCorporal.setText("");
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Problemas ao cadastrar!");
-                }
-                
+            ReacaoCorporal c = new ReacaoCorporal();
+            c.nome = tfReacaoCorporal.getText();
+
+            if (new ReacaoCorporalDAO().salvar(c)) {
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                tfReacaoCorporal.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Problemas ao cadastrar!");
+            }
+
         }
     }//GEN-LAST:event_btnSalvarRegRCActionPerformed
 

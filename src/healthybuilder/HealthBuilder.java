@@ -1,7 +1,10 @@
 package healthybuilder;
 
+import dao.UsuarioDAO;
+import entidade.Usuario;
 import java.awt.Frame;
 import java.net.URL;
+import java.sql.SQLException;
 import util.ConexaoBD;
 import tela.IfrLogin;
 
@@ -10,8 +13,30 @@ public class HealthBuilder {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+//        System.out.print("Apagando..");
+//        ConexaoBD.getInstance().getConnection().createStatement().executeUpdate("DELETE FROM usuario");
+//        System.out.println(".");;
+//
+//        System.out.print("Criando usuario..");
+//        Usuario usuario = new Usuario() {
+//            {
+//                login = "test";
+//                senha = "123";
+//                cidade = sobrenome = cpf = sexo = pais = nome = estado = "I";
+//                dataNasc = new java.sql.Date(System.currentTimeMillis());
+//                status = "ativo";
+//            }
+//        };
+//        new UsuarioDAO().salvar(usuario);
+//        System.out.println(".");
+//
+//        System.out.print("Logando..");
+//        Usuario autenticado = new UsuarioDAO().autenticar("test", "123");
+//        System.out.println(".");
+//        System.out.println(autenticado);;;
 
+//        System.exit(0);
         if (ConexaoBD.getInstance() != null) {
             System.out.println("abriu");
             new IfrLogin(new Frame(), true).setVisible(true);

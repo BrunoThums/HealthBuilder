@@ -6,13 +6,13 @@ import java.sql.SQLException;
 public class ReacaoCorporal {
 
     public Integer id;
-    public String descricao;
+    public String nome;
 
     public static ReacaoCorporal from(ResultSet resultSet) throws SQLException {
         ReacaoCorporal reacaoCorp = new ReacaoCorporal();
 
         reacaoCorp.id = resultSet.getInt("id");
-        reacaoCorp.descricao = resultSet.getString("descricao");
+        reacaoCorp.nome = resultSet.getString("nome");
 
         return reacaoCorp;
     }
@@ -21,7 +21,7 @@ public class ReacaoCorporal {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("reacaoCorporal{id=").append(id);
-        sb.append(", descricao=").append(descricao);
+        sb.append(", nome=").append(nome);
         sb.append('}');
         return sb.toString();
     }

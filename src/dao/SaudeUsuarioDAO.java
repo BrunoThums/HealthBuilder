@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import util.ConexaoBD;
 import util.IDAOT;
 
-public class SaudeUsuarioDAO implements IDAOT<SaudeUsuario>{
+public class SaudeUsuarioDAO implements IDAOT<SaudeUsuario> {
 
     @Override
     public boolean salvar(SaudeUsuario o) {
@@ -23,7 +23,7 @@ public class SaudeUsuarioDAO implements IDAOT<SaudeUsuario>{
                 + "'" + o.alergia1 + "',"
                 + "'" + o.peso + "',"
                 + "'" + o.altura + "',"
-                + "'" + o.imc + "',"                
+                + "'" + o.imc + "',"
                 + "'" + o.statusimc + "',"
                 + "'" + o.cintura + "',"
                 + "'" + o.quadril + "',"
@@ -81,7 +81,7 @@ public class SaudeUsuarioDAO implements IDAOT<SaudeUsuario>{
             return false;
         }
     }
-    
+
     @Override
     public boolean excluir(int id) {
         String sql = "DELETE FROM saudeUsuario WHERE id=" + id;
@@ -148,4 +148,3 @@ public class SaudeUsuarioDAO implements IDAOT<SaudeUsuario>{
     }
 
 }
-

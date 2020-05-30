@@ -1,17 +1,19 @@
 package tela;
 
 import entidade.Usuario;
+import javax.swing.JInternalFrame;
 
 public class FrmJP extends javax.swing.JFrame {
+
     public static Usuario usuario;
+
     public FrmJP(Usuario usuario) {
         this.usuario = usuario;
         initComponents();
         // abre tela maximizada
         this.setExtendedState(MAXIMIZED_BOTH);
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -21,27 +23,27 @@ public class FrmJP extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktopPainel = new javax.swing.JDesktopPane();
+        pnHome = new javax.swing.JDesktopPane();
         mnBarra = new javax.swing.JMenuBar();
         mnHome = new javax.swing.JMenu();
         mnCadastros = new javax.swing.JMenu();
-        mniCadExe = new javax.swing.JMenuItem();
-        mniCadAli = new javax.swing.JMenuItem();
-        mniCadCompra = new javax.swing.JMenuItem();
-        mniCadMachucado = new javax.swing.JMenuItem();
+        mniExercicio = new javax.swing.JMenuItem();
+        mniAlimento = new javax.swing.JMenuItem();
+        mniCompra = new javax.swing.JMenuItem();
+        mniReacoesCorporais = new javax.swing.JMenuItem();
         mnAjuda = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HealthBuilder");
 
-        javax.swing.GroupLayout desktopPainelLayout = new javax.swing.GroupLayout(desktopPainel);
-        desktopPainel.setLayout(desktopPainelLayout);
-        desktopPainelLayout.setHorizontalGroup(
-            desktopPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnHomeLayout = new javax.swing.GroupLayout(pnHome);
+        pnHome.setLayout(pnHomeLayout);
+        pnHomeLayout.setHorizontalGroup(
+            pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 678, Short.MAX_VALUE)
         );
-        desktopPainelLayout.setVerticalGroup(
-            desktopPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnHomeLayout.setVerticalGroup(
+            pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
 
@@ -55,37 +57,37 @@ public class FrmJP extends javax.swing.JFrame {
 
         mnCadastros.setText("Cadastros");
 
-        mniCadExe.setText("Exercício");
-        mniCadExe.addActionListener(new java.awt.event.ActionListener() {
+        mniExercicio.setText("Exercício");
+        mniExercicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniCadExeActionPerformed(evt);
+                mniExercicioActionPerformed(evt);
             }
         });
-        mnCadastros.add(mniCadExe);
+        mnCadastros.add(mniExercicio);
 
-        mniCadAli.setText("Alimento");
-        mniCadAli.addActionListener(new java.awt.event.ActionListener() {
+        mniAlimento.setText("Alimento");
+        mniAlimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniCadAliActionPerformed(evt);
+                mniAlimentoActionPerformed(evt);
             }
         });
-        mnCadastros.add(mniCadAli);
+        mnCadastros.add(mniAlimento);
 
-        mniCadCompra.setText("Compra");
-        mniCadCompra.addActionListener(new java.awt.event.ActionListener() {
+        mniCompra.setText("Compra");
+        mniCompra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniCadCompraActionPerformed(evt);
+                mniCompraActionPerformed(evt);
             }
         });
-        mnCadastros.add(mniCadCompra);
+        mnCadastros.add(mniCompra);
 
-        mniCadMachucado.setText("Reações Corporais");
-        mniCadMachucado.addActionListener(new java.awt.event.ActionListener() {
+        mniReacoesCorporais.setText("Reações Corporais");
+        mniReacoesCorporais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniCadMachucadoActionPerformed(evt);
+                mniReacoesCorporaisActionPerformed(evt);
             }
         });
-        mnCadastros.add(mniCadMachucado);
+        mnCadastros.add(mniReacoesCorporais);
 
         mnBarra.add(mnCadastros);
 
@@ -98,55 +100,83 @@ public class FrmJP extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPainel)
+            .addComponent(pnHome)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPainel)
+            .addComponent(pnHome, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniCadExeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadExeActionPerformed
-        IfrRegExercicio RegExe = new IfrRegExercicio();
-        desktopPainel.add(RegExe);
-        RegExe.setVisible(true);
-    }//GEN-LAST:event_mniCadExeActionPerformed
+    private void mniExercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExercicioActionPerformed
+        Object tela = getTela("Tela.IfrExercicio");
+        if (tela == null) {
+            tela = new IfrExercicio();
+            pnHome.add((JInternalFrame) tela);
+        }
+        setActive((JInternalFrame) tela);
+    }//GEN-LAST:event_mniExercicioActionPerformed
 
-    private void mniCadAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadAliActionPerformed
-        IfrRegAlimento RegAli = new IfrRegAlimento();
-        desktopPainel.add(RegAli);
-        RegAli.setVisible(true);
-    }//GEN-LAST:event_mniCadAliActionPerformed
+    private void mniAlimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAlimentoActionPerformed
+        Object tela = getTela("Tela.IfrAlimento");
+        if (tela == null) {
+            tela = new IfrAlimento();
+            pnHome.add((JInternalFrame) tela);
+        }
+        setActive((JInternalFrame) tela);
+    }//GEN-LAST:event_mniAlimentoActionPerformed
 
-    private void mniCadCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadCompraActionPerformed
-        IfrRegCompra RegCompra = new IfrRegCompra();
-        desktopPainel.add(RegCompra);
-        RegCompra.setVisible(true);
-    }//GEN-LAST:event_mniCadCompraActionPerformed
+    private void mniCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCompraActionPerformed
+        Object tela = getTela("Tela.IfrCompra");
+        if (tela == null) {
+            tela = new IfrCompra();
+            pnHome.add((JInternalFrame) tela);
+        }
+        setActive((JInternalFrame) tela);
+    }//GEN-LAST:event_mniCompraActionPerformed
 
-    private void mniCadMachucadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadMachucadoActionPerformed
-        IfrRegReacaoCorporal RegMachucado = new IfrRegReacaoCorporal();
-        desktopPainel.add(RegMachucado);
-        RegMachucado.setVisible(true);
-    }//GEN-LAST:event_mniCadMachucadoActionPerformed
+    private void mniReacoesCorporaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReacoesCorporaisActionPerformed
+        Object tela = getTela("Tela.IfrReacaoCorporal");
+        if (tela == null) {
+            tela = new IfrReacaoCorporal();
+            pnHome.add((JInternalFrame) tela);
+        }
+        setActive((JInternalFrame) tela);
+    }//GEN-LAST:event_mniReacoesCorporaisActionPerformed
 
     private void mnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnHomeMouseClicked
-        IfrApresentacao ifrApresentacao = new IfrApresentacao();
-        desktopPainel.add(ifrApresentacao);
-        ifrApresentacao.setVisible(true);
+        Object tela = getTela("Tela.IfrApresentacao");
+        if (tela == null) {
+            tela = new IfrApresentacao();
+            pnHome.add((JInternalFrame) tela);
+        }
+        setActive((JInternalFrame) tela);
     }//GEN-LAST:event_mnHomeMouseClicked
+    public Object getTela(String formName) {
+        for (int i = 0; i < pnHome.getComponentCount(); i++) {
+            if (pnHome.getComponents()[i].getClass().getName().equals(formName)) {
+                return pnHome.getComponents()[i];
+            }
+        }
+        return null;
+    }
 
+    public void setActive(JInternalFrame tela) {
+        tela.setVisible(true);
+        pnHome.moveToFront(tela);
+        pnHome.setSelectedFrame(tela);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane desktopPainel;
     private javax.swing.JMenu mnAjuda;
     private javax.swing.JMenuBar mnBarra;
     private javax.swing.JMenu mnCadastros;
     private javax.swing.JMenu mnHome;
-    private javax.swing.JMenuItem mniCadAli;
-    private javax.swing.JMenuItem mniCadCompra;
-    private javax.swing.JMenuItem mniCadExe;
-    private javax.swing.JMenuItem mniCadMachucado;
+    private javax.swing.JMenuItem mniAlimento;
+    private javax.swing.JMenuItem mniCompra;
+    private javax.swing.JMenuItem mniExercicio;
+    private javax.swing.JMenuItem mniReacoesCorporais;
+    private javax.swing.JDesktopPane pnHome;
     // End of variables declaration//GEN-END:variables
 }

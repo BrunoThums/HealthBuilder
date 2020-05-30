@@ -66,7 +66,7 @@ public class ConexaoBD {
             System.err.println(e);
         }
     }
-    
+
     public boolean pesquisaIgual(String tabela, String campo, String valor) {
         try {
             String SQL = String.format("SELECT * FROM %s WHERE %s ILIKE '%s';", tabela, campo, valor);

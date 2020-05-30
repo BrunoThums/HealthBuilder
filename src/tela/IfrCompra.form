@@ -275,25 +275,25 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="96" max="32767" attributes="0"/>
-                      <Component id="lblCompraDeAlimento1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPesquisaCompra" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jpnAtualizacoes2" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jpnAtualizacoes" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblCompraDeAlimento1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblPesquisaCompra" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                      <Component id="jpnAtualizacoes2" max="32767" attributes="0"/>
+                      <Component id="jpnAtualizacoes" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblCompraDeAlimento1">
+            <Component class="javax.swing.JLabel" name="lblPesquisaCompra">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Lucida Calligraphy" size="18" style="0"/>
@@ -301,7 +301,7 @@
                 <Property name="text" type="java.lang.String" value="Pesquisa de Compra"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JPanel" name="jpnAtualizacoes2">
+            <Container class="javax.swing.JPanel" name="jpnAtualizacoes">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -311,7 +311,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="PainelDeRolagem2" alignment="1" pref="0" max="32767" attributes="0"/>
+                      <Component id="PainelDeRolagem" alignment="1" pref="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -322,11 +322,11 @@
                                   <Component id="btnEditar" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblBusca2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblBusca" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="tfBusca2" max="32767" attributes="0"/>
+                                  <Component id="tfBusca" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnPesquisar2" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="btnPesquisar" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -338,13 +338,13 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lblBusca2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="tfBusca2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnPesquisar2" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="lblBusca" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="tfBusca" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPesquisar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="PainelDeRolagem2" min="-2" pref="172" max="-2" attributes="0"/>
-                          <EmptySpace pref="89" max="32767" attributes="0"/>
+                          <Component id="PainelDeRolagem" min="-2" pref="172" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnEditar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="btnExcluir" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
@@ -355,14 +355,14 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="PainelDeRolagem2">
+                <Container class="javax.swing.JScrollPane" name="PainelDeRolagem">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="tblResumo2">
+                    <Component class="javax.swing.JTable" name="tblResumo">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="4">
@@ -378,12 +378,12 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="lblBusca2">
+                <Component class="javax.swing.JLabel" name="lblBusca">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Busca:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="tfBusca2">
+                <Component class="javax.swing.JTextField" name="tfBusca">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
@@ -395,7 +395,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnPesquisar2">
+                <Component class="javax.swing.JButton" name="btnPesquisar">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Pesquisar"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -405,7 +405,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisar2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPesquisarActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnEditar">

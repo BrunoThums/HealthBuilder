@@ -18,12 +18,12 @@ public class UsuarioDAO implements IDAOT<Usuario> {
                 + "default, "
                 + "'" + o.nome + "',"
                 + "'" + o.sobrenome + "',"
-                + "'" + o.dataNasc + "',"
+                + "'" + o.dataNasc.toString() + "',"
                 + "'" + o.sexo + "',"
                 + "'" + o.cpf + "',"
                 + "'" + o.email + "',"
                 + "'" + o.login + "',"
-                + "'" + o.senha + "',"
+                + "md5('" + o.senha + "'),"
                 + "'" + o.pais + "',"
                 + "'" + o.estado + "',"
                 + "'" + o.cidade + "',"
@@ -48,7 +48,7 @@ public class UsuarioDAO implements IDAOT<Usuario> {
                 + "cpf='" + o.cpf + "',"
                 + "email='" + o.email + "',"
                 + "login='" + o.login + "',"
-                + "senha='" + o.senha + "',"
+                + "senha=md5('" + o.senha + "'),"
                 + "pais='" + o.pais + "',"
                 + "estado='" + o.estado + "',"
                 + "cidade='" + o.cidade + "',"
@@ -88,7 +88,7 @@ public class UsuarioDAO implements IDAOT<Usuario> {
 
     @Override
     public boolean excluir(int id) {
-        String sql = "UPDATE usuario SET status = 'inativo', WHERE id" + id;
+        String sql = "UPDATE usuario SET status = 'inativo' WHERE id = " + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
@@ -150,7 +150,7 @@ public class UsuarioDAO implements IDAOT<Usuario> {
         }
         return null;
     }
-    
+
     public Usuario autenticar(String login, String senha) {
 
         try {
@@ -160,14 +160,16 @@ public class UsuarioDAO implements IDAOT<Usuario> {
                     + "SELECT * "
                     + "FROM usuario "
                     + "WHERE "
-                    + "login = '" + login + "' AND "
-                    + "senha = md5('" + senha + "')";
+                    + "login ILIKE '" + login + "' AND "
+                    + "senha = md5('" + senha + "')"
+                    + " AND status != 'inativo'";
 
             System.out.println("SQL: " + sql);
 
             ResultSet resultadoQ = st.executeQuery(sql);
-            
-            if(resultadoQ.next()){
+
+            if (resultadoQ.next()) {
+                System.out.println("sql: " + Usuario.from(resultadoQ));
                 return Usuario.from(resultadoQ);
             }
 

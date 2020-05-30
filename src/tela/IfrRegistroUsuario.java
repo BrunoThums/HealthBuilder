@@ -7,9 +7,9 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import util.ConexaoBD;
 import util.Formatacao;
-import static util.Formatacao.removerFormatacao;
-import static util.Validacao.validarCPF;
 import static util.Validacao.validarDataFormatada;
+import static util.Verificacoes.veCPFVazio;
+import static util.Verificacoes.veDataVazia;
 import static util.Verificacoes.veVazioCB;
 import static util.Verificacoes.veVazioPass;
 import static util.Verificacoes.veVazioTF;
@@ -17,8 +17,9 @@ import static util.Verificacoes.verificaLetras;
 import static util.Verificacoes.verificaNumeros;
 
 public class IfrRegistroUsuario extends javax.swing.JDialog {
-    
+
     ConexaoBD c = ConexaoBD.getInstance();
+
     public IfrRegistroUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -155,6 +156,11 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
 
         cbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Masculino", "Feminino", "Prefiro não responder" }));
         cbSexo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sexo*", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        cbSexo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbSexoFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnPainelLayout = new javax.swing.GroupLayout(pnPainel);
         pnPainel.setLayout(pnPainelLayout);
@@ -257,21 +263,25 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
                 || veVazioPass(pfSenha2)
                 || veVazioCB(cbSexo))) {
             limpaAviso();
-            Usuario c = new Usuario();
-            c.nome = tfNome.getText();
-            c.sobrenome = tfSobrenome.getText();
-            c.dataNasc = tffDataNasc.getText();
-            c.sexo = cbSexo.getSelectedItem().toString();
-            c.cpf = tffCPF.getText();
-            c.email = tfEmail.getText();
-            c.login = tfLogin.getText();
-            c.senha = pfSenha.getPassword().toString();
-            c.pais = "";
-            c.estado = "";
-            c.cidade = "";
-            c.status = "ativo";
 
-            if (new UsuarioDAO().salvar(c)) {
+            Usuario usuario = new Usuario();
+            usuario.nome = tfNome.getText();
+            usuario.sobrenome = tfSobrenome.getText().trim();
+            String[] data = tffDataNasc.getText().trim().split("/"); // [dia, mes, ano]
+            usuario.dataNasc = java.sql.Date.valueOf(String.format("%s-%s-%s", data[2], data[1], data[0])); // ano-mes-dia
+            usuario.sexo = cbSexo.getSelectedItem().toString();
+            usuario.cpf = tffCPF.getText();
+            usuario.email = tfEmail.getText().trim();
+            usuario.login = tfLogin.getText().trim();
+            usuario.senha = String.valueOf(pfSenha.getPassword());// #NAO USE TOSTRING
+            usuario.pais = "";
+            usuario.estado = "";
+            usuario.cidade = "";
+            usuario.status = "ativo";
+
+            System.out.println(usuario);
+
+            if (new UsuarioDAO().salvar(usuario)) {
                 JOptionPane.showMessageDialog(rootPane, "O registro foi salvo com sucesso!");
                 dispose();
             } else {
@@ -284,6 +294,11 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void tffDataNascFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataNascFocusLost
+        if (!veDataVazia(tffDataNasc)) {
+            avisoVazio("Data de Nascimento");
+            System.out.println("data: " + tffDataNasc.getText());
+            return;
+        }
         if (tffDataNasc.getText().trim().length() == 10) {
             if (validarDataFormatada(tffDataNasc.getText())) {
                 tffDataNasc.setForeground(Color.BLUE);
@@ -296,19 +311,23 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
     }//GEN-LAST:event_tffDataNascFocusLost
 
     private void tffCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffCPFFocusLost
+        System.out.println("cpf vazio:" + tffCPF.getText() + "|");
+        if (!veCPFVazio(tffCPF)) {
+            avisoVazio("CPF");
+            return;
+        }
         if (tffCPF.getText().trim().length() == 14) {
-            if (validarCPF(removerFormatacao(tffCPF.getText()))) {
-                if ((c.pesquisaIgual("usuario", "cpf", tffCPF.getText()))) {
-                    tffCPF.setForeground(Color.BLUE);
-                    limpaAviso();
-                } else {
-                    tffCPF.setForeground(Color.RED);
-                    avisoIgual("CPF");
-                }
-            } else {
+            if (veVazioTF(tffCPF)) {
+                avisoVazio("CPF");
                 tffCPF.setForeground(Color.RED);
-                avisoIncorreto("CPF");
+                return;
+            } else if (c.pesquisaIgual("usuario", "cpf", tffCPF.getText())) {
+                avisoIgual("CPF");
+                tffCPF.setForeground(Color.RED);
+                return;
             }
+            tffCPF.setForeground(Color.blue);
+            limpaAviso();
         }
     }//GEN-LAST:event_tffCPFFocusLost
 
@@ -321,32 +340,32 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
         String confirmacao = String.valueOf(pfSenha2.getPassword());
         if (veVazioPass(pfSenha)) {
             avisoVazio("Senha");
+            return;
         } else if (!(veVazioPass(pfSenha2))) {
             if (!(senha.equals(confirmacao))) {
                 pfSenha.setForeground(Color.red);
                 lblAviso.setText("As senhas não coincidem! Preencha corretamente");
+                return;
             }
-        } else {
-            pfSenha.setForeground(Color.blue);
-            limpaAviso();
         }
+        pfSenha.setForeground(Color.blue);
+        limpaAviso();
 
     }//GEN-LAST:event_pfSenhaFocusLost
 
     private void pfSenha2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfSenha2FocusLost
         String senha = String.valueOf(pfSenha.getPassword());
         String confirmacao = String.valueOf(pfSenha2.getPassword());
-        if (veVazioPass(pfSenha)) {
+        if (veVazioPass(pfSenha2)) {
             avisoVazio("Senha");
         } else if (!(veVazioPass(pfSenha2))) {
             if (!(senha.equals(confirmacao))) {
                 pfSenha2.setForeground(Color.red);
                 lblAviso.setText("As senhas não coincidem! Preencha corretamente");
             }
-        } else {
-            pfSenha2.setForeground(Color.blue);
-            limpaAviso();
         }
+        pfSenha2.setForeground(Color.blue);
+        limpaAviso();
     }//GEN-LAST:event_pfSenha2FocusLost
 
     private void tfLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLoginFocusLost
@@ -356,7 +375,7 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
             return;
         }
 
-        if (c.pesquisaIgual("usuario", "login", tfLogin.getText()))  {
+        if (c.pesquisaIgual("usuario", "login", tfLogin.getText())) {
             avisoIgual("Login");
             tfLogin.setForeground(Color.RED);
             return;
@@ -369,14 +388,16 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
     private void tfEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEmailFocusLost
         if (veVazioTF(tfEmail)) {
             avisoVazio("Email");
+            tfLogin.setForeground(Color.RED);
+            return;
         } else {
-            if ((c.pesquisaIgual("usuario", "email", tfEmail.getText()))) {
-                tfEmail.setForeground(Color.blue);
-                limpaAviso();
-            } else {
-                tfEmail.setForeground(Color.red);
+            if (c.pesquisaIgual("usuario", "email", tfEmail.getText())) {
                 avisoIgual("Email");
+                tfLogin.setForeground(Color.RED);
+                return;
             }
+            tfEmail.setForeground(Color.blue);
+            limpaAviso();
         }
     }//GEN-LAST:event_tfEmailFocusLost
 
@@ -414,6 +435,12 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
         verificaNumeros(evt);
     }//GEN-LAST:event_tffCPFKeyTyped
 
+    private void cbSexoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbSexoFocusLost
+        if (veVazioCB(cbSexo)) {
+            avisoVazio("Sexo");
+        }
+    }//GEN-LAST:event_cbSexoFocusLost
+
     /**
      * Limpa o campo lblAviso
      *
@@ -442,14 +469,15 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
     private void avisoIncorreto(String campo) {
         lblAviso.setText("O campo " + campo + " está inválido. Preencha corretamente");
     }
-   
+
     /**
      * Coloca uma mensagem no campo lblAviso com o campo passado como parâmetro,
-     * informando que está igual a algum campo unico no banco de dados. Tais como CPF, EMAIL, LOGIN
+     * informando que está igual a algum campo unico no banco de dados. Tais
+     * como CPF, EMAIL, LOGIN
      *
      * @param campo
      */
-    private void avisoIgual(String dado){
+    private void avisoIgual(String dado) {
         lblAviso.setText("O " + dado + " já foi utilizado");
     }
 
@@ -479,7 +507,6 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
         }
         return temIgual;
     }*/
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnFechar;
     private javax.swing.JToggleButton btnRegistrar;

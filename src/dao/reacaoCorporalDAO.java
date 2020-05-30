@@ -20,7 +20,7 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
     public boolean salvar(ReacaoCorporal o) {
         String sql = "INSERT INTO reacaoCorporal VALUES("
                 + "default, "
-                + "'" + o.descricao + "')";
+                + "'" + o.nome + "')";
 
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
@@ -34,7 +34,7 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
     @Override
     public boolean atualizar(ReacaoCorporal o) {
         String sql = "UPDATE reacaoCorporal SET "
-                + "descricao='" + o.descricao + "',"
+                + "nome='" + o.nome + "',"
                 + "WHERE id= " + o.id;
 
         try {
@@ -48,19 +48,21 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
 
     @Override
     public boolean excluir(int id) {
-        /*String sql = "UPDATE reacaoCorporal SET status = 'inativo', WHERE id=" + id;
+        String sql = "UPDATE reacaoCorporal SET status = 'inativo', WHERE id=" + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(ReacaoCorporalDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
-        }*/return false;
+        }
     }
 
     @Override
     public ArrayList<ReacaoCorporal> consultarTodos() {
-        String sql = "SELECT * FROM reacaoCorporal";
+        // poderia ter usado um boolean, poderia, ma fz oq né
+        // ativo: true or false
+        String sql = "SELECT * FROM reacaoCorporal WHERE status <> 'inativo'";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<ReacaoCorporal> reacaoCorporal = new ArrayList<>();
@@ -118,14 +120,14 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
         // cabecalho da tabela
         Object[] cabecalho = new Object[2];
         cabecalho[0] = "Código";
-        cabecalho[1] = "Descrição";
+        cabecalho[1] = "Nome";
 
         // cria matriz de acordo com nº de registros da tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT count(*) "
                     + "FROM reacaoCorporal "
-                    + "WHERE DESCRICAO ILIKE '%" + criterio + "%'");
+                    + "WHERE nome ILIKE '%" + criterio + "%' AND status = 'ativo'");
 
             resultadoQ.next();
 
@@ -142,12 +144,12 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT * FROM "
                     + "reacaoCorporal WHERE "
-                    + "DESCRICAO ILIKE '%" + criterio + "%'");
+                    + "nome ILIKE '%" + criterio + "%' status = 'ativo'");
 
             while (resultadoQ.next()) {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
-                dadosTabela[lin][1] = resultadoQ.getString("descricao");
+                dadosTabela[lin][1] = resultadoQ.getString("nome");
                 lin++;
             }
         } catch (Exception e) {

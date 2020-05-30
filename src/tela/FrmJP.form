@@ -17,36 +17,36 @@
             <Property name="text" type="java.lang.String" value="Cadastros"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mniCadExe">
+            <MenuItem class="javax.swing.JMenuItem" name="mniExercicio">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exerc&#xed;cio"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniCadExeActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniExercicioActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mniCadAli">
+            <MenuItem class="javax.swing.JMenuItem" name="mniAlimento">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alimento"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniCadAliActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniAlimentoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mniCadCompra">
+            <MenuItem class="javax.swing.JMenuItem" name="mniCompra">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Compra"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniCadCompraActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniCompraActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mniCadMachucado">
+            <MenuItem class="javax.swing.JMenuItem" name="mniReacoesCorporais">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Rea&#xe7;&#xf5;es Corporais"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniCadMachucadoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniReacoesCorporaisActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -83,17 +83,17 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="desktopPainel" alignment="0" max="32767" attributes="0"/>
+          <Component id="pnHome" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="desktopPainel" alignment="0" max="32767" attributes="0"/>
+          <Component id="pnHome" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JDesktopPane" name="desktopPainel">
+    <Container class="javax.swing.JDesktopPane" name="pnHome">
 
       <Layout>
         <DimensionLayout dim="0">

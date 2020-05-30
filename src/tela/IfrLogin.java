@@ -4,22 +4,24 @@ import dao.UsuarioDAO;
 import entidade.Usuario;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 public final class IfrLogin extends javax.swing.JFrame {
+
     String login;
+
     public IfrLogin(java.awt.Frame parent, boolean modal) {
         initComponents();
         lembrarLogin();
+        this.setLocationRelativeTo(null);
+        
+        tfUsuario.setText("naoseiasenhA");
+        pfSenha.setText("naoseiasenhA");
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
         Painel = new javax.swing.JPanel();
         imagemHB = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
@@ -36,10 +38,12 @@ public final class IfrLogin extends javax.swing.JFrame {
         lblDica = new javax.swing.JLabel();
         cbxLembrar = new javax.swing.JCheckBox();
 
-        jScrollPane1.setViewportView(jEditorPane1);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("HealthBuilder - Login");
         setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setName("HealthBuilder - Login"); // NOI18N
+        setResizable(false);
 
         Painel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -58,10 +62,16 @@ public final class IfrLogin extends javax.swing.JFrame {
         lblUsuario.setText("Usuário");
 
         tfUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
+        tfUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfUsuarioActionPerformed(evt);
+            }
+        });
 
         lblSenha.setFont(new java.awt.Font("High Tower Text", 1, 18)); // NOI18N
         lblSenha.setText("Senha");
 
+        pfSenha.setText("naoseiasenhA");
         pfSenha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
 
         lblEsqueceuSenha.setFont(new java.awt.Font("High Tower Text", 1, 15)); // NOI18N
@@ -206,33 +216,26 @@ public final class IfrLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lblEsqueceuSenhaMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Usuario usuario = login(tfUsuario, pfSenha);
+        Usuario usuario = new UsuarioDAO().autenticar(
+                tfUsuario.getText().trim(),
+                String.valueOf(pfSenha.getPassword()));
         if (usuario != null) {
-            login = tfUsuario.getText();    
+            login = tfUsuario.getText();
             new FrmJP(usuario).setVisible(true);
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos!");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
-    
-    private void lembrarLogin(){
-        if(cbxLembrar.isEnabled()){
+
+    private void tfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfUsuarioActionPerformed
+
+    private void lembrarLogin() {
+        if (cbxLembrar.isEnabled()) {
             tfUsuario.setText(login);
         }
-    }
-    /**
-     * Efetua o login do usuario
-     * @param login
-     * @param senha
-     * @return 
-     */
-    private Usuario login(JTextField login, JPasswordField senha) {
-        Usuario logado = null;
-        System.out.println("login: "+login.getText());
-        System.out.println("senha: "+String.valueOf(senha.getPassword()));
-        logado = new UsuarioDAO().autenticar(login.getText(), String.valueOf(senha.getPassword()));
-        return logado;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
@@ -240,8 +243,6 @@ public final class IfrLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistro;
     private javax.swing.JCheckBox cbxLembrar;
     private javax.swing.JLabel imagemHB;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBemVindo;
     private javax.swing.JLabel lblDica;
     private javax.swing.JLabel lblEsqueceuSenha;

@@ -25,7 +25,7 @@ public class SaudeUsuario {
     public static SaudeUsuario from(ResultSet resultSet) throws SQLException {
         SaudeUsuario saude = new SaudeUsuario();
 
-        saude.id = resultSet.getInt("id");        
+        saude.id = resultSet.getInt("id");
         saude.idUsuario = resultSet.getInt("usuario_id");
         saude.intolerancia = resultSet.getString("intolerancia");
         saude.intolerancia1 = resultSet.getString("intolerancia1");
@@ -69,4 +69,3 @@ public class SaudeUsuario {
     }
 
 }
-

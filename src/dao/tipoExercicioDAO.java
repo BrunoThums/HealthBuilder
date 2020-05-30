@@ -13,9 +13,9 @@ import util.ConexaoBD;
 import util.IDAOT;
 
 public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
-    
+
     ResultSet resultadoQ = null;
-    
+
     @Override
     public boolean salvar(TipoExercicio o) {
         String sql = "INSERT INTO tipoExercicio VALUES("

@@ -6,9 +6,9 @@ import util.CombosDAO;
 import util.Formatacao;
 import util.Validacao;
 
-public class IfrRegAlimento extends javax.swing.JInternalFrame {
+public class IfrAlimento extends javax.swing.JInternalFrame {
 
-    public IfrRegAlimento() {
+    public IfrAlimento() {
         initComponents();
         Formatacao.formatarData((JFormattedTextField) tffData);
     }

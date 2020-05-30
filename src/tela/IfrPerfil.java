@@ -14,13 +14,16 @@ import util.Validacao;
 import util.Verificacoes;
 
 public class IfrPerfil extends javax.swing.JInternalFrame {
+
     SaudeUsuario s = new SaudeUsuario();
     Verificacoes v = new Verificacoes();
+
     public IfrPerfil() {
         initComponents();
         preencheUsuario();
         preencheSaude();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -462,7 +465,7 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(!(verificaDiferencaUsuario())){
+        if (!(verificaDiferencaUsuario())) {
             atualizaDiferencaUsuario();
             JOptionPane.showMessageDialog(rootPane, "Os dados foram atualizados!");
         } else {
@@ -503,7 +506,7 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfAlturaFocusLost
 
     private void btnSalvarSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarSaudeActionPerformed
-        if(!(verificaDiferencaSaude())){
+        if (!(verificaDiferencaSaude())) {
             atualizaDiferencaSaude();
             JOptionPane.showMessageDialog(rootPane, "Os dados foram atualizados!");
         } else {
@@ -570,12 +573,13 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     private void tfCoxasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCoxasKeyTyped
         v.verificaNumeros(evt);
     }//GEN-LAST:event_tfCoxasKeyTyped
-    
+
     /**
-     * calcula o RCQ (Risco Cintura Quadril) e imprime no campo "tfRCQ" o resultado do risco
+     * calcula o RCQ (Risco Cintura Quadril) e imprime no campo "tfRCQ" o
+     * resultado do risco
      */
     void calculaRQC() {
-        if ((!tfCintura.getText().isEmpty()) && (!tfQuadril.getText().isEmpty())){
+        if ((!tfCintura.getText().isEmpty()) && (!tfQuadril.getText().isEmpty())) {
             double rqc = 0;
             int cint = Integer.parseInt(tfCintura.getText());
             int quad = Integer.parseInt(tfQuadril.getText());
@@ -636,9 +640,11 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     }
 
     /**
-     * Faz a troca do texto do componente "tfStatusImc" e pinta o texto conforme perigo
+     * Faz a troca do texto do componente "tfStatusImc" e pinta o texto conforme
+     * perigo
+     *
      * @param texto
-     * @param perigo 
+     * @param perigo
      */
     void ts(String texto, int perigo) {
         Color cor = null;
@@ -665,11 +671,12 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tfStatusImc.setForeground(cor);
     }
 
-
     /**
-     * Faz a troca do texto do componente "tfRCQ" e pinta o texto conforme perigo
+     * Faz a troca do texto do componente "tfRCQ" e pinta o texto conforme
+     * perigo
+     *
      * @param texto
-     * @param perigo 
+     * @param perigo
      */
     void tr(String texto, int perigo) {
         Color cor = null;
@@ -689,8 +696,8 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tfRCQ.setText(texto);
         tfRCQ.setForeground(cor);
     }
-    
-    private void preencheUsuario(){
+
+    private void preencheUsuario() {
         Integer id = FrmJP.usuario.id;
         pT(tffIDUser, id.toString());
         pT(tfNome, FrmJP.usuario.nome);
@@ -698,19 +705,20 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         cbSexo.setSelectedItem(FrmJP.usuario.sexo);
         pT(tffCPF, FrmJP.usuario.cpf);
         pT(tfEmail, FrmJP.usuario.email);
-        pT(tffDataNasc, FrmJP.usuario.dataNasc);
+        pT(tffDataNasc, FrmJP.usuario.dataNasc.toString());
         pT(tfPais, FrmJP.usuario.pais);
         pT(tfEstado, FrmJP.usuario.estado);
         pT(tfCidade, FrmJP.usuario.cidade);
         pT(tfLogin, FrmJP.usuario.login);
         pT(pfSenha, FrmJP.usuario.senha);
     }
-    
+
     /**
      * Coloca todos valores do Usuario da tela em um array
-     * @return 
+     *
+     * @return
      */
-    private ArrayList getUsuarioPreenchido(){
+    private ArrayList getUsuarioPreenchido() {
         ArrayList z = new ArrayList();
         z.add(tfNome.getText());
         z.add(tfSobrenome.getText());
@@ -723,12 +731,13 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         z.add(tfLogin.getText());
         return z;
     }
-    
+
     /**
      * Coloca todos valores do Usuario do Banco de Dados em um array
-     * @return 
+     *
+     * @return
      */
-    private ArrayList getUsuarioBD(){
+    private ArrayList getUsuarioBD() {
         ArrayList z = new ArrayList();
         z.add(FrmJP.usuario.nome);//1
         z.add(FrmJP.usuario.sobrenome);//2
@@ -741,13 +750,14 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         z.add(FrmJP.usuario.login);//9
         return z;
     }
-    
+
     /**
      * Verifica a diferença entre os dois arraylists
+     *
      * @param a
-     * @param b 
+     * @param b
      */
-        /*nome//1
+    /*nome//1
         sobrenome//2
         sexo//3
         email//4
@@ -756,19 +766,19 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         estado//7
         cidad;//8
         login//9*/
-    private boolean verificaDiferencaUsuario(){
+    private boolean verificaDiferencaUsuario() {
         ArrayList a = getUsuarioBD();
         ArrayList b = getUsuarioPreenchido();
         boolean ok = true;
         for (int i = 0; i < a.size(); i++) {
-            if(! (a.get(i).equals(b.get(i)) ) ){
+            if (!(a.get(i).equals(b.get(i)))) {
                 ok = false;
                 return false;
             }
         }
         return ok;
     }
-    
+
     /**
      * Atualiza os dados com o banco de dados
      */
@@ -808,9 +818,9 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
             }
         }
     }
-    
-    private void preencheSaude(){
-        pT(tfIntolerancia1, s.intolerancia );//1
+
+    private void preencheSaude() {
+        pT(tfIntolerancia1, s.intolerancia);//1
         pT(tfIntolerancia2, s.intolerancia1);//2
         cbMetabolismo.setSelectedItem(s.metabolismo);//3
         pT(tfAlergia1, s.alergia);//4
@@ -825,8 +835,8 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         pT(tfBusto, s.busto);//13
         pT(tfCoxas, s.coxa);//14
     }
-    
-    private ArrayList getSaudePreenchida(){
+
+    private ArrayList getSaudePreenchida() {
         ArrayList z = new ArrayList();
         z.add(tfIntolerancia1.getText());//1
         z.add(tfIntolerancia2.getText());//2
@@ -844,7 +854,8 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         z.add(tfCoxas.getText());//14
         return z;
     }
-    private ArrayList getSaudeBD(){
+
+    private ArrayList getSaudeBD() {
         ArrayList z = new ArrayList();
         z.add(s.intolerancia);//1
         z.add(s.intolerancia1);//2
@@ -862,13 +873,14 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         z.add(s.coxa);//14
         return z;
     }
-    
+
     /**
      * Verifica a diferença entre os dois arraylists
+     *
      * @param a
-     * @param b 
+     * @param b
      */
-        /*intolerancia//1
+    /*intolerancia//1
         intolerancia1//2
         metabolismo//3
         alergia//4
@@ -949,15 +961,17 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
             }
         }
     }
+
     /**
      * Preenche um JTextField com um TXT
+     *
      * @param a
-     * @param txt 
+     * @param txt
      */
-    private void pT(JTextField tfCampo, String txt){
+    private void pT(JTextField tfCampo, String txt) {
         tfCampo.setText(txt);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnFechar;
     private javax.swing.JToggleButton btnFecharSaude;
