@@ -1,7 +1,5 @@
 package healthybuilder;
 
-import dao.UsuarioDAO;
-import entidade.Usuario;
 import java.awt.Frame;
 import java.net.URL;
 import java.sql.SQLException;

@@ -8,6 +8,7 @@ public class Exercicio {
     public Integer id;
     public String data;
     public String tipoExercicio; //nome
+    public String subTipo;
     public String reacaoCorporal; //nome
     public String tempo;
     public String intensidade;
@@ -19,7 +20,8 @@ public class Exercicio {
 
         exe.id = resultSet.getInt("id");
         exe.data = resultSet.getString("data");
-        exe.tipoExercicio = resultSet.getString("tipoExercicio_nome");
+        exe.tipoExercicio = resultSet.getString("tipoExercicio_nome"); 
+        exe.subTipo = resultSet.getString("tipoExercicio_subTipo");
         exe.reacaoCorporal = resultSet.getString("reacaoCorporal_nome");
         exe.tempo = resultSet.getString("tempo");
         exe.intensidade = resultSet.getString("intensidade");
@@ -34,6 +36,7 @@ public class Exercicio {
         sb.append("exercicio{id=").append(id);
         sb.append(", data=").append(data);
         sb.append(", tipoExercicio_nome=").append(tipoExercicio);
+        sb.append(", tipoExercicio_subTipo=").append(subTipo);
         sb.append(", reacaoCorporal_nome=").append(reacaoCorporal);
         sb.append(", tempo=").append(tempo);
         sb.append(", intensidade=").append(intensidade);

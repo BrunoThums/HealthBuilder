@@ -1,10 +1,7 @@
 package tela;
 
-import dao.ApresentacaoDAO;
-import entidade.Apresentacao;
 import java.awt.Color;
 import javax.swing.BorderFactory;
-import javax.swing.JOptionPane;
 import javax.swing.border.BevelBorder;
 
 public class IfrApresentacao extends javax.swing.JInternalFrame {
@@ -392,13 +389,11 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
 
-        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
+        /*if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
 
             String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
 
             int idExclusao = Integer.parseInt(idString);
-
-            ApresentacaoDAO apDAO = new ApresentacaoDAO();
 
             if (apDAO.excluir(idExclusao)) {
                 JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
@@ -406,7 +401,7 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
             }
-        }
+        }*/
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -414,11 +409,8 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
 
         id = Integer.parseInt(idString);
 
-        ApresentacaoDAO apDAO = new ApresentacaoDAO();
 
-        Apresentacao apresentacao = apDAO.consultar(id);
-
-        if (apresentacao != null) {
+        //if (apresentacao != null) {
             // define os valores do obj nos campos da tela
             //tfdId.setText(String.valueOf(apresentacao.getId()));
             //tfdDescricao.setText(apresentacao.getDescricao());
@@ -428,11 +420,11 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
 
             // definir o foco
             //tfdDescricao.requestFocus();
-        }
+       // }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        new ApresentacaoDAO().popularTabela(tblResumo, tfBusca.getText());
+        //new ApresentacaoDAO().popularTabela(tblResumo, tfBusca.getText());
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnRegExerMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegExerMouseExited

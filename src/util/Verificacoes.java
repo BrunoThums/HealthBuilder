@@ -1,6 +1,5 @@
 package util;
 
-import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -10,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import static util.Formatacao.removerFormatacao;
+import static util.Validacao.validarCPF;
+import static util.Validacao.validarDataFormatada;
 
 public class Verificacoes {
 
@@ -20,11 +22,10 @@ public class Verificacoes {
      * @param txt
      * @return
      */
-    public static boolean veVazioTF(JTextField txt) {
+    public static boolean isVazioTF(JTextField txt) {
         boolean isVazio = false;
         if (txt.getText().isEmpty()) {
             isVazio = true;
-            //txt.setBackground(Color.red);
         }
         return isVazio;
     }
@@ -36,11 +37,10 @@ public class Verificacoes {
      * @param txt
      * @return
      */
-    public static boolean veVazioPass(JPasswordField txt) {
+    public static boolean isVazioPass(JPasswordField txt) {
         boolean isVazio = false;
         if (txt.getPassword().length == 0) {
             isVazio = true;
-            //txt.setBackground(Color.red);
         }
         return isVazio;
     }
@@ -51,13 +51,11 @@ public class Verificacoes {
      * @param cb
      * @return
      */
-    public static boolean veVazioCB(JComboBox cb) {
-        boolean isVazio = false;
+    public static boolean isVazioCB(JComboBox cb) {
         if (cb.getSelectedIndex() == 0) {
-            isVazio = true;
-            cb.setBackground(Color.red);
+            return true;
         }
-        return isVazio;
+        return false;
     }
 
     /**
@@ -66,25 +64,50 @@ public class Verificacoes {
      * @param email
      * @return
      */
-    public static boolean veEmail(String email) {
-        if (!email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
-            return false;
+    public static boolean isEmailValido(JTextField email) {
+        if (email.getText().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
+            return true;
         }
-        return true;
+        return false;
     }
+    
 
-    public static boolean veDataVazia(JFormattedTextField tff) {
+    public static boolean isDataVazia(JFormattedTextField tff) {
         if (tff.getText().equals("  /  /  ")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
-    public static boolean veCPFVazio(JFormattedTextField tff) {
+    public static boolean isCPFVazio(JFormattedTextField tff) {
         if (tff.getText().equals("   .   .   -  ")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    /**
+     * Verifica se a data é valida
+     *
+     * @param txt
+     * @return
+     */
+    public static boolean isDataValida(JFormattedTextField txt) {
+        if (txt.getText().trim().length() == 10) {
+            if (validarDataFormatada(txt.getText())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static boolean isCPFValido(JFormattedTextField txt){
+        if (txt.getText().trim().length() == 14) {
+            if (validarCPF(removerFormatacao(txt.getText()))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -176,7 +199,10 @@ public class Verificacoes {
         }
     }
 
-    public void colocaIcone(JLabel a, String file) {
-        a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/" + file)));
+    public static void verificaNomeComposto(java.awt.event.KeyEvent evt) {
+        String letras = "abcdefghijklmnopqrstuvwxyzáàãâéèêíìîóòõôúùûABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ ";
+        if (!(letras.contains(evt.getKeyChar() + ""))) {
+            evt.consume();
+        }
     }
 }

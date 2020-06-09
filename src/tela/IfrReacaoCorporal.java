@@ -2,15 +2,18 @@ package tela;
 
 import dao.ReacaoCorporalDAO;
 import entidade.ReacaoCorporal;
-import io.github.wesauis.gastei.view.component.TableDataModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import static util.Verificacoes.isVazioTF;
+import static util.Verificacoes.verificaNomeComposto;
+import util.TableDataModel;
 
 public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
 
     int id = 0;
-    
+    ReacaoCorporal rc = null;
+    ReacaoCorporalDAO dao = new ReacaoCorporalDAO();
     String filtro;
 
     public IfrReacaoCorporal() {
@@ -96,6 +99,11 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
         });
 
         tfReacaoCorporal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de Reação (ex: enjoo, dor corporal, enxaqueca)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfReacaoCorporal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfReacaoCorporalKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnRegRCLayout = new javax.swing.GroupLayout(pnRegRC);
         pnRegRC.setLayout(pnRegRCLayout);
@@ -124,7 +132,7 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
                 .addComponent(lblTituloRegRC)
                 .addGap(41, 41, 41)
                 .addComponent(tfReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                .addGap(217, 217, 217)
                 .addGroup(pnRegRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFecharRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -216,8 +224,8 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PainelDeRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
+                .addComponent(PainelDeRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnPesqRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -246,12 +254,10 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-
+        btnSalvarRegRC.setText("Atualizar");
         id = getValueAt(tblResumo.getSelectedRow()).id;
 
-        ReacaoCorporalDAO rcDAO = new ReacaoCorporalDAO();
-
-        ReacaoCorporal rc = rcDAO.consultar(id);
+        rc = dao.consultar(id);
 
         if (rc != null) {
             tfReacaoCorporal.setText(rc.nome);
@@ -286,21 +292,38 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFecharRegRCActionPerformed
 
     private void btnSalvarRegRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarRegRCActionPerformed
-        if (tfReacaoCorporal.getText().isEmpty()) {
+        if (isVazioTF(tfReacaoCorporal)) {
             JOptionPane.showInputDialog("Preencha todos os campos obrigatórios!");
         } else {
             ReacaoCorporal c = new ReacaoCorporal();
             c.nome = tfReacaoCorporal.getText();
-
-            if (new ReacaoCorporalDAO().salvar(c)) {
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                tfReacaoCorporal.setText("");
+            c.status = "ativo";
+            if (rc == null) {
+                Integer id = dao.salvar(c);
+                if (id != null) {
+                    c.id = id;
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    tfReacaoCorporal.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Problemas ao cadastrar!");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Problemas ao cadastrar!");
+                c.id = rc.id;
+                if (dao.atualizar(c)) {
+                    c.id = id;
+                    JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+                    tfReacaoCorporal.setText("");
+                    btnSalvarRegRC.setText("Salvar");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Problemas ao atualizar!");
+                }
             }
-
         }
     }//GEN-LAST:event_btnSalvarRegRCActionPerformed
+
+    private void tfReacaoCorporalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfReacaoCorporalKeyTyped
+        verificaNomeComposto(evt);
+    }//GEN-LAST:event_tfReacaoCorporalKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane PainelDeRolagem;

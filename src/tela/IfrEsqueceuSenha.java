@@ -20,7 +20,7 @@ public class IfrEsqueceuSenha extends javax.swing.JDialog {
         lblConfirmacaoIdent = new javax.swing.JLabel();
         tfUsuario = new javax.swing.JTextField();
         lblUsuario = new javax.swing.JLabel();
-        btnEnviar1 = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -55,12 +55,12 @@ public class IfrEsqueceuSenha extends javax.swing.JDialog {
         lblUsuario.setFont(new java.awt.Font("Lucida Calligraphy", 0, 14)); // NOI18N
         lblUsuario.setText("Usuário");
 
-        btnEnviar1.setFont(new java.awt.Font("Lucida Calligraphy", 0, 12)); // NOI18N
-        btnEnviar1.setText("Fechar");
-        btnEnviar1.setBorder(new javax.swing.border.MatteBorder(null));
-        btnEnviar1.addActionListener(new java.awt.event.ActionListener() {
+        btnFechar.setFont(new java.awt.Font("Lucida Calligraphy", 0, 12)); // NOI18N
+        btnFechar.setText("Fechar");
+        btnFechar.setBorder(new javax.swing.border.MatteBorder(null));
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviar1ActionPerformed(evt);
+                btnFecharActionPerformed(evt);
             }
         });
 
@@ -89,7 +89,7 @@ public class IfrEsqueceuSenha extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEnviar1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PainelLayout.setVerticalGroup(
@@ -110,7 +110,7 @@ public class IfrEsqueceuSenha extends javax.swing.JDialog {
                     .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEmail)
-                    .addComponent(btnEnviar1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
@@ -132,14 +132,14 @@ public class IfrEsqueceuSenha extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEnviarActionPerformed
 
-    private void btnEnviar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviar1ActionPerformed
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
-    }//GEN-LAST:event_btnEnviar1ActionPerformed
+    }//GEN-LAST:event_btnFecharActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
     private javax.swing.JButton btnEnviar;
-    private javax.swing.JButton btnEnviar1;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JLabel lblConfirmacaoIdent;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEsqueceuSenha;

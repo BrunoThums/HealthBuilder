@@ -1,27 +1,31 @@
 package tela;
 
-import dao.SaudeUsuarioDAO;
 import dao.UsuarioDAO;
-import entidade.SaudeUsuario;
-import entidade.Usuario;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import util.Formatacao;
-import util.Validacao;
+import util.ConexaoBD;
 import util.Verificacoes;
+import static util.Verificacoes.isDataValida;
+import static util.Verificacoes.isDataVazia;
+import static util.Verificacoes.isEmailValido;
+import static util.Verificacoes.isVazioCB;
+import static util.Verificacoes.isVazioTF;
+import static util.Verificacoes.verificaLetras;
+import static util.Verificacoes.verificaNomeComposto;
+import static util.Verificacoes.verificaNumeros;
 
 public class IfrPerfil extends javax.swing.JInternalFrame {
 
-    SaudeUsuario s = new SaudeUsuario();
+    ConexaoBD c = ConexaoBD.getInstance();
     Verificacoes v = new Verificacoes();
 
     public IfrPerfil() {
         initComponents();
         preencheUsuario();
-        preencheSaude();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -39,13 +43,11 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tffCPF = new javax.swing.JFormattedTextField();
         tfEmail = new javax.swing.JTextField();
         tfLogin = new javax.swing.JTextField();
-        pfSenha = new javax.swing.JPasswordField();
-        tfPais = new javax.swing.JTextField();
-        tfEstado = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JToggleButton();
         btnFechar = new javax.swing.JToggleButton();
         cbSexo = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        lblAviso = new javax.swing.JLabel();
+        cbEstado = new javax.swing.JComboBox<>();
         pnDadosSaude = new javax.swing.JPanel();
         cbMetabolismo = new javax.swing.JComboBox<>();
         tfAltura = new javax.swing.JTextField();
@@ -63,7 +65,9 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tfBusto = new javax.swing.JTextField();
         tfCoxas = new javax.swing.JTextField();
         btnSalvarSaude = new javax.swing.JToggleButton();
+        lblAvisoSaude = new javax.swing.JLabel();
         tffIDUser = new javax.swing.JFormattedTextField();
+        lblSenha = new javax.swing.JLabel();
 
         setTitle("Perfil");
 
@@ -76,6 +80,11 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         pnDadosCadastrais.setBackground(new java.awt.Color(255, 255, 255));
 
         tfNome.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nome", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfNomeFocusLost(evt);
+            }
+        });
         tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfNomeKeyTyped(evt);
@@ -90,6 +99,11 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         });
 
         tfSobrenome.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sobrenome", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfSobrenome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfSobrenomeFocusLost(evt);
+            }
+        });
         tfSobrenome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 tfSobrenomeKeyTyped(evt);
@@ -112,30 +126,18 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tffCPF.setEditable(false);
         tffCPF.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CPF", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
         tffCPF.setText(" ");
-        tffCPF.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tffCPFFocusLost(evt);
-            }
-        });
 
         tfEmail.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Email", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-
-        tfLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-
-        pfSenha.setEditable(false);
-        pfSenha.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Senha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-
-        tfPais.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "País", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-        tfPais.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfPaisKeyTyped(evt);
+        tfEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfEmailFocusLost(evt);
             }
         });
 
-        tfEstado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-        tfEstado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfEstadoKeyTyped(evt);
+        tfLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfLogin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfLoginFocusLost(evt);
             }
         });
 
@@ -157,50 +159,60 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
 
         cbSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Masculino", "Feminino", "Prefiro não responder" }));
         cbSexo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sexo", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        cbSexo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbSexoFocusLost(evt);
+            }
+        });
 
-        jLabel1.setText("TrocarSenha");
+        lblAviso.setFont(new java.awt.Font("Lucida Calligraphy", 0, 11)); // NOI18N
+        lblAviso.setForeground(new java.awt.Color(255, 0, 0));
+
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
+        cbEstado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estado", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        cbEstado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                cbEstadoFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnDadosCadastraisLayout = new javax.swing.GroupLayout(pnDadosCadastrais);
         pnDadosCadastrais.setLayout(pnDadosCadastraisLayout);
         pnDadosCadastraisLayout.setHorizontalGroup(
             pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap()
                 .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
-                        .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
+                                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(tfSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
+                                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
-                                .addComponent(tfPais, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosCadastraisLayout.createSequentialGroup()
-                                .addComponent(tffCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tffDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
-                        .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
-                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
-                                .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosCadastraisLayout.createSequentialGroup()
+                                .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
                                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(17, 17, 17))))
+                        .addGap(17, 20, Short.MAX_VALUE))
+                    .addGroup(pnDadosCadastraisLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(tffCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tffDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnDadosCadastraisLayout.setVerticalGroup(
             pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,21 +227,17 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
                     .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tffCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tffDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)))
-                .addGap(106, 106, 106)
-                .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAviso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -335,6 +343,9 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
             }
         });
 
+        lblAvisoSaude.setFont(new java.awt.Font("Lucida Calligraphy", 0, 11)); // NOI18N
+        lblAvisoSaude.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout pnDadosSaudeLayout = new javax.swing.GroupLayout(pnDadosSaude);
         pnDadosSaude.setLayout(pnDadosSaudeLayout);
         pnDadosSaudeLayout.setHorizontalGroup(
@@ -366,8 +377,10 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
                                 .addComponent(tfIntolerancia2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(cbMetabolismo, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(pnDadosSaudeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnDadosSaudeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(pnDadosSaudeLayout.createSequentialGroup()
+                            .addComponent(lblAvisoSaude, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(52, 52, 52)
                             .addComponent(btnFecharSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(btnSalvarSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -407,17 +420,22 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
                     .addComponent(tfRCQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(pnDadosSaudeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnDadosSaudeLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(pnDadosSaudeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfBusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCoxas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(84, 84, 84))
+                        .addGroup(pnDadosSaudeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnDadosSaudeLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(pnDadosSaudeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tfBusto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfCoxas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(43, 43, 43)
+                                .addComponent(lblAvisoSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosSaudeLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                                .addComponent(btnFecharSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnDadosSaudeLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnDadosSaudeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnFecharSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSalvarSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalvarSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         tbDados.addTab("Dados de Saúde", pnDadosSaude);
@@ -425,6 +443,21 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tffIDUser.setEditable(false);
         tffIDUser.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID User", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
         tffIDUser.setText(" ");
+
+        lblSenha.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pass.png"))); // NOI18N
+        lblSenha.setText("Trocar Senha");
+        lblSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSenhaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSenhaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSenhaMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnPerfilLayout = new javax.swing.GroupLayout(pnPerfil);
         pnPerfil.setLayout(pnPerfilLayout);
@@ -436,13 +469,17 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
                 .addComponent(tffIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(191, 191, 191))
+                .addGap(36, 36, 36)
+                .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnPerfilLayout.setVerticalGroup(
             pnPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnPerfilLayout.createSequentialGroup()
                 .addGroup(pnPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblPerfil)
+                    .addGroup(pnPerfilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblPerfil)
+                        .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(tffIDUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tbDados))
@@ -471,30 +508,25 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Não foi feita nenhuma alteração. Verifique se você alterou algum campo.");
         }
+        preencheUsuario();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
 
-    private void tffCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffCPFFocusLost
-        if (tffCPF.getText().trim().length() == 14) {
-            if (Validacao.validarCPF(Formatacao.removerFormatacao(tffCPF.getText()))) {
-                tffCPF.setForeground(Color.BLUE);
-            } else {
-                tffCPF.setForeground(Color.RED);
-            }
-        }
-    }//GEN-LAST:event_tffCPFFocusLost
-
     private void tffDataNascFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataNascFocusLost
-        if (tffDataNasc.getText().trim().length() == 10) {
-            if (Validacao.validarDataFormatada(tffDataNasc.getText())) {
-                tffDataNasc.setForeground(Color.BLUE);
-            } else {
-                tffDataNasc.setForeground(Color.RED);
-            }
+        if (isDataVazia(tffDataNasc)) { //VAZIO
+            avisoVazio("Data de Nascimento");
+            return;
         }
+        if (!(isDataValida(tffDataNasc))) {//INVALIDO
+            tffDataNasc.setForeground(Color.RED);
+            avisoIncorreto("Data");
+            return;
+        } //VALIDO
+        tffDataNasc.setForeground(Color.BLUE);
+        limpaAviso();
     }//GEN-LAST:event_tffDataNascFocusLost
 
     private void tfPesoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPesoFocusLost
@@ -506,12 +538,13 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfAlturaFocusLost
 
     private void btnSalvarSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarSaudeActionPerformed
-        if (!(verificaDiferencaSaude())) {
-            atualizaDiferencaSaude();
+        if (!(verificaDiferencaUsuario())) {
+            atualizaDiferencaUsuario();
             JOptionPane.showMessageDialog(rootPane, "Os dados foram atualizados!");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Não foi feita nenhuma alteração. Verifique se você alterou algum campo.");
         }
+        preencheUsuario();
     }//GEN-LAST:event_btnSalvarSaudeActionPerformed
 
     private void btnFecharSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharSaudeActionPerformed
@@ -527,52 +560,136 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfQuadrilFocusLost
 
     private void tfNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyTyped
-        v.verificaLetras(evt);
+        verificaLetras(evt);
     }//GEN-LAST:event_tfNomeKeyTyped
 
     private void tfSobrenomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSobrenomeKeyTyped
-        v.verificaLetras(evt);
+        verificaNomeComposto(evt);
     }//GEN-LAST:event_tfSobrenomeKeyTyped
 
-    private void tfPaisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPaisKeyTyped
-        v.verificaLetras(evt);
-    }//GEN-LAST:event_tfPaisKeyTyped
-
-    private void tfEstadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfEstadoKeyTyped
-        v.verificaLetras(evt);
-    }//GEN-LAST:event_tfEstadoKeyTyped
-
     private void tfCidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCidadeKeyTyped
-        v.verificaLetras(evt);
+        verificaNomeComposto(evt);
     }//GEN-LAST:event_tfCidadeKeyTyped
 
     private void tffDataNascKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataNascKeyTyped
-        v.verificaNumeros(evt);
+        verificaNumeros(evt);
     }//GEN-LAST:event_tffDataNascKeyTyped
 
     private void tfPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesoKeyTyped
-        v.verificaNumeros(evt);
+        verificaNumeros(evt);
     }//GEN-LAST:event_tfPesoKeyTyped
 
     private void tfAlturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfAlturaKeyTyped
-        v.verificaNumeros(evt);
+        verificaNumeros(evt);
     }//GEN-LAST:event_tfAlturaKeyTyped
 
     private void tfCinturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCinturaKeyTyped
-        v.verificaNumeros(evt);
+        verificaNumeros(evt);
     }//GEN-LAST:event_tfCinturaKeyTyped
 
     private void tfQuadrilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfQuadrilKeyTyped
-        v.verificaNumeros(evt);
+        verificaNumeros(evt);
     }//GEN-LAST:event_tfQuadrilKeyTyped
 
     private void tfBustoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBustoKeyTyped
-        v.verificaNumeros(evt);
+        verificaNumeros(evt);
     }//GEN-LAST:event_tfBustoKeyTyped
 
     private void tfCoxasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCoxasKeyTyped
-        v.verificaNumeros(evt);
+        verificaNumeros(evt);
     }//GEN-LAST:event_tfCoxasKeyTyped
+
+    private void tfNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfNomeFocusLost
+        if (isVazioTF(tfNome)) {
+            avisoVazio("Nome");
+            return;
+        }
+        limpaAviso();
+    }//GEN-LAST:event_tfNomeFocusLost
+
+    private void tfSobrenomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfSobrenomeFocusLost
+        if (isVazioTF(tfSobrenome)) {
+            avisoVazio("Sobrenome");
+            return;
+        }
+        limpaAviso();
+    }//GEN-LAST:event_tfSobrenomeFocusLost
+
+    private void cbSexoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbSexoFocusLost
+        if (isVazioCB(cbSexo)) {
+            avisoVazio("Sexo");
+            return;
+        }
+        limpaAviso();
+    }//GEN-LAST:event_cbSexoFocusLost
+
+    private void tfEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfEmailFocusLost
+        if (isVazioTF(tfEmail)) {//VAZIO
+            avisoVazio("Email");
+            tfEmail.setForeground(Color.RED);
+            return;
+        }
+        if (isEmailValido(tfEmail)) {//VALIDO
+            if ((c.existeNoBancoDeDados("usuario", FrmJP.usuario.id, "id", "email", tfEmail.getText()))) {//UNICO
+                tfEmail.setForeground(Color.blue);
+                limpaAviso();
+                return;
+            } else if (!(c.existeNoBancoDeDados("usuario", "email", tfEmail.getText()))) {//UNICO
+                tfEmail.setForeground(Color.blue);
+                limpaAviso();
+                return;
+            }
+            avisoIgual("Email");
+            tfEmail.setForeground(Color.RED);
+            return;
+        }//INVALIDO
+        avisoIncorreto("Email");
+        tfEmail.setForeground(Color.RED);
+    }//GEN-LAST:event_tfEmailFocusLost
+
+    private void cbEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbEstadoFocusLost
+        if (isVazioCB(cbEstado)) {//VAZIO
+            avisoVazio("Estado");
+            return;
+        }
+        limpaAviso();
+    }//GEN-LAST:event_cbEstadoFocusLost
+
+    private void tfLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLoginFocusLost
+        if (isVazioTF(tfLogin)) {//VAZIO
+            avisoVazio("Login");
+            tfLogin.setForeground(Color.RED);
+            return;
+        }
+        if (isEmailValido(tfLogin)) {//VALIDO
+            if ((c.existeNoBancoDeDados("usuario", FrmJP.usuario.id, "id", "login", tfLogin.getText()))) {//UNICO
+                tfLogin.setForeground(Color.blue);
+                limpaAviso();
+                return;
+            } else if (!(c.existeNoBancoDeDados("usuario", "login", tfLogin.getText()))) {//UNICO
+                tfLogin.setForeground(Color.blue);
+                limpaAviso();
+                return;
+            }
+            avisoIgual("Login");
+            tfLogin.setForeground(Color.RED);
+            return;
+        }//INVALIDO
+        avisoIncorreto("Login");
+        tfLogin.setForeground(Color.RED);
+    }//GEN-LAST:event_tfLoginFocusLost
+
+    private void lblSenhaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSenhaMouseEntered
+        colocaIcone(lblSenha, "passChange");
+    }//GEN-LAST:event_lblSenhaMouseEntered
+
+    private void lblSenhaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSenhaMouseExited
+        colocaIcone(lblSenha, "pass");
+    }//GEN-LAST:event_lblSenhaMouseExited
+
+    private void lblSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSenhaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblSenhaMouseClicked
 
     /**
      * calcula o RCQ (Risco Cintura Quadril) e imprime no campo "tfRCQ" o
@@ -580,10 +697,9 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
      */
     void calculaRQC() {
         if ((!tfCintura.getText().isEmpty()) && (!tfQuadril.getText().isEmpty())) {
-            double rqc = 0;
             int cint = Integer.parseInt(tfCintura.getText());
             int quad = Integer.parseInt(tfQuadril.getText());
-            rqc = cint / quad;
+            double rqc = cint / quad;
             if (cbSexo.getSelectedItem() == "Masculino") { //se for homem
                 if (rqc < 0.95) {
                     tr("Risco Baixo", 0);
@@ -609,11 +725,13 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
      */
     void calculaIMC() {
         if ((!tfAltura.getText().isEmpty()) && (!tfPeso.getText().isEmpty())) {
-            double imc = 0;
-            int alt = Integer.parseInt(tfAltura.getText());
-            int peso = Integer.parseInt(tfPeso.getText());
-            imc = peso / (alt * alt);
-            tfIMC.setText(String.valueOf(imc));
+            double alt = Integer.parseInt(tfAltura.getText()) / 100d;
+            double peso = Integer.parseInt(tfPeso.getText());
+            double imc = peso / (alt * alt);
+            System.out.println("alt = " + alt + "\npeso = " + peso + "\nimc = " + imc);
+            System.out.println("imc = " + (peso / ((alt * alt) / 100)));
+            tfIMC.setText(String.format("%.2f", imc));
+            System.out.println("imc em string = " + String.valueOf(imc));
             if (imc < 17) {
                 ts("Muito abaixo do peso", 2);
                 return;
@@ -650,20 +768,20 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         Color cor = null;
         switch (perigo) {
             case 0:
-                cor = Color.GREEN;
-                return;
+                cor = new Color(0, 100, 0);
+                break;
             case 1:
                 cor = Color.RED.darker().darker();
-                return;
+                break;
             case 2:
                 cor = Color.RED.darker();
-                return;
+                break;
             case 3:
                 cor = Color.RED;
-                return;
+                break;
             case 4:
                 cor = Color.RED.brighter();
-                return;
+                break;
             default:
                 break;
         }
@@ -683,13 +801,13 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         switch (perigo) {
             case 0:
                 cor = Color.GREEN;
-                return;
+                break;
             case 1:
                 cor = Color.RED.darker();
-                return;
+                break;
             case 2:
                 cor = Color.RED;
-                return;
+                break;
             default:
                 break;
         }
@@ -699,18 +817,31 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
 
     private void preencheUsuario() {
         Integer id = FrmJP.usuario.id;
-        pT(tffIDUser, id.toString());
-        pT(tfNome, FrmJP.usuario.nome);
-        pT(tfSobrenome, FrmJP.usuario.sobrenome);
-        cbSexo.setSelectedItem(FrmJP.usuario.sexo);
-        pT(tffCPF, FrmJP.usuario.cpf);
-        pT(tfEmail, FrmJP.usuario.email);
-        pT(tffDataNasc, FrmJP.usuario.dataNasc.toString());
-        pT(tfPais, FrmJP.usuario.pais);
-        pT(tfEstado, FrmJP.usuario.estado);
-        pT(tfCidade, FrmJP.usuario.cidade);
-        pT(tfLogin, FrmJP.usuario.login);
-        pT(pfSenha, FrmJP.usuario.senha);
+        pT(tffIDUser, id.toString());//1
+        pT(tfNome, FrmJP.usuario.nome);//2
+        pT(tfSobrenome, FrmJP.usuario.sobrenome);//3
+        pT(tffDataNasc, FrmJP.usuario.dataNasc.toString());//4
+        cbSexo.setSelectedItem(FrmJP.usuario.sexo);//5
+        pT(tffCPF, FrmJP.usuario.cpf);//6
+        pT(tfEmail, FrmJP.usuario.email);//7
+        pT(tfLogin, FrmJP.usuario.login);//8
+        cbEstado.setSelectedItem(FrmJP.usuario.estado);//10
+        pT(tfCidade, FrmJP.usuario.cidade);//11
+        //status
+        pT(tfIntolerancia1, FrmJP.usuario.intolerancia);//12
+        pT(tfIntolerancia2, FrmJP.usuario.intolerancia1);//13
+        cbMetabolismo.setSelectedItem(FrmJP.usuario.metabolismo);//14
+        pT(tfAlergia1, FrmJP.usuario.alergia);//15
+        pT(tfAlergia2, FrmJP.usuario.alergia1);//16
+        pT(tfPeso, FrmJP.usuario.peso.toString());//17
+        pT(tfAltura, FrmJP.usuario.altura.toString());//18
+        pT(tfIMC, FrmJP.usuario.imc.toString());//19
+        pT(tfStatusImc, FrmJP.usuario.statusimc);//20
+        pT(tfCintura, FrmJP.usuario.cintura.toString());//21
+        pT(tfQuadril, FrmJP.usuario.quadril.toString());//22
+        pT(tfRCQ, FrmJP.usuario.statusrcq.toString());//23
+        pT(tfBusto, FrmJP.usuario.busto.toString());//24
+        pT(tfCoxas, FrmJP.usuario.coxa.toString());//25
     }
 
     /**
@@ -720,15 +851,31 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
      */
     private ArrayList getUsuarioPreenchido() {
         ArrayList z = new ArrayList();
-        z.add(tfNome.getText());
-        z.add(tfSobrenome.getText());
-        z.add(cbSexo.getSelectedItem());
-        z.add(tfEmail.getText());
-        z.add(tffDataNasc.getText());
-        z.add(tfPais.getText());
-        z.add(tfEstado.getText());
-        z.add(tfCidade.getText());
-        z.add(tfLogin.getText());
+        z.add(tfNome.getText());//1
+        z.add(tfSobrenome.getText());//2
+        z.add(tffDataNasc.getText());//3
+        z.add(cbSexo.getSelectedItem());//4
+        //cpf
+        z.add(tfEmail.getText());//5
+        z.add(tfLogin.getText());//6
+        //senha
+        z.add(cbEstado.getSelectedItem());//7
+        z.add(tfCidade.getText());//8
+        //status
+        z.add(tfIntolerancia1.getText());//9
+        z.add(tfIntolerancia2.getText());//10
+        z.add(cbMetabolismo.getSelectedItem());//11
+        z.add(tfAlergia1.getText());//12
+        z.add(tfAlergia2.getText());//13
+        z.add(tfStatusImc.getText());//14
+        z.add(tfPeso.getText());//15
+        z.add(tfAltura.getText());//16
+        z.add(tfIMC.getText());//17
+        z.add(tfCintura.getText());//18
+        z.add(tfQuadril.getText());//19
+        z.add(tfRCQ.getText());//20
+        z.add(tfBusto.getText());//21
+        z.add(tfCoxas.getText());//22
         return z;
     }
 
@@ -741,13 +888,29 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         ArrayList z = new ArrayList();
         z.add(FrmJP.usuario.nome);//1
         z.add(FrmJP.usuario.sobrenome);//2
-        z.add(FrmJP.usuario.sexo);//3
-        z.add(FrmJP.usuario.email);//4
-        z.add(FrmJP.usuario.dataNasc);//5
-        z.add(FrmJP.usuario.pais);//6
+        z.add(FrmJP.usuario.dataNasc);//3
+        z.add(FrmJP.usuario.sexo);//4
+        //cpf
+        z.add(FrmJP.usuario.email);//5
+        z.add(FrmJP.usuario.login);//6
+        //senha
         z.add(FrmJP.usuario.estado);//7
         z.add(FrmJP.usuario.cidade);//8
-        z.add(FrmJP.usuario.login);//9
+        //status
+        z.add(FrmJP.usuario.intolerancia);//9
+        z.add(FrmJP.usuario.intolerancia1);//10
+        z.add(FrmJP.usuario.metabolismo);//11
+        z.add(FrmJP.usuario.alergia);//12
+        z.add(FrmJP.usuario.alergia1);//13
+        z.add(FrmJP.usuario.statusimc);//14
+        z.add(FrmJP.usuario.peso);//15
+        z.add(FrmJP.usuario.altura);//16
+        z.add(FrmJP.usuario.imc);//17
+        z.add(FrmJP.usuario.cintura);//18
+        z.add(FrmJP.usuario.quadril);//19
+        z.add(FrmJP.usuario.statusrcq);//20
+        z.add(FrmJP.usuario.busto);//21
+        z.add(FrmJP.usuario.coxa);//22
         return z;
     }
 
@@ -788,11 +951,14 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         int id = FrmJP.usuario.id;
         for (int i = 0; i < b.size(); i++) {
             switch (i) {
-                case 1:
+                case 0:
                     user.atualizarParam(id, "nome", (String) b.get(i));
                     break;
-                case 2:
+                case 1:
                     user.atualizarParam(id, "sobrenome", (String) b.get(i));
+                    break;
+                case 2:
+                    user.atualizarParam(id, "dataNasc", (String) b.get(i));
                     break;
                 case 3:
                     user.atualizarParam(id, "sexo", (String) b.get(i));
@@ -801,162 +967,55 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
                     user.atualizarParam(id, "email", (String) b.get(i));
                     break;
                 case 5:
-                    user.atualizarParam(id, "dataNasc", (String) b.get(i));
-                    break;
-                case 6:
-                    user.atualizarParam(id, "pais", (String) b.get(i));
-                    break;
-                case 7:
-                    user.atualizarParam(id, "estado", (String) b.get(i));
-                    break;
-                case 8:
-                    user.atualizarParam(id, "cidade", (String) b.get(i));
-                    break;
-                case 9:
                     user.atualizarParam(id, "login", (String) b.get(i));
                     break;
-            }
-        }
-    }
-
-    private void preencheSaude() {
-        pT(tfIntolerancia1, s.intolerancia);//1
-        pT(tfIntolerancia2, s.intolerancia1);//2
-        cbMetabolismo.setSelectedItem(s.metabolismo);//3
-        pT(tfAlergia1, s.alergia);//4
-        pT(tfAlergia2, s.alergia1);//5
-        pT(tfStatusImc, s.statusimc);//6
-        pT(tfPeso, s.peso);//7
-        pT(tfAltura, s.altura);//8
-        pT(tfIMC, s.imc);//9
-        pT(tfCintura, s.cintura);//10
-        pT(tfQuadril, s.quadril);//11
-        pT(tfRCQ, s.statusrcq);//12
-        pT(tfBusto, s.busto);//13
-        pT(tfCoxas, s.coxa);//14
-    }
-
-    private ArrayList getSaudePreenchida() {
-        ArrayList z = new ArrayList();
-        z.add(tfIntolerancia1.getText());//1
-        z.add(tfIntolerancia2.getText());//2
-        z.add(cbMetabolismo.getSelectedItem());//3
-        z.add(tfAlergia1.getText());//4
-        z.add(tfAlergia2.getText());//5
-        z.add(tfStatusImc.getText());//6
-        z.add(tfPeso.getText());//7
-        z.add(tfAltura.getText());//8
-        z.add(tfIMC.getText());//9
-        z.add(tfCintura.getText());//10
-        z.add(tfQuadril.getText());//11
-        z.add(tfRCQ.getText());//12
-        z.add(tfBusto.getText());//13
-        z.add(tfCoxas.getText());//14
-        return z;
-    }
-
-    private ArrayList getSaudeBD() {
-        ArrayList z = new ArrayList();
-        z.add(s.intolerancia);//1
-        z.add(s.intolerancia1);//2
-        z.add(s.metabolismo);//3
-        z.add(s.alergia);//4
-        z.add(s.alergia1);//5
-        z.add(s.statusimc);//6
-        z.add(s.peso);//7
-        z.add(s.altura);//8
-        z.add(s.imc);//9
-        z.add(s.cintura);//10
-        z.add(s.quadril);//11
-        z.add(s.statusrcq);//12
-        z.add(s.busto);//13
-        z.add(s.coxa);//14
-        return z;
-    }
-
-    /**
-     * Verifica a diferença entre os dois arraylists
-     *
-     * @param a
-     * @param b
-     */
-    /*intolerancia//1
-        intolerancia1//2
-        metabolismo//3
-        alergia//4
-        alergia1//5
-        statusimc//6
-        peso//7
-        altura//8
-        imc//9
-        cintura//10
-        quadril//11
-        statusrcq//12
-        busto//13
-        coxa//14*/
-    private boolean verificaDiferencaSaude() {
-        ArrayList a = getSaudeBD();
-        ArrayList b = getSaudePreenchida();
-        boolean ok = true;
-        for (int i = 0; i < a.size(); i++) {
-            if (!(a.get(i).equals(b.get(i)))) {
-                ok = false;
-                return false;
-            }
-        }
-        return ok;
-    }
-
-    /**
-     * Atualiza os dados com o banco de dados
-     */
-    private void atualizaDiferencaSaude() {
-        ArrayList b = getSaudePreenchida();
-        SaudeUsuarioDAO saude = new SaudeUsuarioDAO();
-        int id = FrmJP.usuario.id;
-        for (int i = 0; i < b.size(); i++) {
-            switch (i) {
-                case 1:
-                    saude.atualizarParam(id, "intolerancia", (String) b.get(i));
-                    break;
-                case 2:
-                    saude.atualizarParam(id, "intolerancia1", (String) b.get(i));
-                    break;
-                case 3:
-                    saude.atualizarParam(id, "metabolismo", (String) b.get(i));
-                    break;
-                case 4:
-                    saude.atualizarParam(id, "alergia", (String) b.get(i));
-                    break;
-                case 5:
-                    saude.atualizarParam(id, "alergia1", (String) b.get(i));
-                    break;
                 case 6:
-                    saude.atualizarParam(id, "statusimc", (String) b.get(i));
+                    user.atualizarParam(id, "estado", (String) b.get(i));
                     break;
                 case 7:
-                    saude.atualizarParam(id, "peso", (String) b.get(i));
+                    user.atualizarParam(id, "cidade", (String) b.get(i));
                     break;
                 case 8:
-                    saude.atualizarParam(id, "altura", (String) b.get(i));
+                    user.atualizarParam(id, "intolerancia", (String) b.get(i));
                     break;
                 case 9:
-                    saude.atualizarParam(id, "imc", (String) b.get(i));
+                    user.atualizarParam(id, "intolerancia1", (String) b.get(i));
                     break;
                 case 10:
-                    saude.atualizarParam(id, "cintura", (String) b.get(i));
+                    user.atualizarParam(id, "metabolismo", (String) b.get(i));
                     break;
                 case 11:
-                    saude.atualizarParam(id, "quadril", (String) b.get(i));
+                    user.atualizarParam(id, "alergia", (String) b.get(i));
                     break;
                 case 12:
-                    saude.atualizarParam(id, "statusrcq", (String) b.get(i));
+                    user.atualizarParam(id, "alergia1", (String) b.get(i));
                     break;
                 case 13:
-                    saude.atualizarParam(id, "busto", (String) b.get(i));
+                    user.atualizarParam(id, "statusimc", (String) b.get(i));
                     break;
                 case 14:
-                    saude.atualizarParam(id, "coxa", (String) b.get(i));
+                    user.atualizarParam(id, "peso", (String) b.get(i));
+                    break;
+                case 15:
+                    user.atualizarParam(id, "altura", (String) b.get(i));
+                    break;
+                case 16:
+                    user.atualizarParam(id, "imc", (String) b.get(i));
+                    break;
+                case 17:
+                    user.atualizarParam(id, "cintura", (String) b.get(i));
+                    break;
+                case 18:
+                    user.atualizarParam(id, "quadril", (String) b.get(i));
+                    break;
+                case 19:
+                    user.atualizarParam(id, "statusrcq", (String) b.get(i));
+                    break;
+                case 20:
+                    user.atualizarParam(id, "busto", (String) b.get(i));
+                    break;
+                case 21:
+                    user.atualizarParam(id, "coxa", (String) b.get(i));
                     break;
             }
         }
@@ -972,16 +1031,62 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tfCampo.setText(txt);
     }
 
+    /**
+     * Coloca uma mensagem no campo lblAviso com o campo passado como parâmetro,
+     * informando que não pode ser nulo
+     *
+     * @param campo
+     */
+    private void avisoVazio(String campo) {
+        lblAviso.setText("O campo " + campo + " não pode ser vazio. Preencha-o");
+    }
+
+    /**
+     * Coloca uma mensagem no campo lblAviso com o campo passado como parâmetro,
+     * informando que está incorreto
+     *
+     * @param campo
+     */
+    private void avisoIncorreto(String campo) {
+        lblAviso.setText("O campo " + campo + " está inválido. Preencha corretamente");
+    }
+
+    /**
+     * Coloca uma mensagem no campo lblAviso com o campo passado como parâmetro,
+     * informando que está igual a algum campo unico no banco de dados. Tais
+     * como CPF, EMAIL, LOGIN
+     *
+     * @param campo
+     */
+    private void avisoIgual(String dado) {
+        lblAviso.setText("O " + dado + " já foi utilizado");
+    }
+
+    /**
+     * Limpa o campo lblAviso
+     *
+     * @param campo
+     */
+    private void limpaAviso() {
+        lblAviso.setText("");
+    }
+
+    public void colocaIcone(JLabel a, String file) {
+        a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/" + file + ".png")));
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnFechar;
     private javax.swing.JToggleButton btnFecharSaude;
     private javax.swing.JToggleButton btnSalvar;
     private javax.swing.JToggleButton btnSalvarSaude;
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JComboBox<String> cbMetabolismo;
     private javax.swing.JComboBox<String> cbSexo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblAviso;
+    private javax.swing.JLabel lblAvisoSaude;
     private javax.swing.JLabel lblPerfil;
-    private javax.swing.JPasswordField pfSenha;
+    private javax.swing.JLabel lblSenha;
     private javax.swing.JPanel pnDadosCadastrais;
     private javax.swing.JPanel pnDadosSaude;
     private javax.swing.JPanel pnPerfil;
@@ -994,13 +1099,11 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfCintura;
     private javax.swing.JTextField tfCoxas;
     private javax.swing.JTextField tfEmail;
-    private javax.swing.JTextField tfEstado;
     private javax.swing.JTextField tfIMC;
     private javax.swing.JTextField tfIntolerancia1;
     private javax.swing.JTextField tfIntolerancia2;
     private javax.swing.JTextField tfLogin;
     private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfPais;
     private javax.swing.JTextField tfPeso;
     private javax.swing.JTextField tfQuadril;
     private javax.swing.JTextField tfRCQ;

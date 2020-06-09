@@ -637,24 +637,24 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfAlimentoConsumido1" min="-2" pref="172" max="-2" attributes="0"/>
-                                  <Component id="tfAlimentoConsumido2" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfDescricao" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfPorcao" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfAlimentoConsumido7" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
-                                  <Component id="tfAlimentoConsumido6" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfGordTrans" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfAcucares" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfAlimentoConsumido3" min="-2" pref="172" max="-2" attributes="0"/>
-                                  <Component id="tfAlimentoConsumido4" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfKcal" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfProteina" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfAlimentoConsumido5" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
-                                  <Component id="tfAlimentoConsumido8" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfSódio" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfGordSatur" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -684,23 +684,23 @@
                       <Component id="lblRegistrarAlimento" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfAlimentoConsumido1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfAlimentoConsumido6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfDescricao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfAcucares" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfAlimentoConsumido2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfAlimentoConsumido7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfPorcao" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfGordTrans" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfAlimentoConsumido8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfAlimentoConsumido3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfGordSatur" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfKcal" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfAlimentoConsumido5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfAlimentoConsumido4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfSódio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfProteina" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -721,7 +721,7 @@
                 <Property name="text" type="java.lang.String" value="Registrar Alimento"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAlimentoConsumido1">
+            <Component class="javax.swing.JTextField" name="tfDescricao">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -732,7 +732,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAlimentoConsumido2">
+            <Component class="javax.swing.JTextField" name="tfPorcao">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -743,7 +743,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAlimentoConsumido3">
+            <Component class="javax.swing.JTextField" name="tfKcal">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -754,18 +754,18 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAlimentoConsumido4">
+            <Component class="javax.swing.JTextField" name="tfProteina">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="1" title="Proteina*">
+                    <TitledBorder position="1" title="Prote&#xed;na*">
                       <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                     </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAlimentoConsumido5">
+            <Component class="javax.swing.JTextField" name="tfS&#xf3;dio">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -776,7 +776,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAlimentoConsumido6">
+            <Component class="javax.swing.JTextField" name="tfAcucares">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -787,7 +787,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAlimentoConsumido7">
+            <Component class="javax.swing.JTextField" name="tfGordTrans">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -798,7 +798,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfAlimentoConsumido8">
+            <Component class="javax.swing.JTextField" name="tfGordSatur">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">

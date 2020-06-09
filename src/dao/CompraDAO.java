@@ -13,20 +13,21 @@ import util.IDAOT;
 public class CompraDAO implements IDAOT<Compra> {
 
     @Override
-    public boolean salvar(Compra o) {
+    public Integer salvar(Compra o) {
         String sql = "INSERT INTO compra VALUES("
                 + "default, "
                 + "'" + o.alimento + "',"
                 + "'" + o.valorTotal + "',"
                 + "'" + o.valorUnitario + "',"
-                + "'" + o.quantidade + "')";
+                + "'" + o.quantidade + "') returning id";
 
         try {
-            ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
-            return true;
+            ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(CompraDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
     }
 

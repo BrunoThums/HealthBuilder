@@ -1,6 +1,8 @@
 package util;
 
+import java.sql.Time;
 import java.text.*;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.*;
@@ -157,5 +159,13 @@ public class Formatacao {
         String dataHoje = df.format(now);
 
         return dataHoje;
+    }
+    
+    public static Time converteHora(JComboBox hora, JComboBox min) {
+        String[] time = new Time(Calendar.getInstance().getTime().getTime()).toString().split(":");
+        String h = (String) hora.getSelectedItem();
+        String m = (String) min.getSelectedItem();
+
+        return Time.valueOf(String.join(":", h, m, "00"));
     }
 }

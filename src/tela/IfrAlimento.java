@@ -2,7 +2,6 @@ package tela;
 
 import java.awt.Color;
 import javax.swing.JFormattedTextField;
-import util.CombosDAO;
 import util.Formatacao;
 import util.Validacao;
 
@@ -48,14 +47,14 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         btnEditarPesqCons = new javax.swing.JButton();
         pnRegAli = new javax.swing.JPanel();
         lblRegistrarAlimento = new javax.swing.JLabel();
-        tfAlimentoConsumido1 = new javax.swing.JTextField();
-        tfAlimentoConsumido2 = new javax.swing.JTextField();
-        tfAlimentoConsumido3 = new javax.swing.JTextField();
-        tfAlimentoConsumido4 = new javax.swing.JTextField();
-        tfAlimentoConsumido5 = new javax.swing.JTextField();
-        tfAlimentoConsumido6 = new javax.swing.JTextField();
-        tfAlimentoConsumido7 = new javax.swing.JTextField();
-        tfAlimentoConsumido8 = new javax.swing.JTextField();
+        tfDescricao = new javax.swing.JTextField();
+        tfPorcao = new javax.swing.JTextField();
+        tfKcal = new javax.swing.JTextField();
+        tfProteina = new javax.swing.JTextField();
+        tfSódio = new javax.swing.JTextField();
+        tfAcucares = new javax.swing.JTextField();
+        tfGordTrans = new javax.swing.JTextField();
+        tfGordSatur = new javax.swing.JTextField();
         btnFecharAli = new javax.swing.JToggleButton();
         btnSalvarAli = new javax.swing.JToggleButton();
         pnPesqAli = new javax.swing.JPanel();
@@ -385,21 +384,21 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         lblRegistrarAlimento.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
         lblRegistrarAlimento.setText("Registrar Alimento");
 
-        tfAlimentoConsumido1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descrição*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfDescricao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descrição*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfAlimentoConsumido2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Porção (gramas)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfPorcao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Porção (gramas)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfAlimentoConsumido3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Valor Energético (Kcal)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfKcal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Valor Energético (Kcal)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfAlimentoConsumido4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Proteina*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfProteina.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Proteína*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfAlimentoConsumido5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sódio*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfSódio.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sódio*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfAlimentoConsumido6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Açúcares*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfAcucares.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Açúcares*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfAlimentoConsumido7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gordura Trans*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfGordTrans.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gordura Trans*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfAlimentoConsumido8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gordura Saturada*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfGordSatur.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gordura Saturada*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         btnFecharAli.setText("Fechar");
         btnFecharAli.addActionListener(new java.awt.event.ActionListener() {
@@ -419,20 +418,20 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
                 .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(pnRegAliLayout.createSequentialGroup()
                         .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfAlimentoConsumido1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAlimentoConsumido2, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfPorcao, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfAlimentoConsumido7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAlimentoConsumido6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfGordTrans, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfAcucares, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnRegAliLayout.createSequentialGroup()
                         .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfAlimentoConsumido3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAlimentoConsumido4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfKcal, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfProteina, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfAlimentoConsumido5, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAlimentoConsumido8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tfSódio, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfGordSatur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegAliLayout.createSequentialGroup()
                 .addContainerGap()
@@ -453,20 +452,20 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
                 .addComponent(lblRegistrarAlimento)
                 .addGap(18, 18, 18)
                 .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfAlimentoConsumido1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAlimentoConsumido6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfAcucares, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfAlimentoConsumido2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAlimentoConsumido7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfPorcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfGordTrans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfAlimentoConsumido8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAlimentoConsumido3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfGordSatur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfKcal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfAlimentoConsumido5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfAlimentoConsumido4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfSódio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfProteina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(149, 149, 149)
                 .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -704,17 +703,17 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     private javax.swing.JTabbedPane tbPainel;
     private javax.swing.JTable tblResumo2;
     private javax.swing.JTable tblResumoPesqAli;
+    private javax.swing.JTextField tfAcucares;
     private javax.swing.JTextField tfAlimentoConsumido;
-    private javax.swing.JTextField tfAlimentoConsumido1;
-    private javax.swing.JTextField tfAlimentoConsumido2;
-    private javax.swing.JTextField tfAlimentoConsumido3;
-    private javax.swing.JTextField tfAlimentoConsumido4;
-    private javax.swing.JTextField tfAlimentoConsumido5;
-    private javax.swing.JTextField tfAlimentoConsumido6;
-    private javax.swing.JTextField tfAlimentoConsumido7;
-    private javax.swing.JTextField tfAlimentoConsumido8;
     private javax.swing.JTextField tfBuscaPesqAli;
     private javax.swing.JTextField tfBuscaPesqCons;
+    private javax.swing.JTextField tfDescricao;
+    private javax.swing.JTextField tfGordSatur;
+    private javax.swing.JTextField tfGordTrans;
+    private javax.swing.JTextField tfKcal;
+    private javax.swing.JTextField tfPorcao;
+    private javax.swing.JTextField tfProteina;
+    private javax.swing.JTextField tfSódio;
     private javax.swing.JFormattedTextField tffCodigoAli;
     private javax.swing.JFormattedTextField tffCodigoRC;
     private javax.swing.JFormattedTextField tffData;

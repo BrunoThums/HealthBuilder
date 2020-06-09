@@ -17,19 +17,20 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
     ResultSet resultadoQ = null;
 
     @Override
-    public boolean salvar(TipoExercicio o) {
+    public Integer salvar(TipoExercicio o) {
         String sql = "INSERT INTO tipoExercicio VALUES("
                 + "default, "
                 + "'" + o.descricao + "',"
                 + "'" + o.subDescricao + "',"
-                + "'" + o.kcal + "')";
+                + "'" + o.kcal + "') returning id";
 
         try {
-            ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
-            return true;
+            ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
     }
 
@@ -38,7 +39,7 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         String sql = "UPDATE tipoExercicio SET "
                 + "descricao='" + o.descricao + "',"
                 + "subDescricao='" + o.subDescricao + "',"
-                + "kcal='" + o.kcal + "',"
+                + "kcal='" + o.kcal + "'"
                 + "WHERE id= " + o.id;
 
         try {
@@ -130,15 +131,15 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT count(*) "
-                    + "FROM exercicio "
+                    + "FROM tipoExercicio "
                     + "WHERE DESCRICAO ILIKE '%" + criterio + "%'");
 
             resultadoQ.next();
 
-            dadosTabela = new Object[resultadoQ.getInt(1)][2];
+            dadosTabela = new Object[resultadoQ.getInt(1)][4];
 
         } catch (Exception e) {
-            System.out.println("Erro ao consultar Exercício: " + e);
+            System.out.println("Erro ao consultar tipoExercicio: " + e);
         }
 
         int lin = 0;
@@ -147,7 +148,7 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT * FROM "
-                    + "exercicio WHERE "
+                    + "tipoExercicio WHERE "
                     + "DESCRICAO ILIKE '%" + criterio + "%'");
 
             while (resultadoQ.next()) {

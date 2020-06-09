@@ -1,6 +1,8 @@
 package tela;
 
 import entidade.Usuario;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JInternalFrame;
 
 public class FrmJP extends javax.swing.JFrame {
@@ -31,7 +33,7 @@ public class FrmJP extends javax.swing.JFrame {
         mniAlimento = new javax.swing.JMenuItem();
         mniCompra = new javax.swing.JMenuItem();
         mniReacoesCorporais = new javax.swing.JMenuItem();
-        mnAjuda = new javax.swing.JMenu();
+        mniPerfil = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HealthBuilder");
@@ -89,10 +91,15 @@ public class FrmJP extends javax.swing.JFrame {
         });
         mnCadastros.add(mniReacoesCorporais);
 
-        mnBarra.add(mnCadastros);
+        mniPerfil.setText("Perfil");
+        mniPerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniPerfilActionPerformed(evt);
+            }
+        });
+        mnCadastros.add(mniPerfil);
 
-        mnAjuda.setText("Ajuda");
-        mnBarra.add(mnAjuda);
+        mnBarra.add(mnCadastros);
 
         setJMenuBar(mnBarra);
 
@@ -111,53 +118,38 @@ public class FrmJP extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniExercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExercicioActionPerformed
-        Object tela = getTela("Tela.IfrExercicio");
-        if (tela == null) {
-            tela = new IfrExercicio();
-            pnHome.add((JInternalFrame) tela);
-        }
-        setActive((JInternalFrame) tela);
+        iniciaTela(IfrExercicio.class);
     }//GEN-LAST:event_mniExercicioActionPerformed
 
     private void mniAlimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAlimentoActionPerformed
-        Object tela = getTela("Tela.IfrAlimento");
-        if (tela == null) {
-            tela = new IfrAlimento();
-            pnHome.add((JInternalFrame) tela);
-        }
-        setActive((JInternalFrame) tela);
+        iniciaTela(IfrAlimento.class);
     }//GEN-LAST:event_mniAlimentoActionPerformed
 
     private void mniCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCompraActionPerformed
-        Object tela = getTela("Tela.IfrCompra");
-        if (tela == null) {
-            tela = new IfrCompra();
-            pnHome.add((JInternalFrame) tela);
-        }
-        setActive((JInternalFrame) tela);
+        iniciaTela(IfrCompra.class);
     }//GEN-LAST:event_mniCompraActionPerformed
 
     private void mniReacoesCorporaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReacoesCorporaisActionPerformed
-        Object tela = getTela("Tela.IfrReacaoCorporal");
-        if (tela == null) {
-            tela = new IfrReacaoCorporal();
-            pnHome.add((JInternalFrame) tela);
-        }
-        setActive((JInternalFrame) tela);
+        iniciaTela(IfrReacaoCorporal.class);
     }//GEN-LAST:event_mniReacoesCorporaisActionPerformed
 
     private void mnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnHomeMouseClicked
-        Object tela = getTela("Tela.IfrApresentacao");
+        iniciaTela(IfrApresentacao.class);
+    }//GEN-LAST:event_mnHomeMouseClicked
+
+    private void mniPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniPerfilActionPerformed
+        /*Object tela = getTela(IfrPerfil.class);
         if (tela == null) {
-            tela = new IfrApresentacao();
+            tela = new IfrPerfil();
             pnHome.add((JInternalFrame) tela);
         }
-        setActive((JInternalFrame) tela);
-    }//GEN-LAST:event_mnHomeMouseClicked
-    public Object getTela(String formName) {
+        setActive((JInternalFrame) tela);*/
+        iniciaTela(IfrPerfil.class);
+    }//GEN-LAST:event_mniPerfilActionPerformed
+    public JInternalFrame getTela(Class clazz) {
         for (int i = 0; i < pnHome.getComponentCount(); i++) {
-            if (pnHome.getComponents()[i].getClass().getName().equals(formName)) {
-                return pnHome.getComponents()[i];
+            if (pnHome.getComponents()[i].getClass().getName().equals(clazz.getName())) {
+                return (JInternalFrame) pnHome.getComponents()[i];
             }
         }
         return null;
@@ -168,14 +160,27 @@ public class FrmJP extends javax.swing.JFrame {
         pnHome.moveToFront(tela);
         pnHome.setSelectedFrame(tela);
     }
+    
+    private void iniciaTela(Class clazz){
+        JInternalFrame tela = getTela(clazz);
+        if (tela == null) {
+            try {
+                tela = (JInternalFrame)clazz.newInstance();
+                pnHome.add(tela);
+            } catch (InstantiationException | IllegalAccessException ex) {
+                Logger.getLogger(FrmJP.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        setActive(tela);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu mnAjuda;
     private javax.swing.JMenuBar mnBarra;
     private javax.swing.JMenu mnCadastros;
     private javax.swing.JMenu mnHome;
     private javax.swing.JMenuItem mniAlimento;
     private javax.swing.JMenuItem mniCompra;
     private javax.swing.JMenuItem mniExercicio;
+    private javax.swing.JMenuItem mniPerfil;
     private javax.swing.JMenuItem mniReacoesCorporais;
     private javax.swing.JDesktopPane pnHome;
     // End of variables declaration//GEN-END:variables

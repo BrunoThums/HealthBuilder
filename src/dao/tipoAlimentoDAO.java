@@ -12,7 +12,7 @@ import util.IDAOT;
 public class TipoAlimentoDAO implements IDAOT<TipoAlimento> {
 
     @Override
-    public boolean salvar(TipoAlimento o) {
+    public Integer salvar(TipoAlimento o) {
         String sql = "INSERT INTO tipoAlimento VALUES("
                 + "default, "
                 + "'" + o.descricao + "',"
@@ -22,14 +22,15 @@ public class TipoAlimentoDAO implements IDAOT<TipoAlimento> {
                 + "'" + o.acucares + "',"
                 + "'" + o.gordTrans + "',"
                 + "'" + o.gordSaturada + "',"
-                + "'" + o.sodio + "')";
+                + "'" + o.sodio + "') returning id";
 
         try {
-            ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
-            return true;
+            ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(TipoAlimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
     }
 

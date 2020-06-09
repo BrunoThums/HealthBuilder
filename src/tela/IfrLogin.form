@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="HealthBuilder - Login"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -64,7 +64,7 @@
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblDica" min="-2" pref="410" max="-2" attributes="0"/>
@@ -90,22 +90,14 @@
                                       </Group>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cbxLembrar" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblEsqueceuSenha" min="-2" pref="151" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="lblEsqueceuSenha" min="-2" pref="151" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="lblInfoLogin" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblInfoLogin" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lblBemVindo" min="-2" pref="161" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
+                          <Component id="lblBemVindo" min="-2" pref="161" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
@@ -130,7 +122,6 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblUsuario" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                               <Component id="tfUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbxLembrar" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -183,7 +174,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="High Tower Text" size="24" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fa&#xe7;a o login utilizando seu usu&#xe1;rio e senha:"/>
+            <Property name="text" type="java.lang.String" value="Entre utilizando seu login e senha:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblUsuario">
@@ -191,11 +182,12 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="High Tower Text" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
+            <Property name="text" type="java.lang.String" value="Login"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfUsuario">
           <Properties>
+            <Property name="text" type="java.lang.String" value="abc"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                 <BevelBorder bevelType="1">
@@ -205,9 +197,6 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfUsuarioActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSenha">
           <Properties>
@@ -219,7 +208,7 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="pfSenha">
           <Properties>
-            <Property name="text" type="java.lang.String" value="naoseiasenhA"/>
+            <Property name="text" type="java.lang.String" value="123"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
                 <BevelBorder bevelType="1">
@@ -249,7 +238,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="High Tower Text" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Login"/>
+            <Property name="text" type="java.lang.String" value="Entrar"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
                 <MatteColorBorder/>
@@ -290,14 +279,6 @@
               <Font name="High Tower Text" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Dica: n&#xe3;o compartilhe sua senha com ningu&#xe9;m. Ela &#xe9; sua identidade!"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="cbxLembrar">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="High Tower Text" size="14" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Lembrar-me"/>
           </Properties>
         </Component>
       </SubComponents>

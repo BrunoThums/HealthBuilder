@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.Properties;
+import javax.swing.JPasswordField;
 
 public class ConexaoBD {
 
@@ -67,9 +68,46 @@ public class ConexaoBD {
         }
     }
 
-    public boolean pesquisaIgual(String tabela, String campo, String valor) {
+    /**
+     * Verifica se o valor é unico no banco de dados
+     *
+     * @param tabela
+     * @param campo
+     * @param valor
+     * @return
+     */
+    public boolean existeNoBancoDeDados(String tabela, String campo, String valor) {
         try {
             String SQL = String.format("SELECT * FROM %s WHERE %s ILIKE '%s';", tabela, campo, valor);
+            return conexao.createStatement().executeQuery(SQL).next();
+        } catch (SQLException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
+            return false;
+        }
+    }
+    
+    /**
+     * 
+     * @param tabela
+     * @param id - número
+     * @param campoId - nome da coluna do id (padrão "id")
+     * @param campo
+     * @param valor
+     * @return 
+     */
+    public boolean existeNoBancoDeDados(String tabela, Integer id, String campoId, String campo, String valor) {
+        try {
+            String SQL = String.format("SELECT * FROM %s WHERE %s ILIKE '%s' AND %s = %d;", tabela, campo, valor, campoId, id);
+            return conexao.createStatement().executeQuery(SQL).next();
+        } catch (SQLException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean trocaSenha(String tabela, Integer id, String campoId, String campo, JPasswordField valor) {
+        try {
+            String SQL = String.format("SELECT * FROM %s WHERE %s ILIKE '%s' AND %s = %d;", tabela, campo, valor.getPassword().toString(), campoId, id);
             return conexao.createStatement().executeQuery(SQL).next();
         } catch (SQLException ex) {
             Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);

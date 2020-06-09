@@ -7,15 +7,12 @@ import javax.swing.JOptionPane;
 
 public final class IfrLogin extends javax.swing.JFrame {
 
-    String login;
-
     public IfrLogin(java.awt.Frame parent, boolean modal) {
         initComponents();
-        lembrarLogin();
         this.setLocationRelativeTo(null);
         
-        tfUsuario.setText("naoseiasenhA");
-        pfSenha.setText("naoseiasenhA");
+        //tfUsuario.setText("naoseiasenhA");
+        //pfSenha.setText("naoseiasenhA");
     }
 
     @SuppressWarnings("unchecked")
@@ -36,9 +33,8 @@ public final class IfrLogin extends javax.swing.JFrame {
         lblPergunta = new javax.swing.JLabel();
         btnRegistro = new javax.swing.JButton();
         lblDica = new javax.swing.JLabel();
-        cbxLembrar = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HealthBuilder - Login");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -56,22 +52,18 @@ public final class IfrLogin extends javax.swing.JFrame {
         lblBemVindo.setText("Bem-vindo!");
 
         lblInfoLogin.setFont(new java.awt.Font("High Tower Text", 0, 24)); // NOI18N
-        lblInfoLogin.setText("Faça o login utilizando seu usuário e senha:");
+        lblInfoLogin.setText("Entre utilizando seu login e senha:");
 
         lblUsuario.setFont(new java.awt.Font("High Tower Text", 1, 18)); // NOI18N
-        lblUsuario.setText("Usuário");
+        lblUsuario.setText("Login");
 
+        tfUsuario.setText("abc");
         tfUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
-        tfUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfUsuarioActionPerformed(evt);
-            }
-        });
 
         lblSenha.setFont(new java.awt.Font("High Tower Text", 1, 18)); // NOI18N
         lblSenha.setText("Senha");
 
-        pfSenha.setText("naoseiasenhA");
+        pfSenha.setText("123");
         pfSenha.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.lightGray, java.awt.Color.lightGray, null, null));
 
         lblEsqueceuSenha.setFont(new java.awt.Font("High Tower Text", 1, 15)); // NOI18N
@@ -84,7 +76,7 @@ public final class IfrLogin extends javax.swing.JFrame {
         });
 
         btnLogin.setFont(new java.awt.Font("High Tower Text", 0, 14)); // NOI18N
-        btnLogin.setText("Login");
+        btnLogin.setText("Entrar");
         btnLogin.setBorder(new javax.swing.border.MatteBorder(null));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,9 +98,6 @@ public final class IfrLogin extends javax.swing.JFrame {
 
         lblDica.setFont(new java.awt.Font("High Tower Text", 1, 15)); // NOI18N
         lblDica.setText("Dica: não compartilhe sua senha com ninguém. Ela é sua identidade!");
-
-        cbxLembrar.setFont(new java.awt.Font("High Tower Text", 0, 14)); // NOI18N
-        cbxLembrar.setText("Lembrar-me");
 
         javax.swing.GroupLayout PainelLayout = new javax.swing.GroupLayout(Painel);
         Painel.setLayout(PainelLayout);
@@ -144,16 +133,11 @@ public final class IfrLogin extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbxLembrar)
-                                    .addComponent(lblEsqueceuSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(lblEsqueceuSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblInfoLogin)))
                     .addGroup(PainelLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblInfoLogin)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelLayout.createSequentialGroup()
-                                .addComponent(lblBemVindo, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(114, 114, 114)))))
+                        .addGap(149, 149, 149)
+                        .addComponent(lblBemVindo, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         PainelLayout.setVerticalGroup(
@@ -172,8 +156,7 @@ public final class IfrLogin extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxLembrar))
+                            .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(PainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,10 +200,9 @@ public final class IfrLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         Usuario usuario = new UsuarioDAO().autenticar(
-                tfUsuario.getText().trim(),
+                tfUsuario.getText().trim().toLowerCase(),
                 String.valueOf(pfSenha.getPassword()));
         if (usuario != null) {
-            login = tfUsuario.getText();
             new FrmJP(usuario).setVisible(true);
             this.dispose();
         } else {
@@ -228,20 +210,10 @@ public final class IfrLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void tfUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfUsuarioActionPerformed
-
-    private void lembrarLogin() {
-        if (cbxLembrar.isEnabled()) {
-            tfUsuario.setText(login);
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Painel;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnRegistro;
-    private javax.swing.JCheckBox cbxLembrar;
     private javax.swing.JLabel imagemHB;
     private javax.swing.JLabel lblBemVindo;
     private javax.swing.JLabel lblDica;

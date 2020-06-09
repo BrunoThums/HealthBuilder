@@ -12,21 +12,22 @@ import util.IDAOT;
 public class ConsumoDAO implements IDAOT<Consumo> {
 
     @Override
-    public boolean salvar(Consumo o) {
+    public Integer salvar(Consumo o) {
         String sql = "INSERT INTO consumo VALUES("
                 + "default, "
                 + "'" + o.descricao + "',"
                 + "'" + o.tempo + "',"
                 + "'" + o.data + "',"
                 + "'" + o.refeicao + "',"
-                + "'" + o.reacaoCorporal + "')";
+                + "'" + o.reacaoCorporal + "') returning id";
 
         try {
-            ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
-            return true;
+            ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(ConsumoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
     }
 

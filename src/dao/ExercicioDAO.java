@@ -17,23 +17,25 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
     ResultSet resultadoQ = null;
 
     @Override
-    public boolean salvar(Exercicio o) {
+    public Integer salvar(Exercicio o) {
         String sql = "INSERT INTO exercicio VALUES("
                 + "default, "
                 + "'" + o.data + "',"
                 + "'" + o.tipoExercicio + "'," //°ext nome
+                + "'" + o.subTipo + "'," //°ext nome
                 + "'" + o.reacaoCorporal + "',"//ext nome
                 + "'" + o.tempo + "',"
                 + "'" + o.intensidade + "',"
                 + "'" + o.kcalTipoExercicio + "',"
-                + "'" + o.kcalTotal + "')";
+                + "'" + o.kcalTotal + "') returning id";
 
         try {
-            ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
-            return true;
+            ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(ExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
     }
 
@@ -43,6 +45,7 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
                 + "data='" + o.data + "',"
                 + "tipoExercicio_nome='" + o.tipoExercicio + "',"//ext nome
                 + "reacaoCorporal_nome='" + o.reacaoCorporal + "',"//ext nome
+                + "tipoExercicio_subTipo='" + o.subTipo + "',"//ext nome
                 + "tempo='" + o.tempo + "',"
                 + "intensidade='" + o.intensidade + "',"
                 + "tipoExercicio_kcal='" + o.kcalTipoExercicio + "',"
@@ -132,9 +135,10 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         cabecalho[0] = "Código";
         cabecalho[1] = "Data";
         cabecalho[2] = "Tipo de Exercício";
-        cabecalho[3] = "Reacao Corporal";
-        cabecalho[4] = "Tempo";
-        cabecalho[5] = "Kcal Total";
+        cabecalho[3] = "tipoExercicio_subTipo";
+        cabecalho[4] = "Reacao Corporal";
+        cabecalho[5] = "Tempo";
+        cabecalho[6] = "Kcal Total";
 
         // cria matriz de acordo com nº de registros da tabela
         try {
@@ -145,7 +149,7 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
 
             resultadoQ.next();
 
-            dadosTabela = new Object[resultadoQ.getInt(1)][2];
+            dadosTabela = new Object[resultadoQ.getInt(1)][6];
 
         } catch (Exception e) {
             System.out.println("Erro ao consultar Exercício: " + e);
@@ -165,9 +169,10 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
                 dadosTabela[lin][1] = resultadoQ.getString("data");
                 dadosTabela[lin][2] = resultadoQ.getString("tipoExercicio_nome");
-                dadosTabela[lin][3] = resultadoQ.getString("reacaoCorporal");
-                dadosTabela[lin][4] = resultadoQ.getString("tempo");
-                dadosTabela[lin][5] = resultadoQ.getString("kcalTotal");
+                dadosTabela[lin][2] = resultadoQ.getString("tipoExercicio_subTipo");
+                dadosTabela[lin][4] = resultadoQ.getString("reacaoCorporal");
+                dadosTabela[lin][5] = resultadoQ.getString("tempo");
+                dadosTabela[lin][6] = resultadoQ.getString("kcalTotal");
                 lin++;
             }
         } catch (Exception e) {

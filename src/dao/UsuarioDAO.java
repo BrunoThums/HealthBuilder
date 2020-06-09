@@ -13,7 +13,7 @@ import util.IDAOT;
 public class UsuarioDAO implements IDAOT<Usuario> {
 
     @Override
-    public boolean salvar(Usuario o) {
+    public Integer salvar(Usuario o) {
         String sql = "INSERT INTO usuario VALUES("
                 + "default, "
                 + "'" + o.nome + "',"
@@ -24,17 +24,31 @@ public class UsuarioDAO implements IDAOT<Usuario> {
                 + "'" + o.email + "',"
                 + "'" + o.login + "',"
                 + "md5('" + o.senha + "'),"
-                + "'" + o.pais + "',"
                 + "'" + o.estado + "',"
                 + "'" + o.cidade + "',"
-                + "'" + o.status + "')";
+                + "'" + o.status + "',"
+                + "'" + o.intolerancia + "',"
+                + "'" + o.intolerancia1 + "',"
+                + "'" + o.metabolismo + "',"
+                + "'" + o.alergia + "',"
+                + "'" + o.alergia1 + "',"
+                + "'" + o.peso + "',"
+                + "'" + o.altura + "',"
+                + "'" + o.imc + "',"
+                + "'" + o.statusimc + "',"
+                + "'" + o.cintura + "',"
+                + "'" + o.quadril + "',"
+                + "'" + o.statusrcq + "',"
+                + "'" + o.busto + "',"
+                + "'" + o.coxa + "') returning id";
 
         try {
-            ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
-            return true;
+            ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
     }
 
@@ -49,10 +63,23 @@ public class UsuarioDAO implements IDAOT<Usuario> {
                 + "email='" + o.email + "',"
                 + "login='" + o.login + "',"
                 + "senha=md5('" + o.senha + "'),"
-                + "pais='" + o.pais + "',"
                 + "estado='" + o.estado + "',"
                 + "cidade='" + o.cidade + "',"
-                + "status='" + o.status + "'"
+                + "status='" + o.status + "',"
+                + "intolerancia='" + o.intolerancia + "',"
+                + "intolerancia1='" + o.intolerancia1 + "',"
+                + "metabolismo='" + o.metabolismo + "',"
+                + "alergia='" + o.alergia + "',"
+                + "alergia1='" + o.alergia1 + "',"
+                + "imc='" + o.imc + "',"
+                + "statusimc='" + o.statusimc + "',"
+                + "peso='" + o.peso + "',"
+                + "altura='" + o.altura + "',"
+                + "cintura='" + o.cintura + "',"
+                + "quadril='" + o.quadril + "',"
+                + "statusrcq='" + o.statusrcq + "',"
+                + "busto='" + o.busto + "',"
+                + "coxa='" + o.coxa + "'"
                 + "WHERE id= " + o.id;
         System.out.println(sql);
 

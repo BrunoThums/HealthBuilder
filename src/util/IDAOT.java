@@ -5,7 +5,7 @@ import java.util.ArrayList;
 // Utiliza Generics como tipo de dado
 public interface IDAOT<T> {
 
-    public boolean salvar(T o);
+    public Integer salvar(T o);
 
     public boolean atualizar(T o);
 

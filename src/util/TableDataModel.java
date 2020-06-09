@@ -1,5 +1,6 @@
-package io.github.wesauis.gastei.view.component;
+package util;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -55,6 +56,9 @@ public abstract class TableDataModel<T> extends DefaultTableModel {
      */
     public void update() {
         data = getData();
+        if(data == null){
+            data = new ArrayList<>();
+        }
         header = getHeader();
         cells = new Object[data.size()][header.length];
         for (int i = 0; i < data.size(); i++) {

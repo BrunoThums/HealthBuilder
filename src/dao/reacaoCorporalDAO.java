@@ -17,17 +17,19 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
     ResultSet resultadoQ = null;
 
     @Override
-    public boolean salvar(ReacaoCorporal o) {
+    public Integer salvar(ReacaoCorporal o) {
         String sql = "INSERT INTO reacaoCorporal VALUES("
                 + "default, "
-                + "'" + o.nome + "')";
+                + "'" + o.nome + "',"
+                + "'" + o.status + "') returning id";
 
         try {
-            ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
-            return true;
+            ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
+            resultSet.next();
+            return resultSet.getInt(1);
         } catch (SQLException ex) {
             Logger.getLogger(ReacaoCorporalDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
     }
 
@@ -35,6 +37,7 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
     public boolean atualizar(ReacaoCorporal o) {
         String sql = "UPDATE reacaoCorporal SET "
                 + "nome='" + o.nome + "',"
+                + "status='" + o.status + "'"
                 + "WHERE id= " + o.id;
 
         try {
@@ -48,7 +51,7 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
 
     @Override
     public boolean excluir(int id) {
-        String sql = "UPDATE reacaoCorporal SET status = 'inativo', WHERE id=" + id;
+        String sql = "UPDATE reacaoCorporal SET status = 'inativo' WHERE id=" + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
