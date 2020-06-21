@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import util.Formatacao;
 import static util.Formatacao.converteHora;
-import util.Verificacoes;
+import static util.Formatacao.ajustaDataDMA;
 import static util.Verificacoes.isVazioTF;
 import static util.Verificacoes.isVazioCB;
 import util.TableDataModel;
@@ -26,7 +26,7 @@ import static util.Verificacoes.verificaNumeros;
 public class IfrExercicio extends javax.swing.JInternalFrame {
 
     int id = 0;
-    ReacaoCorporal reacaoCorpPadrao = null;
+    ReacaoCorporal rcPadrao = null;
     ReacaoCorporalDAO daoRC = new ReacaoCorporalDAO();
     TipoExercicio tipoExePadrao = null;
     TipoExercicioDAO daoTE = new TipoExercicioDAO();
@@ -40,7 +40,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         Formatacao.formatarData((JFormattedTextField) tffData);
         colocaIcone(lblPesqReacaoCorporal, "pesq");
         colocaIcone(lblPesqTipoExer, "pesq");
-        tblResumoNovo.setModel(new TableDataModel<TipoExercicio>() {
+        /*tblResumoNovo.setModel(new TableDataModel<TipoExercicio>() {
             @Override
             public List<TipoExercicio> getData() {
                 ArrayList<TipoExercicio> tipoExer;
@@ -82,20 +82,20 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
 
             @Override
             public String[] getHeader() {
-                return new String[]{"Código", "Exercicio", "Sub-Descrição", "Intensidade", "Tempo", "Kcal Consumido"};
+                return new String[]{"Código", "Exercicio", "Intensidade", "Tempo", "Kcal Consumido"};
             }
 
             @Override
             public Object[] toTableRow(Exercicio t) {
-                return new Object[]{t.id, t.tipoExercicio, t.subTipo, t.intensidade, t.tempo, t.kcalTotal};
+                return new Object[]{t.id, t.tipoExercicio, t.intensidade, t.tempo, t.kcalTotal};
             }
-        });
-        filtro = tfBusca.getText().trim();
+        });*/
+        //filtro = tfBusca.getText().trim();
         updateExe();
         updateTipoExe();
     }
 
-    public final void updateTipoExe() {
+    /*public final void updateTipoExe() {
         ((TableDataModel<TipoExercicio>) tblResumoNovo.getModel()).update();
     }
     
@@ -109,7 +109,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
 
     public Exercicio getValueAtExe(int row) {
         return ((TableDataModel<Exercicio>) tblResumo.getModel()).getValueAt(row);
-    }
+    }*/
     
     public final void colocaIcone(JLabel a, String file) {
         a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/" + file + ".png")));
@@ -180,7 +180,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         tfTipoExercicio.setText(" ");
         tfTipoExercicio.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Qual exercício você praticou?*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        cbTempoHoras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "0", "1", "2", "3", "4", "5", "6", "7", "8" }));
+        cbTempoHoras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         cbTempoHoras.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Duração (Horas)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
         cbTempoHoras.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -188,7 +188,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             }
         });
 
-        cbTempoMinutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "0", "5", "10", "15", "20", "25", "30", "35", "40", "45", "50", "55" }));
+        cbTempoMinutos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
         cbTempoMinutos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Minutos*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
         cbTempoMinutos.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -284,45 +284,42 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTituloRegExer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnRegExerLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnRegExerLayout.createSequentialGroup()
-                        .addGap(323, 323, 323)
-                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63)
+                        .addGroup(pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(pnRegExerLayout.createSequentialGroup()
+                                .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnRegExerLayout.createSequentialGroup()
+                                .addComponent(cbTempoHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(lblDoisPontos, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbTempoMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbIntensidade, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnRegExerLayout.createSequentialGroup()
+                                .addComponent(tfKcalExer, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addComponent(tfKcalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pnRegExerLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addComponent(tffCodTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
                         .addGroup(pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnRegExerLayout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addGroup(pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnRegExerLayout.createSequentialGroup()
-                                        .addComponent(cbTempoHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(10, 10, 10)
-                                        .addComponent(lblDoisPontos, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(cbTempoMinutos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pnRegExerLayout.createSequentialGroup()
-                                        .addComponent(tfKcalExer, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6)
-                                        .addComponent(tfKcalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cbIntensidade, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnRegExerLayout.createSequentialGroup()
-                                .addComponent(tffCodTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
-                                .addGroup(pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfTipoExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tffData, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfSubExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(14, 14, 14)
-                                .addComponent(lblPesqTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnRegExerLayout.createSequentialGroup()
-                                .addComponent(tffCodReacaoCorpo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
-                                .addComponent(tfReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblPesqReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(10, 10, 10))
+                            .addComponent(tfTipoExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tffData, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfSubExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addComponent(lblPesqTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnRegExerLayout.createSequentialGroup()
+                        .addComponent(tffCodReacaoCorpo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(tfReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblPesqReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(109, 109, 109))
         );
         pnRegExerLayout.setVerticalGroup(
             pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,7 +356,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                 .addGroup(pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfKcalExer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfKcalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(41, 41, 41)
                 .addGroup(pnRegExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -430,14 +427,13 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                         .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(spPesqExer, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spPesqExer, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnPesqExerTBLLayout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqExerTBLLayout.createSequentialGroup()
-                .addGap(333, 333, 333)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
         );
         pnPesqExerTBLLayout.setVerticalGroup(
             pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,10 +445,10 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                     .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spPesqExer, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(44, 44, 44)
                 .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -460,7 +456,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         pnPesqExer.setLayout(pnPesqExerLayout);
         pnPesqExerLayout.setHorizontalGroup(
             pnPesqExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnPesqExerTBL, javax.swing.GroupLayout.PREFERRED_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(pnPesqExerTBL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnPesqExerLayout.createSequentialGroup()
                 .addComponent(lblTituloPesqExer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -482,14 +478,16 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         lblTituloRegTipoExer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloRegTipoExer.setText("Registro de Tipo de Exercício");
 
-        tfNomeExercicio.setText(" ");
         tfNomeExercicio.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nome do Exercício/Atividade(ex: natação)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfSubCategoria.setText(" ");
         tfSubCategoria.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sub-Categoria(ex: nado peito/borboleta)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
-        tfKcalHora.setText(" ");
         tfKcalHora.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kcal gasta por hora (Kcal/hora)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfKcalHora.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfKcalHoraKeyTyped(evt);
+            }
+        });
 
         btnFecharRegTipoExer.setText("Fechar");
         btnFecharRegTipoExer.addActionListener(new java.awt.event.ActionListener() {
@@ -509,20 +507,18 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         pnRegTipoExer.setLayout(pnRegTipoExerLayout);
         pnRegTipoExerLayout.setHorizontalGroup(
             pnRegTipoExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblTituloRegTipoExer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnRegTipoExerLayout.createSequentialGroup()
                 .addGap(107, 107, 107)
-                .addGroup(pnRegTipoExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnRegTipoExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfKcalHora, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNomeExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(85, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegTipoExerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnFecharRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(btnSalvarRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
-            .addComponent(lblTituloRegTipoExer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfNomeExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnRegTipoExerLayout.createSequentialGroup()
+                        .addComponent(btnFecharRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnSalvarRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(85, 85, 85))
         );
         pnRegTipoExerLayout.setVerticalGroup(
             pnRegTipoExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -535,10 +531,10 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                 .addComponent(tfSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfKcalHora, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(259, 259, 259)
+                .addGap(265, 265, 265)
                 .addGroup(pnRegTipoExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFecharRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalvarRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalvarRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFecharRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -600,19 +596,20 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             .addGroup(pnExerciciosNovoLayout.createSequentialGroup()
                 .addComponent(PainelDeRolagemNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnExerciciosNovoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnExerciciosNovoLayout.createSequentialGroup()
                 .addGroup(pnExerciciosNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnExerciciosNovoLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblBuscaNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tfBuscaNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPesquisarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnExerciciosNovoLayout.createSequentialGroup()
-                        .addComponent(btnExcluirNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnEditarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnExerciciosNovoLayout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(btnExcluirNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnEditarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         pnExerciciosNovoLayout.setVerticalGroup(
@@ -625,7 +622,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                     .addComponent(btnPesquisarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PainelDeRolagemNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(45, 45, 45)
                 .addGroup(pnExerciciosNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluirNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -660,7 +657,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tbPainel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 538, Short.MAX_VALUE)
+            .addComponent(tbPainel, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -671,7 +668,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (!isSameCBNull()
+        if (isSameCBNull()
                 || isVazioTF(tffData)
                 || isVazioTF(tfTipoExercicio)
                 || isVazioTF(tfReacaoCorporal)
@@ -684,14 +681,14 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         } else {
             Exercicio exe = new Exercicio();
 
-            exe.data = tffData.getText();
-            exe.tipoExercicio = tfTipoExercicio.getText();
-            tfSubExercicio.getText();
-            exe.reacaoCorporal = tfReacaoCorporal.getText();
-            exe.tempo = converteHora(cbTempoHoras, cbTempoMinutos).toString();
+            String[] data = tffData.getText().trim().split("/"); // [dia, mes, ano]
+            exe.data = java.sql.Date.valueOf(String.format("%s-%s-%s", data[2], data[1], data[0])); // ano-mes-dia
+            exe.tipoExercicio = Integer.parseInt(tffCodTipoExer.getText());
+            exe.reacaoCorporal = Integer.parseInt(tffCodReacaoCorpo.getText());
+            exe.tempo = converteHora(cbTempoHoras, cbTempoMinutos);
             exe.intensidade = cbIntensidade.getSelectedItem().toString();
-            exe.kcalTipoExercicio = tfKcalExer.getText();
-            exe.kcalTotal = tfKcalTotal.getText();
+            exe.kcalTotal = Integer.parseInt(tfKcalTotal.getText());
+            exe.status = "ativo";
             if (exePadrao == null) {
                 Integer id = daoE.salvar(exe);
                 if (id != null) {
@@ -700,22 +697,22 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showInternalMessageDialog(rootPane, "Ocorreu um erro ao salvar o registro!");
                 }
-                cleanExe();
             } else {
                 exe.id = exePadrao.id;
                 if (daoE.atualizar(exe)) {
                     exe.id = id;
                     JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-                    cleanExe();
                     btnSalvar.setText("Salvar");
+                    exePadrao = null;
                 } else {
                     JOptionPane.showMessageDialog(null, "Problemas ao atualizar!");
                 }
-                cleanExe();
             }
+            cleanExe();
+            updateExe();
         }
-        filtro = tfBusca.getText().trim();
-        updateExe();
+        //filtro = tfBusca.getText().trim();
+        //updateExe();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnFecharRegTipoExerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharRegTipoExerActionPerformed
@@ -731,7 +728,8 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             TipoExercicio t = new TipoExercicio();
             t.descricao = tfNomeExercicio.getText();
             t.subDescricao = tfSubCategoria.getText();
-            t.kcal = tfKcalHora.getText();
+            t.kcal = Integer.parseInt(tfKcalHora.getText());
+            t.status = "ativo";
 
             if (tipoExePadrao == null) {
                 Integer id = daoTE.salvar(t);
@@ -741,44 +739,52 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showInternalMessageDialog(rootPane, "Ocorreu um erro ao salvar o registro!");
                 }
-                cleanTipoExe();
             } else {
                 t.id = tipoExePadrao.id;
                 if (daoTE.atualizar(t)) {
                     t.id = id;
                     JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
                     btnSalvarRegTipoExer.setText("Salvar");
+                    tipoExePadrao = null;
                 } else {
                     JOptionPane.showMessageDialog(null, "Problemas ao atualizar!");
                 }
-                cleanTipoExe();
             }
+            cleanTipoExe();
+            updateTipoExe();
         }
-        filtro = tfBuscaNovo.getText().trim();
-        updateTipoExe();
+        //filtro = tfBuscaNovo.getText().trim();
+        //updateTipoExe();
     }//GEN-LAST:event_btnSalvarRegTipoExerActionPerformed
-
+    private void updateExe(){
+        new ExercicioDAO().popularTabela(tblResumo, tfBusca.getText());
+    }
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        //new ExercicioDAO().popularTabela(tblResumo, tfBusca.getText());
-        filtro = tfBusca.getText().trim();
         updateExe();
+        //new ExercicioDAO().popularTabela(tblResumo, tfBusca.getText());
+        //filtro = tfBusca.getText().trim();
+        //updateExe();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         btnSalvar.setText("Atualizar");
-        id = getValueAtExe(tblResumo.getSelectedRow()).id;
+        //id = getValueAtExe(tblResumo.getSelectedRow()).id;
+        String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
+        id = Integer.parseInt(idString);
         exePadrao = daoE.consultar(id);
-
+        
         if (exePadrao != null) {
-            tffData.setText(exePadrao.data);
-            tfTipoExercicio.setText(exePadrao.tipoExercicio);
-            tfReacaoCorporal.setText(exePadrao.reacaoCorporal);
-            //String[] time = new Time((Time.valueOf(exePadrao.tempo.split(":"))));
-            cbTempoHoras.setSelectedItem(exePadrao.tempo.split(":"));
-            cbTempoMinutos.setSelectedItem(exePadrao.tempo.split(":"));
+            tffData.setText(ajustaDataDMA(exePadrao.data.toString()));
+            tffCodTipoExer.setText(String.valueOf(exePadrao.tipoExercicio));
+            verificarTipoExercicio();
+            tffCodReacaoCorpo.setText(String.valueOf(exePadrao.reacaoCorporal));
+            verificarReacaoCorporal();
+            System.out.println("");
+            String[] time = exePadrao.tempo.toString().split(":");
+            cbTempoHoras.setSelectedIndex(Integer.parseInt(time[0]));
+            cbTempoMinutos.setSelectedIndex(Integer.parseInt(time[1]));
             cbIntensidade.setSelectedItem(exePadrao.intensidade);
-            tfKcalExer.setText(exePadrao.kcalTipoExercicio);
-            tfKcalTotal.setText(exePadrao.kcalTotal);
+            tfKcalTotal.setText(String.valueOf(exePadrao.kcalTotal));
 
             tbPainel.setSelectedIndex(0);
 
@@ -803,23 +809,28 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
-
+    private void updateTipoExe(){
+        new TipoExercicioDAO().popularTabela(tblResumoNovo, tfBuscaNovo.getText());
+    }
     private void btnPesquisarNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarNovoActionPerformed
-        //new TipoExercicioDAO().popularTabela(tblResumoNovo, tfBuscaNovo.getText());
-        filtro = tfBusca.getText().trim();
         updateTipoExe();
+        //new TipoExercicioDAO().popularTabela(tblResumoNovo, tfBuscaNovo.getText());
+        //filtro = tfBusca.getText().trim();
+        //updateTipoExe();
     }//GEN-LAST:event_btnPesquisarNovoActionPerformed
 
     private void btnEditarNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarNovoActionPerformed
         btnSalvarRegTipoExer.setText("Atualizar");
-        id = getValueAtTipoExe(tblResumoNovo.getSelectedRow()).id;
-
+        //id = getValueAtTipoExe(tblResumoNovo.getSelectedRow()).id;
+        String idString = String.valueOf(tblResumoNovo.getValueAt(tblResumoNovo.getSelectedRow(), 0));
+        id = Integer.parseInt(idString);
+        
         tipoExePadrao = daoTE.consultar(id);
 
         if (tipoExePadrao != null) {
             tfNomeExercicio.setText(tipoExePadrao.descricao);
             tfSubCategoria.setText(tipoExePadrao.subDescricao);
-            tfKcalHora.setText(tipoExePadrao.kcal);
+            tfKcalHora.setText(String.valueOf(tipoExePadrao.kcal));
 
             tbPainel.setSelectedIndex(2);
 
@@ -830,7 +841,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     private void btnExcluirNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirNovoActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
 
-            String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
+            String idString = String.valueOf(tblResumoNovo.getValueAt(tblResumoNovo.getSelectedRow(), 0));
 
             int idExclusao = Integer.parseInt(idString);
 
@@ -838,7 +849,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
 
             if (tipoExeDAO.excluir(idExclusao)) {
                 JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
-                tipoExeDAO.popularTabela(tblResumo, tfBusca.getText());
+                updateTipoExe();
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
             }
@@ -897,7 +908,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                 tffCodTipoExer.setText(tipoExePadrao.id.toString());
                 tfTipoExercicio.setText(tipoExePadrao.descricao);
                 tfSubExercicio.setText(tipoExePadrao.subDescricao);
-                tfKcalExer.setText(tipoExePadrao.kcal);
+                tfKcalExer.setText(String.valueOf(tipoExePadrao.kcal));
                 dispose();
             }
         };
@@ -937,9 +948,9 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
 
             @Override
             public void select(ReacaoCorporal t) {
-                reacaoCorpPadrao = t;
-                tffCodReacaoCorpo.setText(reacaoCorpPadrao.id.toString());
-                tfReacaoCorporal.setText(reacaoCorpPadrao.nome);
+                rcPadrao = t;
+                tffCodReacaoCorpo.setText(rcPadrao.id.toString());
+                tfReacaoCorporal.setText(rcPadrao.nome);
                 dispose();
             }
         };
@@ -947,23 +958,29 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lblPesqReacaoCorporalMouseClicked
 
     private void tffCodTipoExerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffCodTipoExerFocusLost
+        verificarTipoExercicio();
+    }//GEN-LAST:event_tffCodTipoExerFocusLost
+
+    private void tffCodReacaoCorpoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffCodReacaoCorpoFocusLost
+        verificarReacaoCorporal();
+    }//GEN-LAST:event_tffCodReacaoCorpoFocusLost
+    private void verificarTipoExercicio(){
         TipoExercicio t = daoTE.consultar(Integer.parseInt(tffCodTipoExer.getText()));
         if (t != null) {
             tipoExePadrao = t;
             tfTipoExercicio.setText(t.descricao);
             tfSubExercicio.setText(t.subDescricao);
-            tfKcalExer.setText(t.kcal);
+            tfKcalExer.setText(String.valueOf(t.kcal));
         }
-    }//GEN-LAST:event_tffCodTipoExerFocusLost
-
-    private void tffCodReacaoCorpoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffCodReacaoCorpoFocusLost
+    }
+    
+    private void verificarReacaoCorporal(){
         ReacaoCorporal t = daoRC.consultar(Integer.parseInt(tffCodReacaoCorpo.getText()));
         if (t != null) {
-            reacaoCorpPadrao = t;
-            tfTipoExercicio.setText(t.nome);
+            rcPadrao = t;
+            tfReacaoCorporal.setText(t.nome);
         }
-    }//GEN-LAST:event_tffCodReacaoCorpoFocusLost
-
+    }
     private void cbTempoHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTempoHorasFocusLost
         verificaPreenchidos();
     }//GEN-LAST:event_cbTempoHorasFocusLost
@@ -975,6 +992,10 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     private void cbIntensidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbIntensidadeFocusLost
         verificaPreenchidos();
     }//GEN-LAST:event_cbIntensidadeFocusLost
+
+    private void tfKcalHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKcalHoraKeyTyped
+        verificaNumeros(evt);
+    }//GEN-LAST:event_tfKcalHoraKeyTyped
     private void cleanExe() {
         tffData.setText("");
         tffCodTipoExer.setText("");
@@ -1104,7 +1125,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     private boolean isSameCBNull() {
         boolean a = cbTempoHoras.getSelectedIndex() == 1;
         boolean b = cbTempoMinutos.getSelectedIndex() == 1;
-        if (a && b) {
+        if (a == true && b == true) {
             JOptionPane.showInternalMessageDialog(rootPane, "As Horas e Minutos não podem ser ambos igual a zero!");
             return true;
         }

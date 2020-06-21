@@ -162,10 +162,9 @@ public class Formatacao {
     }
     
     public static Time converteHora(JComboBox hora, JComboBox min) {
-        String[] time = new Time(Calendar.getInstance().getTime().getTime()).toString().split(":");
         String h = (String) hora.getSelectedItem();
         String m = (String) min.getSelectedItem();
 
-        return Time.valueOf(String.join(":", h, m, "00"));
+        return Time.valueOf(String.format("%s:%s:00", h,m));
     }
 }

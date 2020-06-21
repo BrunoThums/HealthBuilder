@@ -39,7 +39,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         lblPesquisaConsumo = new javax.swing.JLabel();
         pnBuscaCons = new javax.swing.JPanel();
         PainelDeRolagemPesqCons = new javax.swing.JScrollPane();
-        tblResumo2 = new javax.swing.JTable();
+        tblResumoConsumo = new javax.swing.JTable();
         lblBuscaPesqCons = new javax.swing.JLabel();
         tfBuscaPesqCons = new javax.swing.JTextField();
         btnPesquisarPesqCons = new javax.swing.JButton();
@@ -61,7 +61,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         lblPesqAli = new javax.swing.JLabel();
         pnPesquisa = new javax.swing.JPanel();
         PainelDeRolagemPesqAli = new javax.swing.JScrollPane();
-        tblResumoPesqAli = new javax.swing.JTable();
+        tblResumoAlimento = new javax.swing.JTable();
         lblBuscaPesqAli = new javax.swing.JLabel();
         tfBuscaPesqAli = new javax.swing.JTextField();
         btnPesquisarPesqAli = new javax.swing.JButton();
@@ -279,7 +279,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
 
         pnBuscaCons.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblResumo2.setModel(new javax.swing.table.DefaultTableModel(
+        tblResumoConsumo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -290,7 +290,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        PainelDeRolagemPesqCons.setViewportView(tblResumo2);
+        PainelDeRolagemPesqCons.setViewportView(tblResumoConsumo);
 
         lblBuscaPesqCons.setText("Busca:");
 
@@ -482,7 +482,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
 
         pnPesquisa.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblResumoPesqAli.setModel(new javax.swing.table.DefaultTableModel(
+        tblResumoAlimento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -493,7 +493,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        PainelDeRolagemPesqAli.setViewportView(tblResumoPesqAli);
+        PainelDeRolagemPesqAli.setViewportView(tblResumoAlimento);
 
         lblBuscaPesqAli.setText("Busca:");
 
@@ -701,8 +701,8 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     private javax.swing.JPanel pnRegAli;
     private javax.swing.JPanel pnRegCons;
     private javax.swing.JTabbedPane tbPainel;
-    private javax.swing.JTable tblResumo2;
-    private javax.swing.JTable tblResumoPesqAli;
+    private javax.swing.JTable tblResumoAlimento;
+    private javax.swing.JTable tblResumoConsumo;
     private javax.swing.JTextField tfAcucares;
     private javax.swing.JTextField tfAlimentoConsumido;
     private javax.swing.JTextField tfBuscaPesqAli;

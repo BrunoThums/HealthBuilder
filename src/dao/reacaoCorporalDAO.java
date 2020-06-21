@@ -130,13 +130,14 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT count(*) "
                     + "FROM reacaoCorporal "
-                    + "WHERE nome ILIKE '%" + criterio + "%' AND status = 'ativo'");
+                    + "WHERE nome ILIKE '%" + criterio + "%' "
+                    + "AND status = 'ativo'");
 
             resultadoQ.next();
 
             dadosTabela = new Object[resultadoQ.getInt(1)][2];
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao consultar Reação Corporal: " + e);
         }
 
@@ -145,9 +146,10 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * FROM "
-                    + "reacaoCorporal WHERE "
-                    + "nome ILIKE '%" + criterio + "%' status = 'ativo'");
+                    + "SELECT * "
+                    + "FROM reacaoCorporal "
+                    + "WHERE nome ILIKE '%" + criterio + "%' "
+                    + "AND status = 'ativo'");
 
             while (resultadoQ.next()) {
 
@@ -155,7 +157,7 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
                 dadosTabela[lin][1] = resultadoQ.getString("nome");
                 lin++;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao popular tabela");
             System.out.println(e);
         }
@@ -183,9 +185,8 @@ public class ReacaoCorporalDAO implements IDAOT<ReacaoCorporal> {
         tabela.setSelectionMode(0);
 
         // redimensiona as colunas de uma tabela
-        TableColumn column = null;
         for (int i = 0; i < tabela.getColumnCount(); i++) {
-            column = tabela.getColumnModel().getColumn(i);
+            TableColumn column = tabela.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
                     column.setPreferredWidth(70);

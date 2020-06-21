@@ -25,7 +25,6 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     public IfrPerfil() {
         initComponents();
         preencheUsuario();
-        
     }
 
     @SuppressWarnings("unchecked")

@@ -44,7 +44,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="tbPainel" alignment="1" pref="538" max="32767" attributes="0"/>
+          <Component id="tbPainel" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -72,56 +72,51 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblTituloRegExer" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="323" max="-2" attributes="0"/>
-                              <Component id="btnFechar" min="-2" pref="65" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnSalvar" min="-2" pref="65" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="cbTempoHoras" min="-2" pref="118" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                              <Component id="lblDoisPontos" min="-2" pref="8" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="cbTempoMinutos" min="-2" pref="116" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="tfKcalExer" min="-2" pref="128" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                              <Component id="tfKcalTotal" min="-2" pref="128" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="cbIntensidade" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="tffCodTipoExer" min="-2" pref="57" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="tfTipoExercicio" min="-2" pref="265" max="-2" attributes="0"/>
-                                          <Component id="tffData" min="-2" pref="124" max="-2" attributes="0"/>
-                                          <Component id="tfSubExercicio" min="-2" pref="265" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                      <Component id="lblPesqTipoExer" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="btnFechar" min="-2" pref="100" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                                      <Component id="btnSalvar" min="-2" pref="100" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="tffCodReacaoCorpo" min="-2" pref="57" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                                      <Component id="tfReacaoCorporal" min="-2" pref="265" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="lblPesqReacaoCorporal" min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="cbTempoHoras" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Component id="lblDoisPontos" min="-2" pref="8" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="cbTempoMinutos" min="-2" pref="116" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="cbIntensidade" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="tfKcalExer" min="-2" pref="128" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                      <Component id="tfKcalTotal" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="tffCodTipoExer" min="-2" pref="57" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="tfTipoExercicio" min="-2" pref="265" max="-2" attributes="0"/>
+                                  <Component id="tffData" min="-2" pref="124" max="-2" attributes="0"/>
+                                  <Component id="tfSubExercicio" min="-2" pref="265" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Component id="lblPesqTipoExer" min="-2" pref="32" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="tffCodReacaoCorpo" min="-2" pref="57" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Component id="tfReacaoCorporal" min="-2" pref="265" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="lblPesqReacaoCorporal" min="-2" pref="32" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -168,7 +163,7 @@
                           <Component id="tfKcalExer" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="tfKcalTotal" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnFechar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           <Component id="btnSalvar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
@@ -205,17 +200,20 @@
             <Component class="javax.swing.JComboBox" name="cbTempoHoras">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="10">
-                    <StringItem index="0" value="Selecione"/>
-                    <StringItem index="1" value="0"/>
-                    <StringItem index="2" value="1"/>
-                    <StringItem index="3" value="2"/>
-                    <StringItem index="4" value="3"/>
-                    <StringItem index="5" value="4"/>
-                    <StringItem index="6" value="5"/>
-                    <StringItem index="7" value="6"/>
-                    <StringItem index="8" value="7"/>
-                    <StringItem index="9" value="8"/>
+                  <StringArray count="13">
+                    <StringItem index="0" value="0"/>
+                    <StringItem index="1" value="1"/>
+                    <StringItem index="2" value="2"/>
+                    <StringItem index="3" value="3"/>
+                    <StringItem index="4" value="4"/>
+                    <StringItem index="5" value="5"/>
+                    <StringItem index="6" value="6"/>
+                    <StringItem index="7" value="7"/>
+                    <StringItem index="8" value="8"/>
+                    <StringItem index="9" value="9"/>
+                    <StringItem index="10" value="10"/>
+                    <StringItem index="11" value="11"/>
+                    <StringItem index="12" value="12"/>
                   </StringArray>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -236,20 +234,67 @@
             <Component class="javax.swing.JComboBox" name="cbTempoMinutos">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="13">
-                    <StringItem index="0" value="Selecione"/>
-                    <StringItem index="1" value="0"/>
-                    <StringItem index="2" value="5"/>
-                    <StringItem index="3" value="10"/>
-                    <StringItem index="4" value="15"/>
-                    <StringItem index="5" value="20"/>
-                    <StringItem index="6" value="25"/>
-                    <StringItem index="7" value="30"/>
-                    <StringItem index="8" value="35"/>
-                    <StringItem index="9" value="40"/>
-                    <StringItem index="10" value="45"/>
-                    <StringItem index="11" value="50"/>
-                    <StringItem index="12" value="55"/>
+                  <StringArray count="60">
+                    <StringItem index="0" value="0"/>
+                    <StringItem index="1" value="1"/>
+                    <StringItem index="2" value="2"/>
+                    <StringItem index="3" value="3"/>
+                    <StringItem index="4" value="4"/>
+                    <StringItem index="5" value="5"/>
+                    <StringItem index="6" value="6"/>
+                    <StringItem index="7" value="7"/>
+                    <StringItem index="8" value="8"/>
+                    <StringItem index="9" value="9"/>
+                    <StringItem index="10" value="10"/>
+                    <StringItem index="11" value="11"/>
+                    <StringItem index="12" value="12"/>
+                    <StringItem index="13" value="13"/>
+                    <StringItem index="14" value="14"/>
+                    <StringItem index="15" value="15"/>
+                    <StringItem index="16" value="16"/>
+                    <StringItem index="17" value="17"/>
+                    <StringItem index="18" value="18"/>
+                    <StringItem index="19" value="19"/>
+                    <StringItem index="20" value="20"/>
+                    <StringItem index="21" value="21"/>
+                    <StringItem index="22" value="22"/>
+                    <StringItem index="23" value="23"/>
+                    <StringItem index="24" value="24"/>
+                    <StringItem index="25" value="25"/>
+                    <StringItem index="26" value="26"/>
+                    <StringItem index="27" value="27"/>
+                    <StringItem index="28" value="28"/>
+                    <StringItem index="29" value="29"/>
+                    <StringItem index="30" value="30"/>
+                    <StringItem index="31" value="31"/>
+                    <StringItem index="32" value="32"/>
+                    <StringItem index="33" value="33"/>
+                    <StringItem index="34" value="34"/>
+                    <StringItem index="35" value="35"/>
+                    <StringItem index="36" value="36"/>
+                    <StringItem index="37" value="37"/>
+                    <StringItem index="38" value="38"/>
+                    <StringItem index="39" value="39"/>
+                    <StringItem index="40" value="40"/>
+                    <StringItem index="41" value="41"/>
+                    <StringItem index="42" value="42"/>
+                    <StringItem index="43" value="43"/>
+                    <StringItem index="44" value="44"/>
+                    <StringItem index="45" value="45"/>
+                    <StringItem index="46" value="46"/>
+                    <StringItem index="47" value="47"/>
+                    <StringItem index="48" value="48"/>
+                    <StringItem index="49" value="49"/>
+                    <StringItem index="50" value="50"/>
+                    <StringItem index="51" value="51"/>
+                    <StringItem index="52" value="52"/>
+                    <StringItem index="53" value="53"/>
+                    <StringItem index="54" value="54"/>
+                    <StringItem index="55" value="55"/>
+                    <StringItem index="56" value="56"/>
+                    <StringItem index="57" value="57"/>
+                    <StringItem index="58" value="58"/>
+                    <StringItem index="59" value="59"/>
                   </StringArray>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -445,7 +490,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnPesqExerTBL" alignment="0" pref="480" max="32767" attributes="0"/>
+                  <Component id="pnPesqExerTBL" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblTituloPesqExer" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -494,15 +539,14 @@
                                   <Component id="btnPesquisar" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
                               <Component id="spPesqExer" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                                  <Component id="btnExcluir" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                                  <Component id="btnEditar" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="333" max="-2" attributes="0"/>
-                          <Component id="btnExcluir" min="-2" pref="65" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Component id="btnEditar" min="-2" pref="65" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -517,10 +561,10 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="spPesqExer" min="-2" pref="341" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnEditar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="btnExcluir" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="btnEditar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       </Group>
@@ -647,23 +691,21 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Component id="lblTituloRegTipoExer" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="tfSubCategoria" min="-2" pref="281" max="-2" attributes="0"/>
                           <Component id="tfKcalHora" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
                           <Component id="tfNomeExercicio" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btnFecharRegTipoExer" min="-2" pref="100" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                              <Component id="btnSalvarRegTipoExer" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="85" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnFecharRegTipoExer" min="-2" pref="65" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="btnSalvarRegTipoExer" min="-2" pref="65" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="lblTituloRegTipoExer" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -677,10 +719,10 @@
                       <Component id="tfSubCategoria" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="tfKcalHora" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="265" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnFecharRegTipoExer" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           <Component id="btnSalvarRegTipoExer" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="btnFecharRegTipoExer" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
@@ -699,7 +741,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="tfNomeExercicio">
               <Properties>
-                <Property name="text" type="java.lang.String" value=" "/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder position="1" title="Nome do Exerc&#xed;cio/Atividade(ex: nata&#xe7;&#xe3;o)*">
@@ -711,7 +752,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="tfSubCategoria">
               <Properties>
-                <Property name="text" type="java.lang.String" value=" "/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder position="1" title="Sub-Categoria(ex: nado peito/borboleta)*">
@@ -723,7 +763,6 @@
             </Component>
             <Component class="javax.swing.JTextField" name="tfKcalHora">
               <Properties>
-                <Property name="text" type="java.lang.String" value=" "/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder position="1" title="Kcal gasta por hora (Kcal/hora)*">
@@ -732,6 +771,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfKcalHoraKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JToggleButton" name="btnFecharRegTipoExer">
               <Properties>
@@ -807,20 +849,21 @@
                           <Component id="PainelDeRolagemNovo" min="-2" pref="473" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="lblBuscaNovo" min="-2" pref="32" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="tfBuscaNovo" min="-2" pref="330" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnPesquisarNovo" min="-2" pref="70" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btnExcluirNovo" min="-2" pref="65" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="btnEditarNovo" min="-2" pref="65" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
+                                  <Component id="btnExcluirNovo" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                                  <Component id="btnEditarNovo" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -838,7 +881,7 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="PainelDeRolagemNovo" min="-2" pref="341" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnExcluirNovo" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="btnEditarNovo" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>

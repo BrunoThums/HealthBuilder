@@ -47,7 +47,7 @@ public abstract class IfrConsulta <T> extends javax.swing.JDialog  {
 
         pnPesqRC = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        btnExcluir = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
         PainelDeRolagem = new javax.swing.JScrollPane();
         tblResumo = new javax.swing.JTable();
         btnSelecionar = new javax.swing.JButton();
@@ -63,11 +63,11 @@ public abstract class IfrConsulta <T> extends javax.swing.JDialog  {
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Titulo");
 
-        btnExcluir.setText("Fechar");
-        btnExcluir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        btnFechar.setText("Fechar");
+        btnFechar.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
+                btnFecharActionPerformed(evt);
             }
         });
 
@@ -120,8 +120,7 @@ public abstract class IfrConsulta <T> extends javax.swing.JDialog  {
                         .addGap(12, 12, 12)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqRCLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -142,7 +141,7 @@ public abstract class IfrConsulta <T> extends javax.swing.JDialog  {
                 .addGap(91, 91, 91)
                 .addGroup(pnPesqRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -175,13 +174,14 @@ public abstract class IfrConsulta <T> extends javax.swing.JDialog  {
         ((TableDataModel) tblResumo.getModel()).update();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-    }//GEN-LAST:event_btnExcluirActionPerformed
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnFecharActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane PainelDeRolagem;
-    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSelecionar;
     private javax.swing.JLabel lblBusca;

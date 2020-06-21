@@ -8,7 +8,8 @@ public class TipoExercicio {
     public Integer id;
     public String descricao;
     public String subDescricao;
-    public String kcal;
+    public Integer kcal;
+    public String status;
 
     public static TipoExercicio from(ResultSet resultSet) throws SQLException {
         TipoExercicio tipoExe = new TipoExercicio();
@@ -16,7 +17,8 @@ public class TipoExercicio {
         tipoExe.id = resultSet.getInt("id");
         tipoExe.descricao = resultSet.getString("descricao");
         tipoExe.subDescricao = resultSet.getString("subDescricao");
-        tipoExe.kcal = resultSet.getString("kcal");
+        tipoExe.kcal = resultSet.getInt("kcal");
+        tipoExe.status = resultSet.getString("status");
 
         return tipoExe;
     }
@@ -28,6 +30,7 @@ public class TipoExercicio {
         sb.append(", descricao=").append(descricao);
         sb.append(", subDescricao=").append(subDescricao);
         sb.append(", kcal=").append(kcal);
+        sb.append(", status=").append(status);
         sb.append('}');
         return sb.toString();
     }

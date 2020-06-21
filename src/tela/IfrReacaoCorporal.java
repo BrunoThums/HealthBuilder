@@ -2,24 +2,24 @@ package tela;
 
 import dao.ReacaoCorporalDAO;
 import entidade.ReacaoCorporal;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 import javax.swing.JOptionPane;
 import static util.Verificacoes.isVazioTF;
 import static util.Verificacoes.verificaNomeComposto;
-import util.TableDataModel;
+//import util.TableDataModel;
 
 public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
 
     int id = 0;
-    ReacaoCorporal rc = null;
+    ReacaoCorporal rcPadrao = null;
     ReacaoCorporalDAO dao = new ReacaoCorporalDAO();
     String filtro;
 
     public IfrReacaoCorporal() {
         filtro = "";
         initComponents();
-        tblResumo.setModel(new TableDataModel<ReacaoCorporal>() {
+        /*tblResumo.setModel(new TableDataModel<ReacaoCorporal>() {
             @Override
             public List<ReacaoCorporal> getData() {
                 ArrayList<ReacaoCorporal> reacoes;
@@ -43,17 +43,20 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
             public Object[] toTableRow(ReacaoCorporal t) {
                 return new Object[]{t.id, t.nome};
             }
-        });
+        });*/
+        update();
     }
 
-    public void update() {
+    /*public void update() {
         ((TableDataModel<ReacaoCorporal>) tblResumo.getModel()).update();
     }
 
     public ReacaoCorporal getValueAt(int row) {
         return ((TableDataModel<ReacaoCorporal>) tblResumo.getModel()).getValueAt(row);
+    }*/
+    private void update(){
+        new ReacaoCorporalDAO().popularTabela(tblResumo, tfBusca.getText());
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -110,20 +113,19 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
         pnRegRCLayout.setHorizontalGroup(
             pnRegRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnRegRCLayout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addGroup(pnRegRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegRCLayout.createSequentialGroup()
-                        .addComponent(btnFecharRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSalvarRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegRCLayout.createSequentialGroup()
-                        .addComponent(tfReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47))))
-            .addGroup(pnRegRCLayout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addComponent(lblTituloRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegRCLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tfReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegRCLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(btnFecharRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(btnSalvarRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79))
         );
         pnRegRCLayout.setVerticalGroup(
             pnRegRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,11 +134,15 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
                 .addComponent(lblTituloRegRC)
                 .addGap(41, 41, 41)
                 .addComponent(tfReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(217, 217, 217)
-                .addGroup(pnRegRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvarRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFecharRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addGroup(pnRegRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnRegRCLayout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(btnSalvarRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegRCLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFecharRegRC, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         tbPainel.addTab("Registrar", pnRegRC);
@@ -193,25 +199,28 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
         pnPesqRC.setLayout(pnPesqRCLayout);
         pnPesqRCLayout.setHorizontalGroup(
             pnPesqRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PainelDeRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(pnPesqRCLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(lblTituloPesqRC, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(68, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqRCLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(pnPesqRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqRCLayout.createSequentialGroup()
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnPesqRCLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(lblBusca)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfBusca)
                         .addGap(12, 12, 12)
-                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnPesqRCLayout.createSequentialGroup()
+                        .addGroup(pnPesqRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnPesqRCLayout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(lblTituloPesqRC, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnPesqRCLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 58, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(PainelDeRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         pnPesqRCLayout.setVerticalGroup(
             pnPesqRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +235,7 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PainelDeRolagem, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(pnPesqRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnPesqRCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
@@ -249,18 +258,23 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        filtro = tfBusca.getText().trim();
+        /*filtro = tfBusca.getText().trim();
+        update();*/
         update();
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         btnSalvarRegRC.setText("Atualizar");
-        id = getValueAt(tblResumo.getSelectedRow()).id;
+        //id = getValueAt(tblResumo.getSelectedRow()).id;
+        String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
+        
+        
+        id = Integer.parseInt(idString);
+        System.out.println("Reação Corporal:\nid: "+id+"\nidString: "+idString+"\nValor: "+(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0)));
+        rcPadrao = dao.consultar(id);
 
-        rc = dao.consultar(id);
-
-        if (rc != null) {
-            tfReacaoCorporal.setText(rc.nome);
+        if (rcPadrao != null) {
+            tfReacaoCorporal.setText(rcPadrao.nome);
 
             // mudar de aba
             tbPainel.setSelectedIndex(0);
@@ -273,8 +287,8 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
 
-            int idExclusao = getValueAt(tblResumo.getSelectedRow()).id;
-
+            //int idExclusao = getValueAt(tblResumo.getSelectedRow()).id;
+            int idExclusao = (int) (tblResumo.getModel()).getValueAt(tblResumo.getSelectedRow(), 0);
             ReacaoCorporalDAO rcDAO = new ReacaoCorporalDAO();
 
             if (rcDAO.excluir(idExclusao)) {
@@ -293,31 +307,32 @@ public class IfrReacaoCorporal extends javax.swing.JInternalFrame {
 
     private void btnSalvarRegRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarRegRCActionPerformed
         if (isVazioTF(tfReacaoCorporal)) {
-            JOptionPane.showInputDialog("Preencha todos os campos obrigatórios!");
+            JOptionPane.showInternalMessageDialog(null, "Preencha todos os campos obrigatórios!");
         } else {
             ReacaoCorporal c = new ReacaoCorporal();
             c.nome = tfReacaoCorporal.getText();
             c.status = "ativo";
-            if (rc == null) {
+            if (rcPadrao == null) {
                 Integer id = dao.salvar(c);
                 if (id != null) {
                     c.id = id;
                     JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                    tfReacaoCorporal.setText("");
                 } else {
                     JOptionPane.showMessageDialog(null, "Problemas ao cadastrar!");
                 }
             } else {
-                c.id = rc.id;
+                c.id = rcPadrao.id;
                 if (dao.atualizar(c)) {
                     c.id = id;
                     JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-                    tfReacaoCorporal.setText("");
                     btnSalvarRegRC.setText("Salvar");
+                    rcPadrao = null;
                 } else {
                     JOptionPane.showMessageDialog(null, "Problemas ao atualizar!");
                 }
             }
+            tfReacaoCorporal.setText("");
+            update();
         }
     }//GEN-LAST:event_btnSalvarRegRCActionPerformed
 

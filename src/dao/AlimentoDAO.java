@@ -1,6 +1,6 @@
 package dao;
 
-import entidade.TipoExercicio;
+import entidade.Alimento;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,17 +12,22 @@ import javax.swing.table.TableColumn;
 import util.ConexaoBD;
 import util.IDAOT;
 
-public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
+public class AlimentoDAO implements IDAOT<Alimento> {
 
     ResultSet resultadoQ = null;
 
     @Override
-    public Integer salvar(TipoExercicio o) {
-        String sql = "INSERT INTO tipoExercicio VALUES("
+    public Integer salvar(Alimento o) {
+        String sql = "INSERT INTO alimento VALUES("
                 + "default, "
                 + "'" + o.descricao + "',"
-                + "'" + o.subDescricao + "',"
-                + "'" + o.kcal + "',"
+                + "'" + o.porcao + "',"
+                + "'" + o.valorEner + "',"
+                + "'" + o.proteina + "',"
+                + "'" + o.acucares + "',"
+                + "'" + o.gordTrans + "',"
+                + "'" + o.gordSaturada + "',"
+                + "'" + o.sodio + "',"
                 + "'" + o.status + "') returning id";
 
         try {
@@ -30,17 +35,22 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
             resultSet.next();
             return resultSet.getInt(1);
         } catch (SQLException ex) {
-            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
 
     @Override
-    public boolean atualizar(TipoExercicio o) {
-        String sql = "UPDATE tipoExercicio SET "
+    public boolean atualizar(Alimento o) {
+        String sql = "UPDATE alimento SET "
                 + "descricao='" + o.descricao + "',"
-                + "subDescricao='" + o.subDescricao + "',"
-                + "kcal='" + o.kcal + "',"
+                + "porcao='" + o.porcao + "',"
+                + "valorEner='" + o.valorEner + "',"
+                + "proteina='" + o.proteina + "',"
+                + "acucares='" + o.acucares + "',"
+                + "gordTrans='" + o.gordTrans + "',"
+                + "gordSaturada='" + o.gordSaturada + "',"
+                + "sodio='" + o.sodio + "',"
                 + "status='" + o.status + "'"
                 + "WHERE id= " + o.id;
 
@@ -48,73 +58,72 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     @Override
     public boolean excluir(int id) {
-        //DELETE FROM tipoExercicio WHERE id=
-        String sql = "UPDATE tipoExercicio SET status = 'inativo' WHERE id=" + id;
+        String sql = "UPDATE alimento SET status = 'inativo' WHERE id=" + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     @Override
-    public ArrayList<TipoExercicio> consultarTodos() {
-        String sql = "SELECT * FROM tipoExercicio WHERE status <> 'inativo'";
+    public ArrayList<Alimento> consultarTodos() {
+        String sql = "SELECT * FROM alimento WHERE status <> 'inativo'";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<TipoExercicio> tipoExercicio = new ArrayList<>();
+            ArrayList<Alimento> tipoAlimento = new ArrayList<>();
             while (result.next()) {
-                tipoExercicio.add(TipoExercicio.from(result));
+                tipoAlimento.add(Alimento.from(result));
             }
-            if (tipoExercicio.isEmpty()) {
+            if (tipoAlimento.isEmpty()) {
                 return null;
             }
-            return tipoExercicio;
+            return tipoAlimento;
         } catch (SQLException ex) {
-            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public ArrayList<TipoExercicio> consultar(String criterio) {
-        String sql = "SELECT * FROM tipoExercicio WHERE " + criterio;
+    public ArrayList<Alimento> consultar(String criterio) {
+        String sql = "SELECT * FROM alimento WHERE " + criterio;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
-            ArrayList<TipoExercicio> tipoExercicio = new ArrayList<>();
+            ArrayList<Alimento> tipoAlimento = new ArrayList<>();
             while (result.next()) {
-                tipoExercicio.add(TipoExercicio.from(result));
+                tipoAlimento.add(Alimento.from(result));
             }
-            if (tipoExercicio.isEmpty()) {
+            if (tipoAlimento.isEmpty()) {
                 return null;
             }
-            return tipoExercicio;
+            return tipoAlimento;
         } catch (SQLException ex) {
-            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public TipoExercicio consultar(int id) {
-        String sql = "SELECT * FROM tipoExercicio WHERE id=" + id;
+    public Alimento consultar(int id) {
+        String sql = "SELECT * FROM alimento WHERE id=" + id;
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             if (result.next()) {
-                return TipoExercicio.from(result);
+                return Alimento.from(result);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(TipoExercicioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlimentoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -124,26 +133,31 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[4];
+        Object[] cabecalho = new Object[9];
         cabecalho[0] = "Código";
-        cabecalho[1] = "Descricao";
-        cabecalho[2] = "SubDescricao";
+        cabecalho[1] = "Nome";
+        cabecalho[2] = "porcao";
         cabecalho[3] = "Kcal";
+        cabecalho[4] = "Proteína";
+        cabecalho[5] = "Açúcares";
+        cabecalho[6] = "Gordura Trans";
+        cabecalho[7] = "Gordura Saturada";
+        cabecalho[8] = "Sódio";
 
         // cria matriz de acordo com nº de registros da tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT count(*) "
-                    + "FROM tipoExercicio "
-                    + "WHERE DESCRICAO ILIKE '%" + criterio + "%'"
+                    + "FROM alimento "
+                    + "WHERE nome ILIKE '%" + criterio + "%' "
                     + "AND status = 'ativo'");
 
             resultadoQ.next();
 
-            dadosTabela = new Object[resultadoQ.getInt(1)][4];
+            dadosTabela = new Object[resultadoQ.getInt(1)][9];
 
-        } catch (Exception e) {
-            System.out.println("Erro ao consultar Tipo Exercício: " + e);
+        } catch (SQLException e) {
+            System.out.println("Erro ao consultar Alimento: " + e);
         }
 
         int lin = 0;
@@ -151,20 +165,25 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * FROM "
-                    + "tipoExercicio WHERE "
-                    + "DESCRICAO ILIKE '%" + criterio + "%'"
+                    + "SELECT * "
+                    + "FROM alimento "
+                    + "WHERE nome ILIKE '%" + criterio + "%' "
                     + "AND status = 'ativo'");
 
             while (resultadoQ.next()) {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
                 dadosTabela[lin][1] = resultadoQ.getString("descricao");
-                dadosTabela[lin][2] = resultadoQ.getString("subDescricao");
-                dadosTabela[lin][3] = resultadoQ.getString("kcal");
+                dadosTabela[lin][2] = resultadoQ.getString("porcao");
+                dadosTabela[lin][3] = resultadoQ.getString("valorEner");
+                dadosTabela[lin][4] = resultadoQ.getString("proteina");
+                dadosTabela[lin][5] = resultadoQ.getString("acucares");
+                dadosTabela[lin][6] = resultadoQ.getString("gordTrans");
+                dadosTabela[lin][7] = resultadoQ.getString("gordSaturada");
+                dadosTabela[lin][8] = resultadoQ.getString("sodio");
                 lin++;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao popular tabela");
             System.out.println(e);
         }
@@ -192,25 +211,38 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         tabela.setSelectionMode(0);
 
         // redimensiona as colunas de uma tabela
-        TableColumn column = null;
         for (int i = 0; i < tabela.getColumnCount(); i++) {
-            column = tabela.getColumnModel().getColumn(i);
+            TableColumn column = tabela.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
-                    column.setPreferredWidth(23);
+                    column.setPreferredWidth(25);
                     break;
                 case 1:
-                    column.setPreferredWidth(200);
+                    column.setPreferredWidth(71);
                     break;
                 case 2:
-                    column.setPreferredWidth(200);
+                    column.setPreferredWidth(45);
                     break;
                 case 3:
-                    column.setPreferredWidth(50);
+                    column.setPreferredWidth(45);
+                    break;
+                case 4:
+                    column.setPreferredWidth(45);
+                    break;
+                case 5:
+                    column.setPreferredWidth(45);
+                    break;
+                case 6:
+                    column.setPreferredWidth(45);
+                    break;
+                case 7:
+                    column.setPreferredWidth(45);
+                    break;
+                case 8:
+                    column.setPreferredWidth(45);
                     break;
 
             }
         }
     }
-
 }

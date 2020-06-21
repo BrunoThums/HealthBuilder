@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -25,6 +24,7 @@ public class Verificacoes {
     public static boolean isVazioTF(JTextField txt) {
         boolean isVazio = false;
         if (txt.getText().isEmpty()) {
+            System.out.println("Combo vazio: "+txt.getName());
             isVazio = true;
         }
         return isVazio;
@@ -200,7 +200,7 @@ public class Verificacoes {
     }
 
     public static void verificaNomeComposto(java.awt.event.KeyEvent evt) {
-        String letras = "abcdefghijklmnopqrstuvwxyzáàãâéèêíìîóòõôúùûABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ ";
+        String letras = "abcdefghijklmnopqrstuvwxyzáàãâéèêíìîóòõôúùûABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛçÇ ";
         if (!(letras.contains(evt.getKeyChar() + ""))) {
             evt.consume();
         }

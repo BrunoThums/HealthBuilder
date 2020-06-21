@@ -21,13 +21,12 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         String sql = "INSERT INTO exercicio VALUES("
                 + "default, "
                 + "'" + o.data + "',"
-                + "'" + o.tipoExercicio + "'," //°ext nome
-                + "'" + o.subTipo + "'," //°ext nome
+                + "" + o.tipoExercicio + "," //°ext nome
                 + "'" + o.reacaoCorporal + "',"//ext nome
                 + "'" + o.tempo + "',"
                 + "'" + o.intensidade + "',"
-                + "'" + o.kcalTipoExercicio + "',"
-                + "'" + o.kcalTotal + "') returning id";
+                + "'" + o.kcalTotal + "',"
+                + "'" + o.status +"') returning id";
 
         try {
             ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
@@ -45,11 +44,10 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
                 + "data='" + o.data + "',"
                 + "tipoExercicio_nome='" + o.tipoExercicio + "',"//ext nome
                 + "reacaoCorporal_nome='" + o.reacaoCorporal + "',"//ext nome
-                + "tipoExercicio_subTipo='" + o.subTipo + "',"//ext nome
                 + "tempo='" + o.tempo + "',"
                 + "intensidade='" + o.intensidade + "',"
-                + "tipoExercicio_kcal='" + o.kcalTipoExercicio + "',"
                 + "kcalTotal='" + o.kcalTotal + "',"
+                + "status='" + o.status + "',"
                 + "WHERE id= " + o.id;
 
         try {
@@ -63,7 +61,7 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
 
     @Override
     public boolean excluir(int id) {
-        String sql = "DELETE FROM exercicio WHERE id=" + id;
+        String sql = "UPDATE exercicio SET status = 'inativo' WHERE id=" + id;
         try {
             ConexaoBD.getInstance().getConnection().createStatement().executeUpdate(sql);
             return true;
@@ -75,7 +73,7 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
 
     @Override
     public ArrayList<Exercicio> consultarTodos() {
-        String sql = "SELECT * FROM exercicio";
+        String sql = "SELECT * FROM exercicio WHERE status <> 'inativo'";
         try {
             ResultSet result = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
             ArrayList<Exercicio> exercicio = new ArrayList<>();
@@ -131,27 +129,28 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         Object[][] dadosTabela = null;
 
         // cabecalho da tabela
-        Object[] cabecalho = new Object[6];
+        Object[] cabecalho = new Object[7];
         cabecalho[0] = "Código";
         cabecalho[1] = "Data";
         cabecalho[2] = "Tipo de Exercício";
-        cabecalho[3] = "tipoExercicio_subTipo";
-        cabecalho[4] = "Reacao Corporal";
-        cabecalho[5] = "Tempo";
-        cabecalho[6] = "Kcal Total";
+        cabecalho[3] = "Reacao Corporal";
+        cabecalho[4] = "Tempo";
+        cabecalho[5] = "Kcal Total";
+        cabecalho[6] = "Intensidade";
 
         // cria matriz de acordo com nº de registros da tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT count(*) "
                     + "FROM exercicio "
-                    + "WHERE DESCRICAO ILIKE '%" + criterio + "%'");
+                    + "WHERE tipoExercicio_id ILIKE '%" + criterio + "%'"
+                    + "AND status = 'ativo'");
 
             resultadoQ.next();
 
-            dadosTabela = new Object[resultadoQ.getInt(1)][6];
+            dadosTabela = new Object[resultadoQ.getInt(1)][7];
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao consultar Exercício: " + e);
         }
 
@@ -162,20 +161,25 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT * FROM "
                     + "exercicio WHERE "
-                    + "DESCRICAO ILIKE '%" + criterio + "%'");
+                    + "tipoExercicio_id ILIKE '%" + criterio + "%'"
+                    + "AND status = 'ativo'");
 
             while (resultadoQ.next()) {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
                 dadosTabela[lin][1] = resultadoQ.getString("data");
-                dadosTabela[lin][2] = resultadoQ.getString("tipoExercicio_nome");
-                dadosTabela[lin][2] = resultadoQ.getString("tipoExercicio_subTipo");
-                dadosTabela[lin][4] = resultadoQ.getString("reacaoCorporal");
-                dadosTabela[lin][5] = resultadoQ.getString("tempo");
-                dadosTabela[lin][6] = resultadoQ.getString("kcalTotal");
+                ResultSet idTipoExe = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
+                    + "SELECT * FROM "
+                    + "tipoexercicio WHERE "
+                    + "id = "+resultadoQ.getInt("tipoExercicio_id"));
+                dadosTabela[lin][2] = idTipoExe.getString("descricao");
+                dadosTabela[lin][3] = resultadoQ.getString("reacaoCorporal_id");
+                dadosTabela[lin][4] = resultadoQ.getString("tempo");
+                dadosTabela[lin][5] = resultadoQ.getString("kcalTotal");
+                dadosTabela[lin][6] = resultadoQ.getString("intensidade");
                 lin++;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao popular tabela");
             System.out.println(e);
         }
@@ -203,9 +207,8 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         tabela.setSelectionMode(0);
 
         // redimensiona as colunas de uma tabela
-        TableColumn column = null;
         for (int i = 0; i < tabela.getColumnCount(); i++) {
-            column = tabela.getColumnModel().getColumn(i);
+            TableColumn column = tabela.getColumnModel().getColumn(i);
             switch (i) {
                 case 0:
                     column.setPreferredWidth(20);
@@ -214,10 +217,10 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
                     column.setPreferredWidth(75);
                     break;
                 case 2:
-                    column.setPreferredWidth(119);
+                    column.setPreferredWidth(90);
                     break;
                 case 3:
-                    column.setPreferredWidth(119);
+                    column.setPreferredWidth(90);
                     break;
                 case 4:
                     column.setPreferredWidth(70);
@@ -225,7 +228,9 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
                 case 5:
                     column.setPreferredWidth(70);
                     break;
-
+                case 6:
+                    column.setPreferredWidth(58);
+                    break;
             }
         }
     }
