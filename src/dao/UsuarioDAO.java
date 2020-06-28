@@ -32,15 +32,15 @@ public class UsuarioDAO implements IDAOT<Usuario> {
                 + "'" + o.metabolismo + "',"
                 + "'" + o.alergia + "',"
                 + "'" + o.alergia1 + "',"
-                + "'" + o.peso + "',"
-                + "'" + o.altura + "',"
+                + "" + o.peso + ","
+                + "" + o.altura + ","
                 + "'" + o.imc + "',"
                 + "'" + o.statusimc + "',"
-                + "'" + o.cintura + "',"
-                + "'" + o.quadril + "',"
+                + "" + o.cintura + ","
+                + "" + o.quadril + ","
                 + "'" + o.statusrcq + "',"
-                + "'" + o.busto + "',"
-                + "'" + o.coxa + "') returning id";
+                + "" + o.busto + ","
+                + "" + o.coxa + ") returning id";
 
         try {
             ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
@@ -69,17 +69,17 @@ public class UsuarioDAO implements IDAOT<Usuario> {
                 + "intolerancia='" + o.intolerancia + "',"
                 + "intolerancia1='" + o.intolerancia1 + "',"
                 + "metabolismo='" + o.metabolismo + "',"
-                + "alergia='" + o.alergia + "',"
-                + "alergia1='" + o.alergia1 + "',"
+                + "alergia=" + o.alergia + ","
+                + "alergia1=" + o.alergia1 + ","
                 + "imc='" + o.imc + "',"
                 + "statusimc='" + o.statusimc + "',"
-                + "peso='" + o.peso + "',"
-                + "altura='" + o.altura + "',"
-                + "cintura='" + o.cintura + "',"
-                + "quadril='" + o.quadril + "',"
+                + "peso=" + o.peso + ","
+                + "altura=" + o.altura + ","
+                + "cintura=" + o.cintura + ","
+                + "quadril=" + o.quadril + ","
                 + "statusrcq='" + o.statusrcq + "',"
-                + "busto='" + o.busto + "',"
-                + "coxa='" + o.coxa + "'"
+                + "busto=" + o.busto + ","
+                + "coxa=" + o.coxa + ""
                 + "WHERE id= " + o.id;
         System.out.println(sql);
 

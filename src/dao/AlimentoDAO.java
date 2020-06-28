@@ -21,13 +21,13 @@ public class AlimentoDAO implements IDAOT<Alimento> {
         String sql = "INSERT INTO alimento VALUES("
                 + "default, "
                 + "'" + o.descricao + "',"
-                + "'" + o.porcao + "',"
-                + "'" + o.valorEner + "',"
-                + "'" + o.proteina + "',"
-                + "'" + o.acucares + "',"
-                + "'" + o.gordTrans + "',"
-                + "'" + o.gordSaturada + "',"
-                + "'" + o.sodio + "',"
+                + "" + o.porcao + ","
+                + "" + o.valorEner + ","
+                + "" + o.proteina + ","
+                + "" + o.acucares + ","
+                + "" + o.gordTrans + ","
+                + "" + o.gordSaturada + ","
+                + "" + o.sodio + ","
                 + "'" + o.status + "') returning id";
 
         try {
@@ -44,14 +44,14 @@ public class AlimentoDAO implements IDAOT<Alimento> {
     public boolean atualizar(Alimento o) {
         String sql = "UPDATE alimento SET "
                 + "descricao='" + o.descricao + "',"
-                + "porcao='" + o.porcao + "',"
-                + "valorEner='" + o.valorEner + "',"
-                + "proteina='" + o.proteina + "',"
-                + "acucares='" + o.acucares + "',"
-                + "gordTrans='" + o.gordTrans + "',"
-                + "gordSaturada='" + o.gordSaturada + "',"
-                + "sodio='" + o.sodio + "',"
-                + "status='" + o.status + "'"
+                + "porcao=" + o.porcao + ","
+                + "valorEnergetico=" + o.valorEner + ","
+                + "proteina=" + o.proteina + ","
+                + "acucares=" + o.acucares + ","
+                + "gordTrans=" + o.gordTrans + ","
+                + "gordSaturada=" + o.gordSaturada + ","
+                + "sodio=" + o.sodio + ","
+                + "status=" + o.status + ""
                 + "WHERE id= " + o.id;
 
         try {
@@ -136,12 +136,12 @@ public class AlimentoDAO implements IDAOT<Alimento> {
         Object[] cabecalho = new Object[9];
         cabecalho[0] = "Código";
         cabecalho[1] = "Nome";
-        cabecalho[2] = "porcao";
+        cabecalho[2] = "Porção";
         cabecalho[3] = "Kcal";
         cabecalho[4] = "Proteína";
         cabecalho[5] = "Açúcares";
-        cabecalho[6] = "Gordura Trans";
-        cabecalho[7] = "Gordura Saturada";
+        cabecalho[6] = "G. Trans";
+        cabecalho[7] = "G. Saturada";
         cabecalho[8] = "Sódio";
 
         // cria matriz de acordo com nº de registros da tabela
@@ -149,7 +149,7 @@ public class AlimentoDAO implements IDAOT<Alimento> {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT count(*) "
                     + "FROM alimento "
-                    + "WHERE nome ILIKE '%" + criterio + "%' "
+                    + "WHERE descricao ILIKE '%" + criterio + "%' "
                     + "AND status = 'ativo'");
 
             resultadoQ.next();
@@ -167,20 +167,20 @@ public class AlimentoDAO implements IDAOT<Alimento> {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
                     + "SELECT * "
                     + "FROM alimento "
-                    + "WHERE nome ILIKE '%" + criterio + "%' "
+                    + "WHERE descricao ILIKE '%" + criterio + "%' "
                     + "AND status = 'ativo'");
 
             while (resultadoQ.next()) {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
                 dadosTabela[lin][1] = resultadoQ.getString("descricao");
-                dadosTabela[lin][2] = resultadoQ.getString("porcao");
-                dadosTabela[lin][3] = resultadoQ.getString("valorEner");
-                dadosTabela[lin][4] = resultadoQ.getString("proteina");
-                dadosTabela[lin][5] = resultadoQ.getString("acucares");
-                dadosTabela[lin][6] = resultadoQ.getString("gordTrans");
-                dadosTabela[lin][7] = resultadoQ.getString("gordSaturada");
-                dadosTabela[lin][8] = resultadoQ.getString("sodio");
+                dadosTabela[lin][2] = resultadoQ.getInt("porcao");
+                dadosTabela[lin][3] = resultadoQ.getInt("valorEnergetico");
+                dadosTabela[lin][4] = resultadoQ.getInt("proteina");
+                dadosTabela[lin][5] = resultadoQ.getInt("acucares");
+                dadosTabela[lin][6] = resultadoQ.getInt("gorduraTrans");
+                dadosTabela[lin][7] = resultadoQ.getInt("gorduraSaturada");
+                dadosTabela[lin][8] = resultadoQ.getInt("sodio");
                 lin++;
             }
         } catch (SQLException e) {

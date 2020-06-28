@@ -2,7 +2,6 @@ package util;
 
 import java.sql.Time;
 import java.text.*;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import javax.swing.*;
@@ -49,6 +48,10 @@ public class Formatacao {
         return getFormatado("###.###.###-##");
     }
 
+    public static JFormattedTextField getHora() {
+        return getFormatado("##:##");
+    }
+    
     public static JFormattedTextField getData() {
         return getFormatado("##/##/####");
     }
@@ -66,6 +69,19 @@ public class Formatacao {
             MaskFormatter m = new MaskFormatter();
             m.setPlaceholderCharacter(' ');
             m.setMask("##/##/####");
+            campo.setFormatterFactory(null);
+            campo.setFormatterFactory(new DefaultFormatterFactory(m));
+            campo.setValue(null);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+    
+    public static void formatarHora(JFormattedTextField campo) {
+        try {
+            MaskFormatter m = new MaskFormatter();
+            m.setPlaceholderCharacter(' ');
+            m.setMask("##:##");
             campo.setFormatterFactory(null);
             campo.setFormatterFactory(new DefaultFormatterFactory(m));
             campo.setValue(null);

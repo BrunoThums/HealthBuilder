@@ -51,6 +51,15 @@ public class Validacao {
         }
         return (correto);
     }
+    
+    public static boolean validarHora(int hora, int minuto){
+        if(hora <0 || hora >24){
+            return false;
+        } else if (minuto<0 || minuto >60){
+            return false;
+        }
+        return true;
+    }
 
     public static boolean validarDataFormatada(String dataComFormato) {
         String[] data = dataComFormato.split("/");
@@ -62,4 +71,10 @@ public class Validacao {
             Formatacao.formatarTelefone(campo);
         }
     }
+    
+    public static boolean validarHoraFormatada(String horaComFormato) {
+        String[] time = horaComFormato.split(":");
+        return (validarHora(Integer.parseInt(time[0]), Integer.parseInt(time[1])));
+    }
+    
 }

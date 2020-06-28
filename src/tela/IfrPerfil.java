@@ -1,6 +1,7 @@
 package tela;
 
 import dao.UsuarioDAO;
+import entidade.Usuario;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -21,7 +22,9 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
 
     ConexaoBD c = ConexaoBD.getInstance();
     Verificacoes v = new Verificacoes();
-
+    int id = 0;
+    Usuario user = null;
+    UsuarioDAO userRC = new UsuarioDAO();
     public IfrPerfil() {
         initComponents();
         preencheUsuario();
@@ -231,7 +234,7 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
                     .addComponent(tfCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addGap(151, 151, 151)
                 .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnDadosCadastraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -503,6 +506,7 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (!(verificaDiferencaUsuario())) {
             atualizaDiferencaUsuario();
+            
             JOptionPane.showMessageDialog(rootPane, "Os dados foram atualizados!");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Não foi feita nenhuma alteração. Verifique se você alterou algum campo.");
@@ -940,7 +944,6 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         }
         return ok;
     }
-
     /**
      * Atualiza os dados com o banco de dados
      */

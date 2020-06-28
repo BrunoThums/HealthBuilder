@@ -73,7 +73,14 @@ public class Verificacoes {
     
 
     public static boolean isDataVazia(JFormattedTextField tff) {
-        if (tff.getText().equals("  /  /  ")) {
+        if (tff.getText().equals("  /  /    ")) {
+            return true;
+        }
+        return false;
+    }
+    
+    public static boolean isHoraVazia(JFormattedTextField tff){
+        if(tff.getText().equals("  :  ")){
             return true;
         }
         return false;
@@ -193,7 +200,7 @@ public class Verificacoes {
      * @param evt
      */
     public static void verificaLetras(java.awt.event.KeyEvent evt) {
-        String letras = "abcdefghijklmnopqrstuvwxyzáàãâéèêíìîóòõôúùûABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛ";
+        String letras = "abcdefghijklmnopqrstuvwxyzáàãâéèêíìîóòõôúùûABCDEFGHIJKLMNOPQRSTUVWXYZÁÀÃÂÉÈÊÍÌÎÓÒÕÔÚÙÛçÇ";
         if (!(letras.contains(evt.getKeyChar() + ""))) {
             evt.consume();
         }

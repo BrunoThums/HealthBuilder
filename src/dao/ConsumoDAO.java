@@ -20,13 +20,13 @@ public class ConsumoDAO implements IDAOT<Consumo> {
     public Integer salvar(Consumo o) {
         String sql = "INSERT INTO consumo VALUES("
                 + "default, "
-                + "'" + o.descricao + "',"
+                + "'" + o.alimento_id + "',"
                 + "'" + o.refeicao + "',"
-                + "'" + o.quantidade + "',"
-                + "'" + o.porcaoConsumida + "',"
+                + "" + o.quantidade + ","
+                + "" + o.porcaoConsumida + ","
                 + "'" + o.data + "',"
                 + "'" + o.horario + "',"
-                + "'" + o.reacaoCorporal + "',"
+                + "" + o.reacaoCorporal_id + ","
                 + "'" + o.status + "') returning id";
 
         try {
@@ -42,13 +42,13 @@ public class ConsumoDAO implements IDAOT<Consumo> {
     @Override
     public boolean atualizar(Consumo o) {
         String sql = "UPDATE consumo SET "
-                + "descricao='" + o.descricao + "',"
+                + "alimento_id='" + o.alimento_id + "',"
                 + "refeicao='" + o.refeicao + "',"
-                + "quantidade='" + o.quantidade + "',"
-                + "porcaoConsumida='" + o.porcaoConsumida + "',"
+                + "quantidade=" + o.quantidade + ","
+                + "porcaoConsumida=" + o.porcaoConsumida + ","
                 + "data='" + o.data + "',"
-                + "tempo='" + o.horario + "',"
-                + "reacaoCorporal='" + o.reacaoCorporal + "',"
+                + "horario='" + o.horario + "',"
+                + "reacaoCorporal_id=" + o.reacaoCorporal_id + ","
                 + "status='" + o.status + "'"
                 + "WHERE id= " + o.id;
 
@@ -126,6 +126,24 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         return null;
     }
 
+    private String pesquisa(String criterio) {
+        String pesquisa = " FROM "
+                + "exercicio e, "
+                + "reacaocorporal r, "
+                + "tipoexercicio t "
+                + "WHERE e.tipoexercicio_id = t.id "
+                + "AND e.reacaocorporal_id = r.id "
+                + "AND e.status = 'ativo' ";
+        if (criterio != null && !criterio.isEmpty()) {
+            pesquisa += "AND ("
+                    + "t.descricao ILIKE '%" + criterio + "%'"
+                    + "OR "
+                    + "r.nome ILIKE '%" + criterio + "%'"
+                    + ");";
+        }
+        return pesquisa;
+    }
+
     public void popularTabela(JTable tabela, String criterio) {
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -170,11 +188,11 @@ public class ConsumoDAO implements IDAOT<Consumo> {
             while (resultadoQ.next()) {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
-                dadosTabela[lin][1] = resultadoQ.getString("descricao");
+                dadosTabela[lin][1] = resultadoQ.getString("alimento_id");
                 dadosTabela[lin][2] = resultadoQ.getString("refeicao");
                 dadosTabela[lin][3] = resultadoQ.getString("data");
                 dadosTabela[lin][4] = resultadoQ.getString("horario");
-                dadosTabela[lin][5] = resultadoQ.getString("reacaoCorporal");
+                dadosTabela[lin][5] = resultadoQ.getString("reacaoCorporal_id");
                 dadosTabela[lin][6] = resultadoQ.getString("quantidade");
                 dadosTabela[lin][7] = resultadoQ.getString("porcaoConsumida");
                 lin++;

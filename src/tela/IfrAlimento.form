@@ -52,8 +52,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Registrar">
-                <Property name="tabTitle" type="java.lang.String" value="Registrar"/>
+              <JTabbedPaneConstraints tabName="Registrar Consumo">
+                <Property name="tabTitle" type="java.lang.String" value="Registrar Consumo"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -79,41 +79,46 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="tffCodigoRC" min="-2" pref="62" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="tffReacaoCorporal" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblIconRC" min="-2" pref="32" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                                  <Component id="tfAlimentoConsumido" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblIconAli" min="-2" pref="32" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="cbPorcaoAli" min="-2" pref="120" max="-2" attributes="0"/>
-                                              <Component id="tffPorcaoAli" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="tffData" max="32767" attributes="0"/>
-                                              <Component id="tffKcalAli" min="-2" pref="108" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="1" attributes="0">
+                                                      <Component id="tffPorcaoPadrao" min="-2" pref="120" max="-2" attributes="0"/>
+                                                      <Component id="tffPorcaoAli" min="-2" pref="118" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="tffData" max="32767" attributes="0"/>
+                                                      <Component id="tffKcalAli" min="-2" pref="108" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="cbTipoAlimentacao" min="-2" pref="234" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="tffQuantidade" min="-2" pref="118" max="-2" attributes="0"/>
+                                              <Component id="tffHorario" min="-2" pref="118" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="cbTipoAlimentacao" min="-2" pref="234" max="-2" attributes="0"/>
+                                      <Component id="tfAlimentoConsumido" min="-2" pref="280" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="tffQuantidade" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tffHorario" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tffKcalTotal" alignment="0" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblAli" min="-2" pref="32" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="tffKcalTotal" alignment="1" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="tffCodigoRC" min="-2" pref="62" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="tffReacaoCorporal" min="-2" pref="280" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblRC" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -128,53 +133,47 @@
                       <Component id="lblConsumoDeAlimento" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="tfAlimentoConsumido" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                                   <Component id="tffCodigoAli" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="cbTipoAlimentacao" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="tffQuantidade" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="tffData" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="tffHorario" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="tffPorcaoAli" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="tffKcalAli" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="tffPorcaoPadrao" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="tffKcalTotal" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="lblIconAli" min="-2" pref="32" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cbTipoAlimentacao" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="tffQuantidade" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="lblAli" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tffData" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="tffHorario" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="cbPorcaoAli" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tffKcalAli" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="tffPorcaoAli" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="tffKcalTotal" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="tffReacaoCorporal" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                                   <Component id="tffCodigoRC" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnFecharCons" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="btnSalvarCons" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lblIconRC" min="-2" pref="32" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lblRC" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnFecharCons" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="btnSalvarCons" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -190,22 +189,12 @@
             </Component>
             <Component class="javax.swing.JTextField" name="tfAlimentoConsumido">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder position="1" title="O que voc&#xea; comeu?*">
                       <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                     </TitledBorder>
-                  </Border>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblIconAli">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="ver"/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                    <MatteColorBorder/>
                   </Border>
                 </Property>
               </Properties>
@@ -246,6 +235,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarConsActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tffData">
               <Properties>
@@ -256,7 +248,6 @@
                     </TitledBorder>
                   </Border>
                 </Property>
-                <Property name="text" type="java.lang.String" value=" "/>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffDataFocusLost"/>
@@ -264,6 +255,7 @@
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tffReacaoCorporal">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder position="1" title="Rea&#xe7;&#xe3;o Corporal*">
@@ -286,10 +278,10 @@
                     </TitledBorder>
                   </Border>
                 </Property>
-                <Property name="text" type="java.lang.String" value=" "/>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffHorarioFocusLost"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tffHorarioKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tffKcalAli">
@@ -319,12 +311,15 @@
                   </Border>
                 </Property>
                 <Property name="text" type="java.lang.String" value=" "/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="11" style="1"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffKcalTotalFocusLost"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="tffPorcaoAli">
+            <Component class="javax.swing.JFormattedTextField" name="tffPorcaoPadrao">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -337,43 +332,8 @@
                 <Property name="text" type="java.lang.String" value=" "/>
               </Properties>
               <Events>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffPorcaoAliFocusLost"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffPorcaoPadraoFocusLost"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="cbPorcaoAli">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="16">
-                    <StringItem index="0" value="Selecione"/>
-                    <StringItem index="1" value="10%"/>
-                    <StringItem index="2" value="20%"/>
-                    <StringItem index="3" value="30%"/>
-                    <StringItem index="4" value="40%"/>
-                    <StringItem index="5" value="50%"/>
-                    <StringItem index="6" value="60%"/>
-                    <StringItem index="7" value="70%"/>
-                    <StringItem index="8" value="80%"/>
-                    <StringItem index="9" value="90%"/>
-                    <StringItem index="10" value="100%"/>
-                    <StringItem index="11" value="110%"/>
-                    <StringItem index="12" value="120%"/>
-                    <StringItem index="13" value="130%"/>
-                    <StringItem index="14" value="140%"/>
-                    <StringItem index="15" value="150%"/>
-                  </StringArray>
-                </Property>
-                <Property name="toolTipText" type="java.lang.String" value="Quantidade da por&#xe7;&#xe3;o em rela&#xe7;&#xe3;o a por&#xe7;&#xe3;o padr&#xe3;o"/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="1" title="Por&#xe7;&#xe3;o Alimento*">
-                      <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
-                    </TitledBorder>
-                  </Border>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tffCodigoAli">
               <Properties>
@@ -384,10 +344,10 @@
                     </TitledBorder>
                   </Border>
                 </Property>
-                <Property name="text" type="java.lang.String" value=" "/>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffCodigoAliFocusLost"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tffCodigoAliKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tffCodigoRC">
@@ -399,37 +359,51 @@
                     </TitledBorder>
                   </Border>
                 </Property>
-                <Property name="text" type="java.lang.String" value=" "/>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffCodigoRCFocusLost"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tffCodigoRCKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="tffQuantidade">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="1" title="Quantidade*">
+                    <TitledBorder position="1" title="Quantidade(Un.)*">
                       <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                     </TitledBorder>
                   </Border>
                 </Property>
-                <Property name="text" type="java.lang.String" value=" "/>
               </Properties>
               <Events>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffQuantidadeFocusLost"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tffQuantidadeKeyTyped"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblIconRC">
+            <Component class="javax.swing.JLabel" name="lblAli">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAliMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblRC">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblRCMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="tffPorcaoAli">
               <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="ver"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                    <MatteColorBorder/>
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder position="1" title="Por&#xe7;&#xe3;o Alimento*">
+                      <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
+                    </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffPorcaoAliFocusLost"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tffPorcaoAliKeyTyped"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -634,16 +608,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="tfDescricao" min="-2" pref="172" max="-2" attributes="0"/>
                                   <Component id="tfPorcao" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfGordTrans" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
-                                  <Component id="tfAcucares" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="tfGordTrans" pref="182" max="32767" attributes="0"/>
+                                  <Component id="tfAcucares" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -652,13 +626,13 @@
                                   <Component id="tfProteina" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfSódio" alignment="0" min="-2" pref="172" max="-2" attributes="0"/>
-                                  <Component id="tfGordSatur" alignment="1" min="-2" pref="172" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="tfGordSatur" pref="186" max="32767" attributes="0"/>
+                                  <Component id="tfSodio" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <EmptySpace pref="47" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -699,7 +673,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfSódio" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfSodio" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfProteina" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
@@ -742,6 +716,9 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfPorcaoKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfKcal">
               <Properties>
@@ -753,61 +730,79 @@
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfKcalKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfProteina">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="1" title="Prote&#xed;na*">
+                    <TitledBorder position="1" title="Prote&#xed;na (gramas)*">
                       <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                     </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfProteinaKeyTyped"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfS&#xf3;dio">
+            <Component class="javax.swing.JTextField" name="tfSodio">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="1" title="S&#xf3;dio*">
+                    <TitledBorder position="1" title="S&#xf3;dio (gramas)*">
                       <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                     </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfSodioKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfAcucares">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="1" title="A&#xe7;&#xfa;cares*">
+                    <TitledBorder position="1" title="A&#xe7;&#xfa;cares (gramas)*">
                       <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                     </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfAcucaresKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfGordTrans">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="1" title="Gordura Trans*">
+                    <TitledBorder position="1" title="Gordura Trans (gramas)*">
                       <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                     </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfGordTransKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfGordSatur">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder position="1" title="Gordura Saturada*">
+                    <TitledBorder position="1" title="Gordura Saturada (gramas)*">
                       <Font PropertyName="font" name="Lucida Calligraphy" size="11" style="0"/>
                     </TitledBorder>
                   </Border>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfGordSaturKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JToggleButton" name="btnFecharAli">
               <Properties>
@@ -821,6 +816,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarAliActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

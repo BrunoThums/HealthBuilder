@@ -16,10 +16,10 @@ public class CompraDAO implements IDAOT<Compra> {
     public Integer salvar(Compra o) {
         String sql = "INSERT INTO compra VALUES("
                 + "default, "
-                + "'" + o.alimento + "',"
-                + "'" + o.valorTotal + "',"
-                + "'" + o.valorUnitario + "',"
-                + "'" + o.quantidade + "') returning id";
+                + "" + o.alimento + ","
+                + "" + o.valorTotal + ","
+                + "" + o.valorUnitario + ","
+                + "" + o.quantidade + ") returning id";
 
         try {
             ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
@@ -34,10 +34,10 @@ public class CompraDAO implements IDAOT<Compra> {
     @Override
     public boolean atualizar(Compra o) {
         String sql = "UPDATE compra SET "
-                + "alimento='" + o.alimento + "',"
-                + "valorTotal='" + o.valorTotal + "',"
-                + "valorUnitario='" + o.valorUnitario + "',"
-                + "quantidade='" + o.quantidade + "',"
+                + "alimento=" + o.alimento + ","
+                + "valorTotal=" + o.valorTotal + ","
+                + "valorUnitario=" + o.valorUnitario + ","
+                + "quantidade=" + o.quantidade + ","
                 + "WHERE id= " + o.id;
 
         try {

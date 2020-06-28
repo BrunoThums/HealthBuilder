@@ -22,11 +22,11 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
                 + "default, "
                 + "'" + o.data + "',"
                 + "" + o.tipoExercicio + "," //°ext nome
-                + "'" + o.reacaoCorporal + "',"//ext nome
+                + "" + o.reacaoCorporal + ","//ext nome
                 + "'" + o.tempo + "',"
                 + "'" + o.intensidade + "',"
-                + "'" + o.kcalTotal + "',"
-                + "'" + o.status +"') returning id";
+                + "" + o.kcalTotal + ","
+                + "'" + o.status + "') returning id";
 
         try {
             ResultSet resultSet = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(sql);
@@ -42,12 +42,12 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
     public boolean atualizar(Exercicio o) {
         String sql = "UPDATE exercicio SET "
                 + "data='" + o.data + "',"
-                + "tipoExercicio_nome='" + o.tipoExercicio + "',"//ext nome
-                + "reacaoCorporal_nome='" + o.reacaoCorporal + "',"//ext nome
+                + "tipoExercicio_id=" + o.tipoExercicio + ","//ext nome
+                + "reacaoCorporal_id=" + o.reacaoCorporal + ","//ext nome
                 + "tempo='" + o.tempo + "',"
                 + "intensidade='" + o.intensidade + "',"
-                + "kcalTotal='" + o.kcalTotal + "',"
-                + "status='" + o.status + "',"
+                + "kcalTotal=" + o.kcalTotal + ","
+                + "status='" + o.status + "' "
                 + "WHERE id= " + o.id;
 
         try {
@@ -124,6 +124,24 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         return null;
     }
 
+    private String pesquisa(String criterio) {
+        String pesquisa = " FROM "
+                + "exercicio e, "
+                + "reacaocorporal r, "
+                + "tipoexercicio t "
+                + "WHERE e.tipoexercicio_id = t.id "
+                + "AND e.reacaocorporal_id = r.id "
+                + "AND e.status = 'ativo' ";
+        if (criterio != null && !criterio.isEmpty()) {
+            pesquisa += "AND ("
+                    + "t.descricao ILIKE '%" + criterio + "%'"
+                    + "OR "
+                    + "r.nome ILIKE '%" + criterio + "%'"
+                    + ");";
+        }
+        return pesquisa;
+    }
+
     public void popularTabela(JTable tabela, String criterio) {
         // dados da tabela
         Object[][] dadosTabela = null;
@@ -140,11 +158,9 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
 
         // cria matriz de acordo com nº de registros da tabela
         try {
+            System.out.println("SQL: " + "SELECT count(*) " + pesquisa(criterio));
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT count(*) "
-                    + "FROM exercicio "
-                    + "WHERE tipoExercicio_id ILIKE '%" + criterio + "%'"
-                    + "AND status = 'ativo'");
+                    + "SELECT count(*) " + pesquisa(criterio));
 
             resultadoQ.next();
 
@@ -152,6 +168,7 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
 
         } catch (SQLException e) {
             System.out.println("Erro ao consultar Exercício: " + e);
+            e.printStackTrace(System.err);
         }
 
         int lin = 0;
@@ -159,21 +176,14 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * FROM "
-                    + "exercicio WHERE "
-                    + "tipoExercicio_id ILIKE '%" + criterio + "%'"
-                    + "AND status = 'ativo'");
+                    + "SELECT * " + pesquisa(criterio));
 
             while (resultadoQ.next()) {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
                 dadosTabela[lin][1] = resultadoQ.getString("data");
-                ResultSet idTipoExe = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * FROM "
-                    + "tipoexercicio WHERE "
-                    + "id = "+resultadoQ.getInt("tipoExercicio_id"));
-                dadosTabela[lin][2] = idTipoExe.getString("descricao");
-                dadosTabela[lin][3] = resultadoQ.getString("reacaoCorporal_id");
+                dadosTabela[lin][2] = resultadoQ.getString("descricao");
+                dadosTabela[lin][3] = resultadoQ.getString("nome");
                 dadosTabela[lin][4] = resultadoQ.getString("tempo");
                 dadosTabela[lin][5] = resultadoQ.getString("kcalTotal");
                 dadosTabela[lin][6] = resultadoQ.getString("intensidade");
