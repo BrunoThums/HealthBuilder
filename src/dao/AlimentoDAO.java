@@ -128,14 +128,26 @@ public class AlimentoDAO implements IDAOT<Alimento> {
         return null;
     }
        
-    private String pesquisa(String criterio, String status){
+    private String pesquisa(String criterio, String status, String variavel, String ordem){
         String pesquisa = "FROM alimento "
                     + "WHERE descricao ILIKE '%" + criterio + "%' "
                     + "AND status = '"+status+"'";
+        if ((variavel != null && !variavel.isEmpty()) && (ordem != null && !ordem.isEmpty())){
+            switch(variavel){
+                case "descricao" -> pesquisa+= " ORDER BY descricao "+ordem;
+                case "porcao" -> pesquisa+= " ORDER BY porcao "+ordem;
+                case "kcal" -> pesquisa+= " ORDER BY valorEnergetico "+ordem;
+                case "proteina" -> pesquisa+= " ORDER BY proteina "+ordem;
+                case "acucar" -> pesquisa+= " ORDER BY acucares "+ordem;
+                case "trans" -> pesquisa+= " ORDER BY gorduratrans "+ordem;
+                case "sat" -> pesquisa+= " ORDER BY gordurasaturada "+ordem;
+                case "sodio" -> pesquisa+= " ORDER BY sodio "+ordem;
+            }
+        }
         return pesquisa;
     }
 
-    public void popularTabela(JTable tabela, String criterio, String status) {
+    public void popularTabela(JTable tabela, String criterio, String status, String variavel, String ordem) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -154,7 +166,7 @@ public class AlimentoDAO implements IDAOT<Alimento> {
         // cria matriz de acordo com nº de registros da tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT count(*) "+pesquisa(criterio,status));
+                    + "SELECT count(*) "+pesquisa(criterio,status, null, null));
 
             resultadoQ.next();
 
@@ -169,7 +181,7 @@ public class AlimentoDAO implements IDAOT<Alimento> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * "+pesquisa(criterio,status));
+                    + "SELECT * "+pesquisa(criterio,status, variavel, ordem));
 
             while (resultadoQ.next()) {
 

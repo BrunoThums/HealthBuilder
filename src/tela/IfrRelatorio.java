@@ -211,13 +211,13 @@ public class IfrRelatorio extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
-    private javax.swing.JToggleButton btnSalvar;
-    private javax.swing.JCheckBox ckAtivo;
+    public javax.swing.JToggleButton btnSalvar;
+    public javax.swing.JCheckBox ckAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblDataFim;
     private javax.swing.JLabel lblDataInicio;
-    private javax.swing.JFormattedTextField tffDataFim;
-    private javax.swing.JFormattedTextField tffDataIni;
+    public javax.swing.JFormattedTextField tffDataFim;
+    public javax.swing.JFormattedTextField tffDataIni;
     // End of variables declaration//GEN-END:variables
 }

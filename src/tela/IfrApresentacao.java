@@ -17,6 +17,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import util.ConexaoBD;
+import static util.Formatacao.parseDMADate;
+import static util.Verificacoes.isDataVazia;
 
 public class IfrApresentacao extends javax.swing.JInternalFrame {
 
@@ -854,31 +856,22 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGerarAlimentoActionPerformed
 
     private void btnGerarConsumo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarConsumo1ActionPerformed
-        String a1, a2, a3 = "";
         IfrRelatorio a = new IfrRelatorio();
-        a.setVisible(true);
-        a.setLocationRelativeTo(null);
-        a.requestFocus();
+        a.btnSalvar.addActionListener(e -> {
+            if (a.tffDataIni != null && !isDataVazia(a.tffDataIni) && a.tffDataFim != null && !isDataVazia(a.tffDataFim)) {
+                a.isOk = true;
+                a.dataini = a.tffDataIni.getText();
+                a.datafim = a.tffDataFim.getText();
+                try {
+                    // Compila o relatorio
+                    JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/list_consumo_param.jrxml"));
 
-        a1 = a.ativo;
-        a2 = a.dataini;
-        a3 = a.datafim;
-
-            /*SELECT * FROM  consumo c,  reacaocorporal r,  alimento a 
- WHERE c.reacaocorporal_id = r.id
- AND c.alimento_id = a.id
- AND c.status = $P{ativo}
- AND c.data BETWEEN  $P{dataIni} AND $P{dataFim}*/
-            try {
-                // Compila o relatorio
-                JasperReport relatorio = JasperCompileManager.compileReport(getClass().getResourceAsStream("/relatorios/list_consumo_param.jrxml"));
-
-                // Mapeia campos de parametros para o relatorio, mesmo que nao existam
-                Map parametros = new HashMap();
-                parametros.put("nome_user", FrmJP.usuario.nome + " " + FrmJP.usuario.sobrenome);
-                parametros.put("ativo", a1);
-                parametros.put("dataIni", a2);
-                parametros.put("dataFim", a3);
+                    // Mapeia campos de parametros para o relatorio, mesmo que nao existam
+                    Map parametros = new HashMap();
+                    parametros.put("nome_user", FrmJP.usuario.nome + " " + FrmJP.usuario.sobrenome);
+                    parametros.put("ativo", a.ckAtivo.isSelected()?"ativo":"inativo");
+                    parametros.put("dataIni", parseDMADate(a.dataini));
+                    parametros.put("dataFim", parseDMADate(a.datafim));
 //            String sql = "select * "
 //                    + "from tratamento "
 //                    + "where "
@@ -886,15 +879,28 @@ public class IfrApresentacao extends javax.swing.JInternalFrame {
 //                    + "data_inicio <= '"+tffDataFinal.getText()+"')";
 //            
 //            parametros.put("sql", sql);
-                // Executa relatoio
-                JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, ConexaoBD.getInstance().getConnection());
+                    // Executa relatoio
+                    JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, ConexaoBD.getInstance().getConnection());
 
-                // Exibe resultado em video
-                JasperViewer.viewReport(impressao, false);
+                    // Exibe resultado em video
+                    JasperViewer.viewReport(impressao, false);
 
-            } catch (JRException e) {
-                JOptionPane.showMessageDialog(null, "Erro ao gerar relatório: " + e);
+                } catch (JRException f) {
+                    JOptionPane.showMessageDialog(null, "Erro ao gerar relatório: " + e);
+                }
+                a.dispose();
             }
+        });
+        a.setVisible(true);
+        a.setLocationRelativeTo(this);
+        a.requestFocus();
+
+        /*SELECT * FROM  consumo c,  reacaocorporal r,  alimento a 
+ WHERE c.reacaocorporal_id = r.id
+ AND c.alimento_id = a.id
+ AND c.status = $P{ativo}
+ AND c.data BETWEEN  $P{dataIni} AND $P{dataFim}*/
+
     }//GEN-LAST:event_btnGerarConsumo1ActionPerformed
 
     private void btnGerarExercicio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarExercicio2ActionPerformed

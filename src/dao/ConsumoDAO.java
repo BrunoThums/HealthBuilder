@@ -127,7 +127,7 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         }
         return null;
     }
-    private String pesquisa(String criterio, String dataIni, String dataFim, String status) {
+    private String pesquisa(String criterio, String dataIni, String dataFim, String status, String variavel, String ordem) {
         String pesquisa = "FROM"
                 + " consumo c,"
                 + " reacaocorporal r,"
@@ -145,10 +145,18 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         if ((dataIni != null && !dataIni.isEmpty()) && (dataFim != null && !dataFim.isEmpty())) {
             pesquisa += " AND data BETWEEN '" + dataIni + "' and '" + dataFim + "' ";
         }
+        if ((variavel != null && !variavel.isEmpty()) && (ordem != null && !ordem.isEmpty())){
+            switch(variavel){
+                case "alimento" -> pesquisa+= " ORDER BY a.descricao "+ordem;
+                case "reacao" -> pesquisa+= " ORDER BY r.nome "+ordem;
+                case "data" -> pesquisa+= " ORDER BY data "+ordem;
+                case "kcal" -> pesquisa+= " ORDER BY c.KcalTotal "+ordem;
+            }
+        }
         return pesquisa;
     }
 
-    public void popularTabela(JTable tabela, String criterio, String dataIni, String dataFim, String status) {
+    public void popularTabela(JTable tabela, String criterio, String dataIni, String dataFim, String status, String variavel, String ordem) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -166,7 +174,7 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         // cria matriz de acordo com nº de registros da tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT count(*) "+pesquisa(criterio, dataIni, dataFim, status));
+                    + "SELECT count(*) "+pesquisa(criterio, dataIni, dataFim, status, null, null));
 
             resultadoQ.next();
 
@@ -181,7 +189,7 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * "+pesquisa(criterio, dataIni, dataFim, status));
+                    + "SELECT * "+pesquisa(criterio, dataIni, dataFim, status, variavel, ordem));
 
             while (resultadoQ.next()) {
 
