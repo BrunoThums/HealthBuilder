@@ -238,7 +238,6 @@
                         </TitledBorder>
                       </Border>
                     </Property>
-                    <Property name="text" type="java.lang.String" value=" "/>
                   </Properties>
                   <Events>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tffDataNascFocusLost"/>
@@ -389,9 +388,6 @@
                       </Border>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cbEstadoFocusLost"/>
-                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -536,12 +532,11 @@
                 <Component class="javax.swing.JComboBox" name="cbMetabolismo">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="5">
+                      <StringArray count="4">
                         <StringItem index="0" value="Selecione"/>
                         <StringItem index="1" value="Lento"/>
                         <StringItem index="2" value="Normal"/>
                         <StringItem index="3" value="R&#xe1;pido"/>
-                        <StringItem index="4" value=" "/>
                       </StringArray>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

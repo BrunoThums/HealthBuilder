@@ -2,7 +2,7 @@ package util;
 
 import java.sql.Time;
 import java.text.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Locale;
 import javax.swing.*;
 import javax.swing.text.*;
@@ -51,7 +51,7 @@ public class Formatacao {
     public static JFormattedTextField getHora() {
         return getFormatado("##:##");
     }
-    
+
     public static JFormattedTextField getData() {
         return getFormatado("##/##/####");
     }
@@ -72,11 +72,11 @@ public class Formatacao {
             campo.setFormatterFactory(null);
             campo.setFormatterFactory(new DefaultFormatterFactory(m));
             campo.setValue(null);
-        } catch (Exception e) {
+        } catch (ParseException e) {
             System.err.println(e);
         }
     }
-    
+
     public static void formatarHora(JFormattedTextField campo) {
         try {
             MaskFormatter m = new MaskFormatter();
@@ -129,7 +129,7 @@ public class Formatacao {
         }
     }
 
-    public static String ajustaDataDMA(String data) {
+    /*public static String ajustaDataDMA(String data) {
         String dataFormatada = null;
         try {
             Date dataAMD = new SimpleDateFormat("yyyy-MM-dd").parse(data);
@@ -138,9 +138,32 @@ public class Formatacao {
             System.err.println(e);
         }
         return (dataFormatada);
+    }*/
+
+    public static Date parseDMADate(String s) {
+        if (s == null) {
+            return null;
+        }
+        final String[] date = s.split("/");
+        return Date.valueOf(String.format("%s-%s-%s", date[2], date[1], date[0]));
     }
 
-    public static String ajustaDataAMD(String data) {
+    public static String formatDate(Date date) {
+        if (date == null) {
+            return null;
+        }
+        final String[] str = date.toString().split("-");
+        return String.format("%s/%s/%s", str[2], str[1], str[0]);
+    }
+
+    public static String formatString(String date) {
+        if (date == null) {
+            return null;
+        }
+        final String[] str = date.split("-");
+        return String.format("%s/%s/%s", str[2], str[1], str[0]);
+    }
+    /*public static String ajustaDataAMD(String data) {
         String dataFormatada = null;
         try {
             Date dataDMA = new SimpleDateFormat("dd/MM/yyyy").parse(data);
@@ -149,7 +172,7 @@ public class Formatacao {
             System.err.println(e);
         }
         return (dataFormatada);
-    }
+    }*/
 
     public static String removerFormatacao(String dado) {
         String retorno = "";
@@ -161,7 +184,7 @@ public class Formatacao {
         return (retorno);
     }
 
-    public static String getDataAtual() {
+    /*public static String getDataAtual() {
         Date now = new Date();
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String dataHoje = df.format(now);
@@ -175,12 +198,12 @@ public class Formatacao {
         String dataHoje = df.format(now);
 
         return dataHoje;
-    }
-    
+    }*/
+
     public static Time converteHora(JComboBox hora, JComboBox min) {
         String h = (String) hora.getSelectedItem();
         String m = (String) min.getSelectedItem();
 
-        return Time.valueOf(String.format("%s:%s:00", h,m));
+        return Time.valueOf(String.format("%s:%s:00", h, m));
     }
 }

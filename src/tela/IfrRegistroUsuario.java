@@ -7,6 +7,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import util.ConexaoBD;
 import util.Formatacao;
+import static util.Formatacao.parseDMADate;
 import static util.Verificacoes.isCPFValido;
 import static util.Verificacoes.isCPFVazio;
 import static util.Verificacoes.isDataValida;
@@ -269,8 +270,7 @@ public class IfrRegistroUsuario extends javax.swing.JDialog {
             Usuario usuario = new Usuario();
             usuario.nome = tfNome.getText();
             usuario.sobrenome = tfSobrenome.getText().trim();
-            String[] data = tffDataNasc.getText().trim().split("/"); // [dia, mes, ano]
-            usuario.dataNasc = java.sql.Date.valueOf(String.format("%s-%s-%s", data[2], data[1], data[0])); // ano-mes-dia
+            usuario.dataNasc = parseDMADate(tffDataNasc.getText().trim());
             usuario.sexo = cbSexo.getSelectedItem().toString();
             usuario.cpf = tffCPF.getText();
             usuario.email = tfEmail.getText().trim();

@@ -26,6 +26,7 @@ public class ConsumoDAO implements IDAOT<Consumo> {
                 + "" + o.porcaoConsumida + ","
                 + "'" + o.data + "',"
                 + "'" + o.horario + "',"
+                + "" + o.kcalTotal + ","
                 + "" + o.reacaoCorporal_id + ","
                 + "'" + o.status + "') returning id";
 
@@ -48,8 +49,9 @@ public class ConsumoDAO implements IDAOT<Consumo> {
                 + "porcaoConsumida=" + o.porcaoConsumida + ","
                 + "data='" + o.data + "',"
                 + "horario='" + o.horario + "',"
+                + "kcalTotal=" + o.kcalTotal + ","
                 + "reacaoCorporal_id=" + o.reacaoCorporal_id + ","
-                + "status='" + o.status + "'"
+                + "status='" + o.status + "' "
                 + "WHERE id= " + o.id;
 
         try {
@@ -125,26 +127,28 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         }
         return null;
     }
-
-    private String pesquisa(String criterio) {
-        String pesquisa = " FROM "
-                + "exercicio e, "
-                + "reacaocorporal r, "
-                + "tipoexercicio t "
-                + "WHERE e.tipoexercicio_id = t.id "
-                + "AND e.reacaocorporal_id = r.id "
-                + "AND e.status = 'ativo' ";
+    private String pesquisa(String criterio, String dataIni, String dataFim, String status) {
+        String pesquisa = "FROM"
+                + " consumo c,"
+                + " reacaocorporal r,"
+                + " alimento a"
+                + " WHERE c.reacaocorporal_id = r.id"
+                + " AND c.alimento_id = a.id"
+                + " AND c.status = '"+status+"' ";
         if (criterio != null && !criterio.isEmpty()) {
             pesquisa += "AND ("
-                    + "t.descricao ILIKE '%" + criterio + "%'"
+                    + "a.descricao ILIKE '%" + criterio + "%'"
                     + "OR "
                     + "r.nome ILIKE '%" + criterio + "%'"
                     + ");";
         }
+        if ((dataIni != null && !dataIni.isEmpty()) && (dataFim != null && !dataFim.isEmpty())) {
+            pesquisa += " AND data BETWEEN '" + dataIni + "' and '" + dataFim + "' ";
+        }
         return pesquisa;
     }
 
-    public void popularTabela(JTable tabela, String criterio) {
+    public void popularTabela(JTable tabela, String criterio, String dataIni, String dataFim, String status) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -162,10 +166,7 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         // cria matriz de acordo com nº de registros da tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT count(*) "
-                    + "FROM consumo "
-                    + "WHERE nome ILIKE '%" + criterio + "%' "
-                    + "AND status = 'ativo'");
+                    + "SELECT count(*) "+pesquisa(criterio, dataIni, dataFim, status));
 
             resultadoQ.next();
 
@@ -180,19 +181,16 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * "
-                    + "FROM consumo "
-                    + "WHERE nome ILIKE '%" + criterio + "%' "
-                    + "AND status = 'ativo'");
+                    + "SELECT * "+pesquisa(criterio, dataIni, dataFim, status));
 
             while (resultadoQ.next()) {
 
                 dadosTabela[lin][0] = resultadoQ.getInt("id");
-                dadosTabela[lin][1] = resultadoQ.getString("alimento_id");
+                dadosTabela[lin][1] = resultadoQ.getString("descricao");
                 dadosTabela[lin][2] = resultadoQ.getString("refeicao");
                 dadosTabela[lin][3] = resultadoQ.getString("data");
                 dadosTabela[lin][4] = resultadoQ.getString("horario");
-                dadosTabela[lin][5] = resultadoQ.getString("reacaoCorporal_id");
+                dadosTabela[lin][5] = resultadoQ.getString("nome");
                 dadosTabela[lin][6] = resultadoQ.getString("quantidade");
                 dadosTabela[lin][7] = resultadoQ.getString("porcaoConsumida");
                 lin++;
@@ -228,30 +226,14 @@ public class ConsumoDAO implements IDAOT<Consumo> {
         for (int i = 0; i < tabela.getColumnCount(); i++) {
             TableColumn column = tabela.getColumnModel().getColumn(i);
             switch (i) {
-                case 0:
-                    column.setPreferredWidth(21);
-                    break;
-                case 1:
-                    column.setPreferredWidth(84);
-                    break;
-                case 2:
-                    column.setPreferredWidth(51);
-                    break;
-                case 3:
-                    column.setPreferredWidth(51);
-                    break;
-                case 4:
-                    column.setPreferredWidth(51);
-                    break;
-                case 5:
-                    column.setPreferredWidth(51);
-                    break;
-                case 6:
-                    column.setPreferredWidth(51);
-                    break;
-                case 7:
-                    column.setPreferredWidth(51);
-                    break;
+                case 0 -> column.setPreferredWidth(21);
+                case 1 -> column.setPreferredWidth(84);
+                case 2 -> column.setPreferredWidth(51);
+                case 3 -> column.setPreferredWidth(51);
+                case 4 -> column.setPreferredWidth(51);
+                case 5 -> column.setPreferredWidth(51);
+                case 6 -> column.setPreferredWidth(51);
+                case 7 -> column.setPreferredWidth(51);
             }
         }
     }

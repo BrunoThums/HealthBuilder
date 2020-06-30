@@ -10,7 +10,7 @@ public class FrmJP extends javax.swing.JFrame {
     public static Usuario usuario;
 
     public FrmJP(Usuario usuario) {
-        this.usuario = usuario;
+        FrmJP.usuario = usuario;
         initComponents();
         // abre tela maximizada
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -118,11 +118,11 @@ public class FrmJP extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniExercicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExercicioActionPerformed
-        iniciaTela(IfrExercicio.class);
+        inicia("exercicio");
     }//GEN-LAST:event_mniExercicioActionPerformed
 
     private void mniAlimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAlimentoActionPerformed
-        iniciaTela(IfrAlimento.class);
+        inicia("alimento");
     }//GEN-LAST:event_mniAlimentoActionPerformed
 
     private void mniCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCompraActionPerformed
@@ -130,7 +130,7 @@ public class FrmJP extends javax.swing.JFrame {
     }//GEN-LAST:event_mniCompraActionPerformed
 
     private void mniReacoesCorporaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReacoesCorporaisActionPerformed
-        iniciaTela(IfrReacaoCorporal.class);
+        inicia("reacaocorporal");
     }//GEN-LAST:event_mniReacoesCorporaisActionPerformed
 
     private void mnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnHomeMouseClicked
@@ -167,11 +167,25 @@ public class FrmJP extends javax.swing.JFrame {
             try {
                 tela = (JInternalFrame)clazz.newInstance();
                 pnHome.add(tela);
+                if (tela instanceof IfrApresentacao){
+                    ((IfrApresentacao) tela).setPane(pnHome);
+                }
             } catch (InstantiationException | IllegalAccessException ex) {
                 Logger.getLogger(FrmJP.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         setActive(tela);
+    }
+    
+    public void inicia(String nome){
+        switch(nome){
+            case "exercicio": iniciaTela(IfrExercicio.class);
+            break;
+            case "alimento": iniciaTela(IfrAlimento.class);
+            break;
+            case "reacaocorporal": iniciaTela(IfrReacaoCorporal.class);
+            break;
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar mnBarra;

@@ -40,7 +40,7 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         String sql = "UPDATE tipoExercicio SET "
                 + "descricao='" + o.descricao + "',"
                 + "subDescricao='" + o.subDescricao + "',"
-                + "kcal='" + o.kcal + "',"
+                + "kcal=" + o.kcal + ","
                 + "status='" + o.status + "'"
                 + "WHERE id= " + o.id;
 
@@ -103,7 +103,13 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         }
         return null;
     }
-
+    
+    private String pesquisa(String criterio, String status){
+        String pesquisa = "FROM tipoExercicio "
+                + "WHERE DESCRICAO ILIKE '%" + criterio + "%'"
+                + "AND status = '"+status+"'";
+        return pesquisa;
+    }
     @Override
     public TipoExercicio consultar(int id) {
         String sql = "SELECT * FROM tipoExercicio WHERE id=" + id;
@@ -119,7 +125,7 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         return null;
     }
 
-    public void popularTabela(JTable tabela, String criterio) {
+    public void popularTabela(JTable tabela, String criterio, String status) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -133,10 +139,7 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         // cria matriz de acordo com nº de registros da tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT count(*) "
-                    + "FROM tipoExercicio "
-                    + "WHERE DESCRICAO ILIKE '%" + criterio + "%'"
-                    + "AND status = 'ativo'");
+                    + "SELECT count(*) "+pesquisa(criterio, status));
 
             resultadoQ.next();
 
@@ -151,10 +154,7 @@ public class TipoExercicioDAO implements IDAOT<TipoExercicio> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * FROM "
-                    + "tipoExercicio WHERE "
-                    + "DESCRICAO ILIKE '%" + criterio + "%'"
-                    + "AND status = 'ativo'");
+                    + "SELECT * "+pesquisa(criterio, status));
 
             while (resultadoQ.next()) {
 

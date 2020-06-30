@@ -3,12 +3,13 @@ package tela;
 import dao.UsuarioDAO;
 import entidade.Usuario;
 import java.awt.Color;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import util.ConexaoBD;
-import util.Verificacoes;
+import static util.Formatacao.formatDate;
+import static util.Formatacao.formatarData;
+import static util.Formatacao.parseDMADate;
 import static util.Verificacoes.isDataValida;
 import static util.Verificacoes.isDataVazia;
 import static util.Verificacoes.isEmailValido;
@@ -18,15 +19,19 @@ import static util.Verificacoes.verificaLetras;
 import static util.Verificacoes.verificaNomeComposto;
 import static util.Verificacoes.verificaNumeros;
 
+
+
 public class IfrPerfil extends javax.swing.JInternalFrame {
 
     ConexaoBD c = ConexaoBD.getInstance();
-    Verificacoes v = new Verificacoes();
     int id = 0;
-    Usuario user = null;
-    UsuarioDAO userRC = new UsuarioDAO();
+    Usuario usuarioPadrao = null;
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    
+    
     public IfrPerfil() {
         initComponents();
+        formatarData(tffDataNasc);
         preencheUsuario();
     }
 
@@ -113,7 +118,6 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         });
 
         tffDataNasc.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Data de Nascimento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-        tffDataNasc.setText(" ");
         tffDataNasc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tffDataNascFocusLost(evt);
@@ -172,11 +176,6 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
 
         cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins" }));
         cbEstado.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estado", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
-        cbEstado.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                cbEstadoFocusLost(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnDadosCadastraisLayout = new javax.swing.GroupLayout(pnDadosCadastrais);
         pnDadosCadastrais.setLayout(pnDadosCadastraisLayout);
@@ -247,7 +246,7 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
 
         pnDadosSaude.setBackground(new java.awt.Color(255, 255, 255));
 
-        cbMetabolismo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Lento", "Normal", "Rápido", " " }));
+        cbMetabolismo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Lento", "Normal", "Rápido" }));
         cbMetabolismo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Metabolismo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
 
         tfAltura.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Altura (cm)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
@@ -504,33 +503,12 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (!(verificaDiferencaUsuario())) {
-            atualizaDiferencaUsuario();
-            
-            JOptionPane.showMessageDialog(rootPane, "Os dados foram atualizados!");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Não foi feita nenhuma alteração. Verifique se você alterou algum campo.");
-        }
-        preencheUsuario();
+        atualizarUsuario();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
-
-    private void tffDataNascFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataNascFocusLost
-        if (isDataVazia(tffDataNasc)) { //VAZIO
-            avisoVazio("Data de Nascimento");
-            return;
-        }
-        if (!(isDataValida(tffDataNasc))) {//INVALIDO
-            tffDataNasc.setForeground(Color.RED);
-            avisoIncorreto("Data");
-            return;
-        } //VALIDO
-        tffDataNasc.setForeground(Color.BLUE);
-        limpaAviso();
-    }//GEN-LAST:event_tffDataNascFocusLost
 
     private void tfPesoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfPesoFocusLost
         calculaIMC();
@@ -541,15 +519,83 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfAlturaFocusLost
 
     private void btnSalvarSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarSaudeActionPerformed
-        if (!(verificaDiferencaUsuario())) {
-            atualizaDiferencaUsuario();
-            JOptionPane.showMessageDialog(rootPane, "Os dados foram atualizados!");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Não foi feita nenhuma alteração. Verifique se você alterou algum campo.");
-        }
-        preencheUsuario();
+        atualizarUsuario();
     }//GEN-LAST:event_btnSalvarSaudeActionPerformed
 
+    private void atualizarUsuario() {
+        if (!isCamposPreenchidos()) {
+            JOptionPane.showInternalMessageDialog(rootPane, "Preencha todos os campos obrigatórios!");
+            return;
+        }
+        
+        //cria um novo usuario
+        Usuario usuario = new Usuario();
+        usuario.id = FrmJP.usuario.id;
+        usuario.nome = tfNome.getText();
+        usuario.sobrenome = tfSobrenome.getText().trim();
+        usuario.dataNasc = parseDMADate(tffDataNasc.getText().trim());
+        usuario.sexo = cbSexo.getSelectedItem().toString();
+        usuario.cpf = tffCPF.getText();
+        usuario.email = tfEmail.getText().trim();
+        usuario.login = tfLogin.getText().trim().toLowerCase();
+        usuario.estado = cbEstado.getSelectedItem().toString();
+        usuario.cidade = tfCidade.getText();
+        usuario.status = "ativo";
+        usuario.intolerancia = tfIntolerancia1.getText();
+        usuario.intolerancia1 = tfIntolerancia2.getText();
+        usuario.metabolismo = cbMetabolismo.getSelectedItem().toString();
+        usuario.alergia = tfAlergia1.getText();
+        usuario.alergia1 = tfAlergia2.getText();
+        String complementoPeso = "";
+        String complementoAltura = "";
+        String complementoImc = "";
+        String complementoCintura = "";
+        String complementoQuadril = "";
+        String complementoBusto = "";
+        String complementoCoxa = "";
+        if (isVazioTF(tfPeso)) {
+            complementoPeso = "0.0";
+        }
+        System.out.println("peso: " + tfPeso.getText());
+        System.out.println("pesoadd: " + (tfPeso.getText() + complementoPeso));
+        usuario.peso = Float.parseFloat(tfPeso.getText() + complementoPeso);
+        if (isVazioTF(tfAltura)) {
+            complementoAltura = "0.0";
+        }
+        System.out.println("altura: " + tfAltura.getText());
+        System.out.println("altura: " + (tfAltura.getText() + complementoAltura));
+        usuario.altura = Float.parseFloat(tfAltura.getText() + complementoAltura);
+        if (isVazioTF(tfIMC)) {
+            complementoImc = "0.0";
+        }
+        usuario.imc = Float.parseFloat(tfIMC.getText().replace(",", ".") + complementoImc);
+        usuario.statusimc = tfStatusImc.getText();
+        if (isVazioTF(tfCintura)) {
+            complementoCintura = "0";
+        }
+        usuario.cintura = Integer.parseInt(tfCintura.getText() + complementoCintura);
+        if (isVazioTF(tfQuadril)) {
+            complementoQuadril = "0";
+        }
+        usuario.quadril = Integer.parseInt(tfQuadril.getText() + complementoQuadril);
+        usuario.statusrcq = tfRCQ.getText();
+        if (isVazioTF(tfBusto)) {
+            complementoBusto = "0";
+        }
+        usuario.busto = Integer.parseInt(tfBusto.getText() + complementoBusto);
+        if (isVazioTF(tfCoxas)) {
+            complementoCoxa = "0";
+        }
+        usuario.coxa = Integer.parseInt(tfCoxas.getText() + complementoCoxa);
+
+        if (usuarioDAO.atualizar(usuario)) {
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+            FrmJP.usuario = usuario;
+            preencheUsuario();
+        } else {
+            JOptionPane.showMessageDialog(null, "Problemas ao atualizar!");
+        }
+    }
     private void btnFecharSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharSaudeActionPerformed
         dispose();
     }//GEN-LAST:event_btnFecharSaudeActionPerformed
@@ -573,10 +619,6 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     private void tfCidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCidadeKeyTyped
         verificaNomeComposto(evt);
     }//GEN-LAST:event_tfCidadeKeyTyped
-
-    private void tffDataNascKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataNascKeyTyped
-        verificaNumeros(evt);
-    }//GEN-LAST:event_tffDataNascKeyTyped
 
     private void tfPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesoKeyTyped
         verificaNumeros(evt);
@@ -650,35 +692,22 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         tfEmail.setForeground(Color.RED);
     }//GEN-LAST:event_tfEmailFocusLost
 
-    private void cbEstadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbEstadoFocusLost
-        if (isVazioCB(cbEstado)) {//VAZIO
-            avisoVazio("Estado");
-            return;
-        }
-        limpaAviso();
-    }//GEN-LAST:event_cbEstadoFocusLost
-
     private void tfLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfLoginFocusLost
         if (isVazioTF(tfLogin)) {//VAZIO
             avisoVazio("Login");
             tfLogin.setForeground(Color.RED);
             return;
         }
-        if (isEmailValido(tfLogin)) {//VALIDO
-            if ((c.existeNoBancoDeDados("usuario", FrmJP.usuario.id, "id", "login", tfLogin.getText()))) {//UNICO
-                tfLogin.setForeground(Color.blue);
-                limpaAviso();
-                return;
-            } else if (!(c.existeNoBancoDeDados("usuario", "login", tfLogin.getText()))) {//UNICO
-                tfLogin.setForeground(Color.blue);
-                limpaAviso();
-                return;
-            }
-            avisoIgual("Login");
-            tfLogin.setForeground(Color.RED);
+        if ((c.existeNoBancoDeDados("usuario", FrmJP.usuario.id, "id", "login", tfLogin.getText()))) {//UNICO
+            tfLogin.setForeground(Color.blue);
+            limpaAviso();
             return;
-        }//INVALIDO
-        avisoIncorreto("Login");
+        } else if (!(c.existeNoBancoDeDados("usuario", "login", tfLogin.getText()))) {//UNICO
+            tfLogin.setForeground(Color.blue);
+            limpaAviso();
+            return;
+        }
+        avisoIgual("Login");
         tfLogin.setForeground(Color.RED);
     }//GEN-LAST:event_tfLoginFocusLost
 
@@ -693,6 +722,24 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
     private void lblSenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSenhaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_lblSenhaMouseClicked
+
+    private void tffDataNascKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataNascKeyTyped
+        verificaNumeros(evt);
+    }//GEN-LAST:event_tffDataNascKeyTyped
+
+    private void tffDataNascFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataNascFocusLost
+        if (isDataVazia(tffDataNasc)) { //VAZIO
+            avisoVazio("Data de Nascimento");
+            return;
+        }
+        if (!(isDataValida(tffDataNasc))) {//INVALIDO
+            tffDataNasc.setForeground(Color.RED);
+            avisoIncorreto("Data");
+            return;
+        } //VALIDO
+        tffDataNasc.setForeground(Color.BLUE);
+        limpaAviso();
+    }//GEN-LAST:event_tffDataNascFocusLost
 
     /**
      * calcula o RCQ (Risco Cintura Quadril) e imprime no campo "tfRCQ" o
@@ -711,7 +758,7 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
                 } else if (rqc > 1) {
                     tr("Risco Alto", 2);
                 }
-            } else if (cbSexo.getSelectedItem() == "Feminino") { //se for mulher
+            } else if (cbSexo.getSelectedItem() == "Feminino" || cbSexo.getSelectedItem() == "Prefiro não responder") { //se for mulher ou não identificado
                 if (rqc <= 0.8) {
                     tr("Risco Baixo", 0);
                 } else if (rqc >= 0.81 && rqc <= 0.85) {
@@ -727,14 +774,11 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
      * calcula o IMC, preenche IMC e Status IMC
      */
     void calculaIMC() {
-        if ((!tfAltura.getText().isEmpty()) && (!tfPeso.getText().isEmpty())) {
-            double alt = Integer.parseInt(tfAltura.getText()) / 100d;
-            double peso = Integer.parseInt(tfPeso.getText());
+        if (((!tfAltura.getText().isEmpty()) || (!tfPeso.getText().isEmpty()))) {
+            double alt = Double.parseDouble(tfAltura.getText()) / 100d;
+            double peso = Double.parseDouble(tfPeso.getText());
             double imc = peso / (alt * alt);
-            System.out.println("alt = " + alt + "\npeso = " + peso + "\nimc = " + imc);
-            System.out.println("imc = " + (peso / ((alt * alt) / 100)));
             tfIMC.setText(String.format("%.2f", imc));
-            System.out.println("imc em string = " + String.valueOf(imc));
             if (imc < 17) {
                 ts("Muito abaixo do peso", 2);
                 return;
@@ -823,7 +867,9 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         pT(tffIDUser, id.toString());//1
         pT(tfNome, FrmJP.usuario.nome);//2
         pT(tfSobrenome, FrmJP.usuario.sobrenome);//3
-        pT(tffDataNasc, FrmJP.usuario.dataNasc.toString());//4
+        //pT(tffDataNasc, ajustaDataDMA(FrmJP.usuario.dataNasc.toString()));//4
+        System.out.println("data: " + FrmJP.usuario.dataNasc.toString());
+        pT(tffDataNasc, formatDate(FrmJP.usuario.dataNasc));
         cbSexo.setSelectedItem(FrmJP.usuario.sexo);//5
         pT(tffCPF, FrmJP.usuario.cpf);//6
         pT(tfEmail, FrmJP.usuario.email);//7
@@ -836,192 +882,70 @@ public class IfrPerfil extends javax.swing.JInternalFrame {
         cbMetabolismo.setSelectedItem(FrmJP.usuario.metabolismo);//14
         pT(tfAlergia1, FrmJP.usuario.alergia);//15
         pT(tfAlergia2, FrmJP.usuario.alergia1);//16
-        pT(tfPeso, FrmJP.usuario.peso.toString());//17
-        pT(tfAltura, FrmJP.usuario.altura.toString());//18
-        pT(tfIMC, FrmJP.usuario.imc.toString());//19
+
+        if (FrmJP.usuario.peso.toString().equals("0.0")) {
+            pT(tfPeso, "");
+            return;
+        } else {
+            pT(tfPeso, FrmJP.usuario.peso.toString());//17
+        }
+
+        if (FrmJP.usuario.altura.toString().equals("0.0")) {
+            pT(tfAltura, "");
+            return;
+        } else {
+            pT(tfAltura, FrmJP.usuario.altura.toString());//17
+        }
+
+        if (FrmJP.usuario.imc.toString().equals("0.0")) {
+            pT(tfIMC, "");
+            return;
+        } else {
+            pT(tfIMC, FrmJP.usuario.imc.toString());//17
+        }
+
         pT(tfStatusImc, FrmJP.usuario.statusimc);//20
-        pT(tfCintura, FrmJP.usuario.cintura.toString());//21
-        pT(tfQuadril, FrmJP.usuario.quadril.toString());//22
-        pT(tfRCQ, FrmJP.usuario.statusrcq.toString());//23
-        pT(tfBusto, FrmJP.usuario.busto.toString());//24
-        pT(tfCoxas, FrmJP.usuario.coxa.toString());//25
-    }
 
-    /**
-     * Coloca todos valores do Usuario da tela em um array
-     *
-     * @return
-     */
-    private ArrayList getUsuarioPreenchido() {
-        ArrayList z = new ArrayList();
-        z.add(tfNome.getText());//1
-        z.add(tfSobrenome.getText());//2
-        z.add(tffDataNasc.getText());//3
-        z.add(cbSexo.getSelectedItem());//4
-        //cpf
-        z.add(tfEmail.getText());//5
-        z.add(tfLogin.getText());//6
-        //senha
-        z.add(cbEstado.getSelectedItem());//7
-        z.add(tfCidade.getText());//8
-        //status
-        z.add(tfIntolerancia1.getText());//9
-        z.add(tfIntolerancia2.getText());//10
-        z.add(cbMetabolismo.getSelectedItem());//11
-        z.add(tfAlergia1.getText());//12
-        z.add(tfAlergia2.getText());//13
-        z.add(tfStatusImc.getText());//14
-        z.add(tfPeso.getText());//15
-        z.add(tfAltura.getText());//16
-        z.add(tfIMC.getText());//17
-        z.add(tfCintura.getText());//18
-        z.add(tfQuadril.getText());//19
-        z.add(tfRCQ.getText());//20
-        z.add(tfBusto.getText());//21
-        z.add(tfCoxas.getText());//22
-        return z;
-    }
-
-    /**
-     * Coloca todos valores do Usuario do Banco de Dados em um array
-     *
-     * @return
-     */
-    private ArrayList getUsuarioBD() {
-        ArrayList z = new ArrayList();
-        z.add(FrmJP.usuario.nome);//1
-        z.add(FrmJP.usuario.sobrenome);//2
-        z.add(FrmJP.usuario.dataNasc);//3
-        z.add(FrmJP.usuario.sexo);//4
-        //cpf
-        z.add(FrmJP.usuario.email);//5
-        z.add(FrmJP.usuario.login);//6
-        //senha
-        z.add(FrmJP.usuario.estado);//7
-        z.add(FrmJP.usuario.cidade);//8
-        //status
-        z.add(FrmJP.usuario.intolerancia);//9
-        z.add(FrmJP.usuario.intolerancia1);//10
-        z.add(FrmJP.usuario.metabolismo);//11
-        z.add(FrmJP.usuario.alergia);//12
-        z.add(FrmJP.usuario.alergia1);//13
-        z.add(FrmJP.usuario.statusimc);//14
-        z.add(FrmJP.usuario.peso);//15
-        z.add(FrmJP.usuario.altura);//16
-        z.add(FrmJP.usuario.imc);//17
-        z.add(FrmJP.usuario.cintura);//18
-        z.add(FrmJP.usuario.quadril);//19
-        z.add(FrmJP.usuario.statusrcq);//20
-        z.add(FrmJP.usuario.busto);//21
-        z.add(FrmJP.usuario.coxa);//22
-        return z;
-    }
-
-    /**
-     * Verifica a diferença entre os dois arraylists
-     *
-     * @param a
-     * @param b
-     */
-    /*nome//1
-        sobrenome//2
-        sexo//3
-        email//4
-        dataNasc//5
-        pais//6
-        estado//7
-        cidad;//8
-        login//9*/
-    private boolean verificaDiferencaUsuario() {
-        ArrayList a = getUsuarioBD();
-        ArrayList b = getUsuarioPreenchido();
-        boolean ok = true;
-        for (int i = 0; i < a.size(); i++) {
-            if (!(a.get(i).equals(b.get(i)))) {
-                ok = false;
-                return false;
-            }
+        if (FrmJP.usuario.cintura.toString().equals("0")) {
+            pT(tfCintura, "");
+            return;
+        } else {
+            pT(tfCintura, FrmJP.usuario.cintura.toString());//17
         }
-        return ok;
-    }
-    /**
-     * Atualiza os dados com o banco de dados
-     */
-    private void atualizaDiferencaUsuario() {
-        ArrayList b = getUsuarioPreenchido();
-        UsuarioDAO user = new UsuarioDAO();
-        int id = FrmJP.usuario.id;
-        for (int i = 0; i < b.size(); i++) {
-            switch (i) {
-                case 0:
-                    user.atualizarParam(id, "nome", (String) b.get(i));
-                    break;
-                case 1:
-                    user.atualizarParam(id, "sobrenome", (String) b.get(i));
-                    break;
-                case 2:
-                    user.atualizarParam(id, "dataNasc", (String) b.get(i));
-                    break;
-                case 3:
-                    user.atualizarParam(id, "sexo", (String) b.get(i));
-                    break;
-                case 4:
-                    user.atualizarParam(id, "email", (String) b.get(i));
-                    break;
-                case 5:
-                    user.atualizarParam(id, "login", (String) b.get(i));
-                    break;
-                case 6:
-                    user.atualizarParam(id, "estado", (String) b.get(i));
-                    break;
-                case 7:
-                    user.atualizarParam(id, "cidade", (String) b.get(i));
-                    break;
-                case 8:
-                    user.atualizarParam(id, "intolerancia", (String) b.get(i));
-                    break;
-                case 9:
-                    user.atualizarParam(id, "intolerancia1", (String) b.get(i));
-                    break;
-                case 10:
-                    user.atualizarParam(id, "metabolismo", (String) b.get(i));
-                    break;
-                case 11:
-                    user.atualizarParam(id, "alergia", (String) b.get(i));
-                    break;
-                case 12:
-                    user.atualizarParam(id, "alergia1", (String) b.get(i));
-                    break;
-                case 13:
-                    user.atualizarParam(id, "statusimc", (String) b.get(i));
-                    break;
-                case 14:
-                    user.atualizarParam(id, "peso", (String) b.get(i));
-                    break;
-                case 15:
-                    user.atualizarParam(id, "altura", (String) b.get(i));
-                    break;
-                case 16:
-                    user.atualizarParam(id, "imc", (String) b.get(i));
-                    break;
-                case 17:
-                    user.atualizarParam(id, "cintura", (String) b.get(i));
-                    break;
-                case 18:
-                    user.atualizarParam(id, "quadril", (String) b.get(i));
-                    break;
-                case 19:
-                    user.atualizarParam(id, "statusrcq", (String) b.get(i));
-                    break;
-                case 20:
-                    user.atualizarParam(id, "busto", (String) b.get(i));
-                    break;
-                case 21:
-                    user.atualizarParam(id, "coxa", (String) b.get(i));
-                    break;
-            }
+
+        if (FrmJP.usuario.quadril.toString().equals("0")) {
+            pT(tfQuadril, "");
+            return;
+        } else {
+            pT(tfQuadril, FrmJP.usuario.quadril.toString());//17
         }
+
+        pT(tfRCQ, FrmJP.usuario.statusrcq);//23
+
+        if (FrmJP.usuario.busto.toString().equals("0")) {
+            pT(tfBusto, "");
+            return;
+        } else {
+            pT(tfBusto, FrmJP.usuario.busto.toString());//17
+        }
+
+        if (FrmJP.usuario.coxa.toString().equals("0.0")) {
+            pT(tfCoxas, "");
+            return;
+        } else {
+            pT(tfCoxas, FrmJP.usuario.coxa.toString());//17
+        }
+        calculaIMC();
+        calculaRQC();
     }
+    private boolean isCamposPreenchidos() {
+        if (isVazioTF(tfNome) || isVazioTF(tfSobrenome) || isDataVazia(tffDataNasc)
+                || isVazioCB(cbSexo) || isVazioTF(tfEmail) || isVazioTF(tfLogin)) {
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * Preenche um JTextField com um TXT

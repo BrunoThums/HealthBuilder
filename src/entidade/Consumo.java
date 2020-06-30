@@ -14,6 +14,7 @@ public class Consumo {
     public String porcaoConsumida;
     public Date data;
     public Time horario;
+    public Integer kcalTotal;
     public Integer reacaoCorporal_id;
     public String status;
 
@@ -27,6 +28,7 @@ public class Consumo {
         consumo.porcaoConsumida = resultSet.getString("porcaoConsumida");
         consumo.data = resultSet.getDate("data");
         consumo.horario = resultSet.getTime("horario");
+        consumo.kcalTotal = resultSet.getInt("kcalTotal");
         consumo.reacaoCorporal_id = resultSet.getInt("reacaoCorporal_id");
         consumo.status = resultSet.getString("status");
         return consumo;
@@ -42,6 +44,7 @@ public class Consumo {
         sb.append(", porcaoConsumida=").append(porcaoConsumida);
         sb.append(", data=").append(data);
         sb.append(", horario=").append(horario);
+        sb.append(", kcalTotal=").append(kcalTotal);
         sb.append(", reacaoCorporal_id=").append(reacaoCorporal_id);
         sb.append(", status=").append(status);
         sb.append('}');

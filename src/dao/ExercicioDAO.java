@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import util.ConexaoBD;
+import static util.Formatacao.formatString;
 import util.IDAOT;
 
 public class ExercicioDAO implements IDAOT<Exercicio> {
@@ -124,14 +125,14 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         return null;
     }
 
-    private String pesquisa(String criterio) {
+    private String pesquisa(String criterio, String dataIni, String dataFim, String status) {
         String pesquisa = " FROM "
                 + "exercicio e, "
                 + "reacaocorporal r, "
                 + "tipoexercicio t "
                 + "WHERE e.tipoexercicio_id = t.id "
                 + "AND e.reacaocorporal_id = r.id "
-                + "AND e.status = 'ativo' ";
+                + "AND e.status = '"+status+"' ";
         if (criterio != null && !criterio.isEmpty()) {
             pesquisa += "AND ("
                     + "t.descricao ILIKE '%" + criterio + "%'"
@@ -139,10 +140,22 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
                     + "r.nome ILIKE '%" + criterio + "%'"
                     + ");";
         }
+        if ((dataIni != null && !dataIni.isEmpty()) && (dataFim != null && !dataFim.isEmpty())) {
+            pesquisa += " AND data BETWEEN '" + dataIni + "' and '" + dataFim + "' ";
+        }
+        /*if ((variaveis != null && !variaveis.isEmpty()) &&(ordem!=null && !ordem.isEmpty())) {
+            switch (variaveis) {
+                case "tipoexercicio" -> pesquisa += "ORDER BY t.descricao "+ordem;
+                case "kcal" -> pesquisa += "ORDER BY e.kcalTotal "+ordem;
+                case "reacaocorporal" -> pesquisa += "ORDER BY r.nome "+ordem;
+                case "tempo" -> pesquisa += "ORDER BY e.tempo "+ordem;
+                case "data" -> pesquisa += "ORDER BY e.data "+ordem;
+            }
+        }*/
         return pesquisa;
     }
 
-    public void popularTabela(JTable tabela, String criterio) {
+    public void popularTabela(JTable tabela, String criterio, String dataIni, String dataFim,String status/*, String variaveis, String ordem*/) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -158,9 +171,9 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
 
         // cria matriz de acordo com nº de registros da tabela
         try {
-            System.out.println("SQL: " + "SELECT count(*) " + pesquisa(criterio));
+            System.out.println("SQL: " + "SELECT count(*) " + pesquisa(criterio, dataIni, dataFim,status/*, variaveis, ordem*/));
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT count(*) " + pesquisa(criterio));
+                    + "SELECT count(*) " + pesquisa(criterio, dataIni, dataFim,status/*, variaveis, ordem*/));
 
             resultadoQ.next();
 
@@ -176,7 +189,7 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * " + pesquisa(criterio));
+                    + "SELECT * " + pesquisa(criterio, dataIni, dataFim,status/*, variaveis, ordem*/));
 
             while (resultadoQ.next()) {
 
@@ -220,27 +233,20 @@ public class ExercicioDAO implements IDAOT<Exercicio> {
         for (int i = 0; i < tabela.getColumnCount(); i++) {
             TableColumn column = tabela.getColumnModel().getColumn(i);
             switch (i) {
-                case 0:
+                case 0 ->
                     column.setPreferredWidth(20);
-                    break;
-                case 1:
+                case 1 ->
                     column.setPreferredWidth(75);
-                    break;
-                case 2:
+                case 2 ->
                     column.setPreferredWidth(90);
-                    break;
-                case 3:
+                case 3 ->
                     column.setPreferredWidth(90);
-                    break;
-                case 4:
+                case 4 ->
                     column.setPreferredWidth(70);
-                    break;
-                case 5:
+                case 5 ->
                     column.setPreferredWidth(70);
-                    break;
-                case 6:
+                case 6 ->
                     column.setPreferredWidth(58);
-                    break;
             }
         }
     }

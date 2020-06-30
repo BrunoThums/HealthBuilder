@@ -54,6 +54,7 @@ public class UsuarioDAO implements IDAOT<Usuario> {
 
     @Override
     public boolean atualizar(Usuario o) {
+        System.out.println("altura=" + o.altura + ",");
         String sql = "UPDATE usuario SET "
                 + "nome='" + o.nome + "',"
                 + "sobrenome='" + o.sobrenome + "',"
@@ -62,25 +63,27 @@ public class UsuarioDAO implements IDAOT<Usuario> {
                 + "cpf='" + o.cpf + "',"
                 + "email='" + o.email + "',"
                 + "login='" + o.login + "',"
-                + "senha=md5('" + o.senha + "'),"
                 + "estado='" + o.estado + "',"
                 + "cidade='" + o.cidade + "',"
                 + "status='" + o.status + "',"
                 + "intolerancia='" + o.intolerancia + "',"
                 + "intolerancia1='" + o.intolerancia1 + "',"
                 + "metabolismo='" + o.metabolismo + "',"
-                + "alergia=" + o.alergia + ","
-                + "alergia1=" + o.alergia1 + ","
-                + "imc='" + o.imc + "',"
-                + "statusimc='" + o.statusimc + "',"
+                + "alergia='" + o.alergia + "',"
+                + "alergia1='" + o.alergia1 + "',"
                 + "peso=" + o.peso + ","
                 + "altura=" + o.altura + ","
+                + "imc=" + o.imc + ","
+                + "statusimc='" + o.statusimc + "',"
                 + "cintura=" + o.cintura + ","
                 + "quadril=" + o.quadril + ","
                 + "statusrcq='" + o.statusrcq + "',"
                 + "busto=" + o.busto + ","
-                + "coxa=" + o.coxa + ""
-                + "WHERE id= " + o.id;
+                + "coxa=" + o.coxa + " ";
+        if (o.senha != null) {
+            sql += ",senha=md5('" + o.senha + "') ";
+        }
+        sql += "WHERE id= " + o.id;
         System.out.println(sql);
 
         try {

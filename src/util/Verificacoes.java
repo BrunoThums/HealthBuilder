@@ -24,7 +24,6 @@ public class Verificacoes {
     public static boolean isVazioTF(JTextField txt) {
         boolean isVazio = false;
         if (txt.getText().isEmpty()) {
-            System.out.println("Combo vazio: "+txt.getName());
             isVazio = true;
         }
         return isVazio;

@@ -48,10 +48,10 @@ public class AlimentoDAO implements IDAOT<Alimento> {
                 + "valorEnergetico=" + o.valorEner + ","
                 + "proteina=" + o.proteina + ","
                 + "acucares=" + o.acucares + ","
-                + "gordTrans=" + o.gordTrans + ","
-                + "gordSaturada=" + o.gordSaturada + ","
+                + "gorduraTrans=" + o.gordTrans + ","
+                + "gorduraSaturada=" + o.gordSaturada + ","
                 + "sodio=" + o.sodio + ","
-                + "status=" + o.status + ""
+                + "status='" + o.status + "' "
                 + "WHERE id= " + o.id;
 
         try {
@@ -127,8 +127,15 @@ public class AlimentoDAO implements IDAOT<Alimento> {
         }
         return null;
     }
+       
+    private String pesquisa(String criterio, String status){
+        String pesquisa = "FROM alimento "
+                    + "WHERE descricao ILIKE '%" + criterio + "%' "
+                    + "AND status = '"+status+"'";
+        return pesquisa;
+    }
 
-    public void popularTabela(JTable tabela, String criterio) {
+    public void popularTabela(JTable tabela, String criterio, String status) {
         // dados da tabela
         Object[][] dadosTabela = null;
 
@@ -147,10 +154,7 @@ public class AlimentoDAO implements IDAOT<Alimento> {
         // cria matriz de acordo com nº de registros da tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT count(*) "
-                    + "FROM alimento "
-                    + "WHERE descricao ILIKE '%" + criterio + "%' "
-                    + "AND status = 'ativo'");
+                    + "SELECT count(*) "+pesquisa(criterio,status));
 
             resultadoQ.next();
 
@@ -165,10 +169,7 @@ public class AlimentoDAO implements IDAOT<Alimento> {
         // efetua consulta na tabela
         try {
             resultadoQ = ConexaoBD.getInstance().getConnection().createStatement().executeQuery(""
-                    + "SELECT * "
-                    + "FROM alimento "
-                    + "WHERE descricao ILIKE '%" + criterio + "%' "
-                    + "AND status = 'ativo'");
+                    + "SELECT * "+pesquisa(criterio,status));
 
             while (resultadoQ.next()) {
 

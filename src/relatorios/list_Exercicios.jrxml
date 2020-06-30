@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="list_Exercicios" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="597e7031-619b-4d8b-bb90-24e44790010d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="healthbuilder "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="nome_user" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM 
+                exercicio e, 
+                reacaocorporal r, 
+                tipoexercicio t 
+                WHERE e.tipoexercicio_id = t.id 
+                AND e.reacaocorporal_id = r.id 
+                AND e.status = 'ativo'
+                ORDER BY t.descricao]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exercicio"/>
+	</field>
+	<field name="data" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="data"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exercicio"/>
+	</field>
+	<field name="tipoexercicio_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="tipoexercicio_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exercicio"/>
+	</field>
+	<field name="reacaocorporal_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="reacaocorporal_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exercicio"/>
+	</field>
+	<field name="tempo" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.label" value="tempo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exercicio"/>
+	</field>
+	<field name="intensidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="intensidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exercicio"/>
+	</field>
+	<field name="kcaltotal" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="kcaltotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exercicio"/>
+	</field>
+	<field name="status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="exercicio"/>
+	</field>
+	<field name="COLUMN_9" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reacaocorporal"/>
+	</field>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reacaocorporal"/>
+	</field>
+	<field name="COLUMN_11" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reacaocorporal"/>
+	</field>
+	<field name="COLUMN_12" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipoexercicio"/>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipoexercicio"/>
+	</field>
+	<field name="subdescricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="subdescricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipoexercicio"/>
+	</field>
+	<field name="kcal" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="kcal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipoexercicio"/>
+	</field>
+	<field name="COLUMN_16" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tipoexercicio"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="28" width="593" height="30" uuid="4316bf25-b326-4b31-8b00-708b08a0d562"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Relatório de Exercícios]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="0" width="100" height="30" uuid="d967b16b-da92-4b84-8254-0a8106b33691">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b95de43-894a-4499-837a-6c4a41237c6e"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Exercício/Atividade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="0" width="80" height="30" uuid="08276c83-1db0-4315-98b9-e596552e3d30">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0d70cd8-cffd-4b0e-a637-69efe09c2c16"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="0" width="70" height="30" uuid="5f3072db-b3ff-4a0d-830e-4cde3a4cedf8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb65d7e8-a7a4-4004-a603-bb92716e5082"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duração]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="100" height="30" uuid="6d4b3019-98d5-4ef0-b0dc-803b0a3403f0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41015fb1-dae4-4284-bca8-67d11d79eac9"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kcal/hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="100" height="30" uuid="faafc3fc-66ad-4959-b8eb-47b1f5d1dcfd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f92ecfd6-d949-42b2-9f38-866bdc51340a"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reação Corporal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="20" y="0" width="100" height="30" uuid="e4d7051c-1e31-49fd-bd13-863a71f66a3b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7b95de43-894a-4499-837a-6c4a41237c6e"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="80" height="30" uuid="cb418b82-6a88-4e98-a3a1-d49eea5296c5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e0d70cd8-cffd-4b0e-a637-69efe09c2c16"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{data})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="70" height="30" uuid="c1f9026b-3546-4a3b-99da-9ed381dcf090">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="eb65d7e8-a7a4-4004-a603-bb92716e5082"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("HH:mm").format($F{tempo})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="30" uuid="2ad9bcea-0874-454d-b10b-b48e6fc52af9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="41015fb1-dae4-4284-bca8-67d11d79eac9"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{kcaltotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="100" height="30" uuid="09300289-79d5-498a-918d-f2993a599aa8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f92ecfd6-d949-42b2-9f38-866bdc51340a"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="200" y="20" width="80" height="30" uuid="beaad250-9287-4874-ad7b-e1e3cd0b2e26"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="280" y="20" width="80" height="30" uuid="7c454c2b-5926-4911-bc60-10b397a986de"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="60" height="30" uuid="5d4b4340-b2fd-465c-8567-c240c38e7108"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="90" y="0" width="60" height="20" uuid="e2e7e5a3-a792-4851-858b-1f84ffb704de"/>
+				<text><![CDATA[Gerado por:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="200" y="0" width="160" height="20" uuid="5ff5d704-9c2b-4b8d-899d-0b862bf4becf"/>
+				<textElement rotation="None"/>
+				<textFieldExpression><![CDATA[$P{nome_user}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -8,14 +8,16 @@ import entidade.ReacaoCorporal;
 import entidade.TipoExercicio;
 import java.awt.Color;
 import java.awt.Frame;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import util.Formatacao;
 import static util.Formatacao.converteHora;
-import static util.Formatacao.ajustaDataDMA;
+import static util.Formatacao.formatDate;
+import static util.Formatacao.formatarData;
+import static util.Formatacao.parseDMADate;
 import static util.Verificacoes.isVazioTF;
 import static util.Verificacoes.isVazioCB;
 import util.TableDataModel;
@@ -33,11 +35,18 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     Exercicio exePadrao = null;
     ExercicioDAO daoE = new ExercicioDAO();
     String filtro;
-
+    LocalDateTime agora = LocalDateTime.now();
+    DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+    String dataFormatada = formatterData.format(agora);
+    String ativo = "ativo";
+    String ativoTipo = "ativo";
+    
     public IfrExercicio() {
         filtro = "";
         initComponents();
-        Formatacao.formatarData((JFormattedTextField) tffData);
+        formatarData(tffData);
+        formatarData(tffDataIni);
+        formatarData(tffDataFim);
         colocaIcone(lblPesqReacaoCorporal, "pesq");
         colocaIcone(lblPesqTipoExer, "pesq");
         /*tblResumoNovo.setModel(new TableDataModel<TipoExercicio>() {
@@ -110,7 +119,6 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     public Exercicio getValueAtExe(int row) {
         return ((TableDataModel<Exercicio>) tblResumo.getModel()).getValueAt(row);
     }*/
-    
     public final void colocaIcone(JLabel a, String file) {
         a.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/" + file + ".png")));
     }
@@ -119,7 +127,8 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
+        variaveis = new javax.swing.ButtonGroup();
+        ordem = new javax.swing.ButtonGroup();
         tbPainel = new javax.swing.JTabbedPane();
         pnRegExer = new javax.swing.JPanel();
         lblTituloRegExer = new javax.swing.JLabel();
@@ -149,6 +158,12 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
+        lblDataInicio = new javax.swing.JLabel();
+        ckAvancado = new javax.swing.JCheckBox();
+        tffDataIni = new javax.swing.JFormattedTextField();
+        tffDataFim = new javax.swing.JFormattedTextField();
+        lblDataFim = new javax.swing.JLabel();
+        ckAtivo = new javax.swing.JCheckBox();
         pnRegTipoExer = new javax.swing.JPanel();
         lblTituloRegTipoExer = new javax.swing.JLabel();
         tfNomeExercicio = new javax.swing.JTextField();
@@ -166,8 +181,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         btnPesquisarNovo = new javax.swing.JButton();
         btnEditarNovo = new javax.swing.JButton();
         btnExcluirNovo = new javax.swing.JButton();
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ckAtivoTipo = new javax.swing.JCheckBox();
 
         pnRegExer.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -424,28 +438,82 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             }
         });
 
+        lblDataInicio.setText("Data início:");
+
+        ckAvancado.setText("Avançado");
+        ckAvancado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAvancadoActionPerformed(evt);
+            }
+        });
+
+        tffDataIni.setEditable(false);
+        tffDataIni.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tffDataIniFocusLost(evt);
+            }
+        });
+        tffDataIni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tffDataIniKeyTyped(evt);
+            }
+        });
+
+        tffDataFim.setEditable(false);
+        tffDataFim.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tffDataFimFocusLost(evt);
+            }
+        });
+        tffDataFim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tffDataFimKeyTyped(evt);
+            }
+        });
+
+        lblDataFim.setText("Data fim:");
+
+        ckAtivo.setSelected(true);
+        ckAtivo.setText("Ativo");
+        ckAtivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAtivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnPesqExerTBLLayout = new javax.swing.GroupLayout(pnPesqExerTBL);
         pnPesqExerTBL.setLayout(pnPesqExerTBLLayout);
         pnPesqExerTBLLayout.setHorizontalGroup(
             pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(spPesqExer)
             .addGroup(pnPesqExerTBLLayout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(49, 49, 49)
                 .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnPesqExerTBLLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(lblBusca)
+                        .addComponent(lblBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(spPesqExer, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59))
+                    .addGroup(pnPesqExerTBLLayout.createSequentialGroup()
+                        .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataInicio))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tffDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tffDataIni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ckAvancado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ckAtivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(65, 65, 65))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqExerTBLLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(59, 59, 59)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
+                .addGap(167, 167, 167))
         );
         pnPesqExerTBLLayout.setVerticalGroup(
             pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,14 +522,24 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                 .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ckAvancado))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(spPesqExer, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tffDataIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDataInicio)
+                    .addComponent(ckAtivo))
+                .addGap(10, 10, 10)
+                .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tffDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDataFim))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spPesqExer, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
                 .addGroup(pnPesqExerTBLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnPesqExerLayout = new javax.swing.GroupLayout(pnPesqExer);
@@ -522,13 +600,13 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             .addComponent(lblTituloRegTipoExer, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegTipoExerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnRegTipoExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnRegTipoExerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfSubCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfKcalHora, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNomeExercicio, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnRegTipoExerLayout.createSequentialGroup()
                         .addComponent(btnFecharRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalvarRegTipoExer, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(150, 150, 150))
         );
@@ -601,29 +679,36 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             }
         });
 
+        ckAtivoTipo.setSelected(true);
+        ckAtivoTipo.setText("Ativo");
+        ckAtivoTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAtivoTipoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnExerciciosNovoLayout = new javax.swing.GroupLayout(pnExerciciosNovo);
         pnExerciciosNovo.setLayout(pnExerciciosNovoLayout);
         pnExerciciosNovoLayout.setHorizontalGroup(
             pnExerciciosNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PainelDeRolagemNovo)
             .addGroup(pnExerciciosNovoLayout.createSequentialGroup()
                 .addGroup(pnExerciciosNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnExerciciosNovoLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(lblBuscaNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(158, 158, 158)
+                        .addComponent(btnExcluirNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnEditarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnExerciciosNovoLayout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(lblBuscaNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(tfBuscaNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPesquisarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnExerciciosNovoLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(pnExerciciosNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(PainelDeRolagemNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnExerciciosNovoLayout.createSequentialGroup()
-                                .addGap(104, 104, 104)
-                                .addComponent(btnExcluirNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
-                                .addComponent(btnEditarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(61, 61, 61))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnExerciciosNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ckAtivoTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnPesquisarNovo, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))))
+                .addGap(71, 71, 71))
         );
         pnExerciciosNovoLayout.setVerticalGroup(
             pnExerciciosNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -634,12 +719,14 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                     .addComponent(tfBuscaNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PainelDeRolagemNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addComponent(ckAtivoTipo)
+                .addGap(33, 33, 33)
+                .addComponent(PainelDeRolagemNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnExerciciosNovoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluirNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditarNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnPesqTipoExerLayout = new javax.swing.GroupLayout(pnPesqTipoExer);
@@ -681,7 +768,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (isSameCBNull()
+        if (isSameCBNull(true)
                 || isVazioTF(tffData)
                 || isVazioTF(tfTipoExercicio)
                 || isVazioTF(tfReacaoCorporal)
@@ -695,8 +782,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             //cria um novo exercício
             Exercicio exe = new Exercicio();
             //preeche os dados do novo exercício
-            String[] data = tffData.getText().trim().split("/"); // [dia, mes, ano]
-            exe.data = java.sql.Date.valueOf(String.format("%s-%s-%s", data[2], data[1], data[0])); // ano-mes-dia
+            exe.data = parseDMADate(tffData.getText().trim());
             exe.tipoExercicio = Integer.parseInt(tffCodTipoExer.getText());
             exe.reacaoCorporal = Integer.parseInt(tffCodReacaoCorpo.getText());
             exe.tempo = converteHora(cbTempoHoras, cbTempoMinutos);
@@ -773,8 +859,20 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         //filtro = tfBuscaNovo.getText().trim();
         //updateTipoExe();
     }//GEN-LAST:event_btnSalvarRegTipoExerActionPerformed
-    private void updateExe(){
-        new ExercicioDAO().popularTabela(tblResumo, tfBusca.getText());
+    private void updateExe() {
+    
+        if (isDataVazia(tffDataIni)) {
+            new ExercicioDAO().popularTabela(tblResumo, tfBusca.getText(), null, null, ativo);
+            return;
+        }
+        if (isDataVazia(tffDataFim)) {
+            new ExercicioDAO().popularTabela(tblResumo, tfBusca.getText(), tffDataIni.getText(), dataFormatada, ativo);
+            return;
+        }
+        if (!isDataValida(tffDataIni) && isDataValida(tffDataFim)) {
+            return;
+        }
+        new ExercicioDAO().popularTabela(tblResumo, tfBusca.getText(), tffDataIni.getText(), tffDataFim.getText(), ativo);
     }
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         updateExe();
@@ -789,9 +887,9 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         String idString = String.valueOf(tblResumo.getValueAt(tblResumo.getSelectedRow(), 0));
         id = Integer.parseInt(idString);
         exePadrao = daoE.consultar(id);
-        
+
         if (exePadrao != null) {
-            tffData.setText(ajustaDataDMA(exePadrao.data.toString()));
+            tffData.setText(formatDate(exePadrao.data));
             tffCodTipoExer.setText(String.valueOf(exePadrao.tipoExercicio));
             verificarTipoExercicio();
             tffCodReacaoCorpo.setText(String.valueOf(exePadrao.reacaoCorporal));
@@ -820,14 +918,14 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
 
             if (exeDAO.excluir(idExclusao)) {
                 JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
-                exeDAO.popularTabela(tblResumo, tfBusca.getText());
+                updateExe();
             } else {
                 JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
             }
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
-    private void updateTipoExe(){
-        new TipoExercicioDAO().popularTabela(tblResumoNovo, tfBuscaNovo.getText());
+    private void updateTipoExe() {
+        new TipoExercicioDAO().popularTabela(tblResumoNovo, tfBuscaNovo.getText(), ativoTipo);
     }
     private void btnPesquisarNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarNovoActionPerformed
         updateTipoExe();
@@ -841,7 +939,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         //id = getValueAtTipoExe(tblResumoNovo.getSelectedRow()).id;
         String idString = String.valueOf(tblResumoNovo.getValueAt(tblResumoNovo.getSelectedRow(), 0));
         id = Integer.parseInt(idString);
-        
+
         tipoExePadrao = daoTE.consultar(id);
 
         if (tipoExePadrao != null) {
@@ -927,6 +1025,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
                 tfSubExercicio.setText(tipoExePadrao.subDescricao);
                 tfKcalExer.setText(String.valueOf(tipoExePadrao.kcal));
                 dispose();
+                verificaPreenchidos(false);
             }
         };
         cons.setVisible(true);
@@ -981,17 +1080,18 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     private void tffCodReacaoCorpoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffCodReacaoCorpoFocusLost
         verificarReacaoCorporal();
     }//GEN-LAST:event_tffCodReacaoCorpoFocusLost
-    private void verificarTipoExercicio(){
+    private void verificarTipoExercicio() {
         TipoExercicio t = daoTE.consultar(Integer.parseInt(tffCodTipoExer.getText()));
         if (t != null) {
             tipoExePadrao = t;
             tfTipoExercicio.setText(t.descricao);
             tfSubExercicio.setText(t.subDescricao);
             tfKcalExer.setText(String.valueOf(t.kcal));
+            verificaPreenchidos(false);
         }
     }
-    
-    private void verificarReacaoCorporal(){
+
+    private void verificarReacaoCorporal() {
         ReacaoCorporal t = daoRC.consultar(Integer.parseInt(tffCodReacaoCorpo.getText()));
         if (t != null) {
             rcPadrao = t;
@@ -999,15 +1099,15 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         }
     }
     private void cbTempoHorasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTempoHorasFocusLost
-        verificaPreenchidos();
+        verificaPreenchidos(false);
     }//GEN-LAST:event_cbTempoHorasFocusLost
 
     private void cbTempoMinutosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTempoMinutosFocusLost
-        verificaPreenchidos();
+        verificaPreenchidos(false);
     }//GEN-LAST:event_cbTempoMinutosFocusLost
 
     private void cbIntensidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbIntensidadeFocusLost
-        verificaPreenchidos();
+        verificaPreenchidos(false);
     }//GEN-LAST:event_cbIntensidadeFocusLost
 
     private void tfKcalHoraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfKcalHoraKeyTyped
@@ -1021,6 +1121,56 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     private void tffCodReacaoCorpoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffCodReacaoCorpoKeyTyped
         verificaNumeros(evt);
     }//GEN-LAST:event_tffCodReacaoCorpoKeyTyped
+
+    private void ckAvancadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAvancadoActionPerformed
+        if (ckAvancado.isSelected()) {
+            tffDataIni.setEditable(true);
+            tffDataFim.setEditable(true);
+        } else {
+            tffDataIni.setEditable(false);
+            tffDataFim.setEditable(false);
+        }
+    }//GEN-LAST:event_ckAvancadoActionPerformed
+
+    private void tffDataIniFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataIniFocusLost
+        if (!(isDataValida(tffDataIni))) {//INVALIDO
+            tffDataIni.setText("");
+            return;
+        } //VALIDO
+        tffDataIni.setForeground(Color.BLUE);
+    }//GEN-LAST:event_tffDataIniFocusLost
+
+    private void tffDataIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataIniKeyTyped
+        verificaNumeros(evt);
+    }//GEN-LAST:event_tffDataIniKeyTyped
+
+    private void tffDataFimFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataFimFocusLost
+        if (!(isDataValida(tffDataFim))) {//INVALIDO
+            tffDataFim.setText("");
+            return;
+        } //VALIDO
+        tffDataIni.setForeground(Color.BLUE);
+    }//GEN-LAST:event_tffDataFimFocusLost
+
+    private void tffDataFimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataFimKeyTyped
+        verificaNumeros(evt);
+    }//GEN-LAST:event_tffDataFimKeyTyped
+
+    private void ckAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAtivoActionPerformed
+        if(ckAtivo.isSelected()){
+            ativo = "ativo";
+        } else {
+            ativo = "inativo";
+        }
+    }//GEN-LAST:event_ckAtivoActionPerformed
+
+    private void ckAtivoTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAtivoTipoActionPerformed
+        if(ckAtivoTipo.isSelected()){
+            ativoTipo = "ativo";
+        } else {
+            ativoTipo = "inativo";
+        }
+    }//GEN-LAST:event_ckAtivoTipoActionPerformed
     private void cleanExe() {
         tffData.setText("");
         tffCodTipoExer.setText("");
@@ -1041,8 +1191,8 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
         tfKcalHora.setText("");
     }
 
-    private void verificaPreenchidos() {
-        if ((!(isVazioCB(cbTempoHoras)) && !(isVazioCB(cbTempoMinutos))) && !isSameCBNull() && !(isVazioCB(cbIntensidade))) {
+    private void verificaPreenchidos(boolean avisa) {
+        if (!isSameCBNull(avisa) && !isVazioCB(cbIntensidade)) {
             calculaKcalTotal();
         }
     }
@@ -1101,6 +1251,18 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             case 8:
                 valorResultante = kcal * 8;
                 break;
+            case 9:
+                valorResultante = kcal * 8;
+                break;
+            case 10:
+                valorResultante = kcal * 10;
+                break;
+            case 11:
+                valorResultante = kcal * 11;
+                break;
+            case 12:
+                valorResultante = kcal * 12;
+                break;
         }
         return valorResultante;
     }
@@ -1113,45 +1275,194 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
             case 0:
                 valorResultante = 0;
                 break;
+            case 1:
+                valorResultante = 0;
+                break;
+            case 2:
+                valorResultante = 0;
+                break;
+            case 3:
+                valorResultante = 0;
+                break;
+            case 4:
+                valorResultante = 0;
+                break;
             case 5:
+                valorResultante = (kcal / 11) * 1;
+                break;
+            case 6:
+                valorResultante = (kcal / 11) * 1;
+                break;
+            case 7:
+                valorResultante = (kcal / 11) * 1;
+                break;
+            case 8:
+                valorResultante = (kcal / 11) * 1;
+                break;
+            case 9:
                 valorResultante = (kcal / 11) * 1;
                 break;
             case 10:
                 valorResultante = (kcal / 11) * 2;
                 break;
+            case 11:
+                valorResultante = (kcal / 11) * 2;
+                break;
+            case 12:
+                valorResultante = (kcal / 11) * 2;
+                break;
+            case 13:
+                valorResultante = (kcal / 11) * 2;
+                break;
+            case 14:
+                valorResultante = (kcal / 11) * 2;
+                break;
             case 15:
+                valorResultante = (kcal / 11) * 3;
+                break;
+            case 16:
+                valorResultante = (kcal / 11) * 3;
+                break;
+            case 17:
+                valorResultante = (kcal / 11) * 3;
+                break;
+            case 18:
+                valorResultante = (kcal / 11) * 3;
+                break;
+            case 19:
                 valorResultante = (kcal / 11) * 3;
                 break;
             case 20:
                 valorResultante = (kcal / 11) * 4;
                 break;
+            case 21:
+                valorResultante = (kcal / 11) * 4;
+                break;
+            case 22:
+                valorResultante = (kcal / 11) * 4;
+                break;
+            case 23:
+                valorResultante = (kcal / 11) * 4;
+                break;
+            case 24:
+                valorResultante = (kcal / 11) * 4;
+                break;
             case 25:
                 valorResultante = (kcal / 11) * 5;
                 break;
+            case 26:
+                valorResultante = (kcal / 11) * 5;
+                break;
+            case 27:
+                valorResultante = (kcal / 11) * 5;
+                break;
+            case 28:
+                valorResultante = (kcal / 11) * 5;
+                break;
+            case 29:
+                valorResultante = (kcal / 11) * 5;
+                break;
+            case 30:
+                valorResultante = (kcal / 11) * 6;
+                break;
+            case 31:
+                valorResultante = (kcal / 11) * 6;
+                break;
+            case 32:
+                valorResultante = (kcal / 11) * 6;
+                break;
+            case 33:
+                valorResultante = (kcal / 11) * 6;
+                break;
+            case 34:
+                valorResultante = (kcal / 11) * 6;
+                break;
             case 35:
+                valorResultante = (kcal / 11) * 6;
+                break;
+            case 36:
+                valorResultante = (kcal / 11) * 6;
+                break;
+            case 37:
+                valorResultante = (kcal / 11) * 6;
+                break;
+            case 38:
+                valorResultante = (kcal / 11) * 6;
+                break;
+            case 39:
                 valorResultante = (kcal / 11) * 6;
                 break;
             case 40:
                 valorResultante = (kcal / 11) * 7;
                 break;
+            case 41:
+                valorResultante = (kcal / 11) * 7;
+                break;
+            case 42:
+                valorResultante = (kcal / 11) * 7;
+                break;
+            case 43:
+                valorResultante = (kcal / 11) * 7;
+                break;
+            case 44:
+                valorResultante = (kcal / 11) * 7;
+                break;
             case 45:
+                valorResultante = (kcal / 11) * 8;
+                break;
+            case 46:
+                valorResultante = (kcal / 11) * 8;
+                break;
+            case 47:
+                valorResultante = (kcal / 11) * 8;
+                break;
+            case 48:
+                valorResultante = (kcal / 11) * 8;
+                break;
+            case 49:
                 valorResultante = (kcal / 11) * 8;
                 break;
             case 50:
                 valorResultante = (kcal / 11) * 9;
                 break;
+            case 51:
+                valorResultante = (kcal / 11) * 9;
+                break;
+            case 52:
+                valorResultante = (kcal / 11) * 9;
+                break;
+            case 53:
+                valorResultante = (kcal / 11) * 9;
+                break;
+            case 54:
+                valorResultante = (kcal / 11) * 9;
+                break;
             case 55:
+                valorResultante = (kcal / 11) * 10;
+                break;
+            case 56:
+                valorResultante = (kcal / 11) * 10;
+                break;
+            case 57:
+                valorResultante = (kcal / 11) * 10;
+                break;
+            case 58:
+                valorResultante = (kcal / 11) * 10;
+                break;
+            case 59:
                 valorResultante = (kcal / 11) * 10;
                 break;
         }
         return valorResultante;
     }
 
-    private boolean isSameCBNull() {
-        boolean a = cbTempoHoras.getSelectedIndex() == 1;
-        boolean b = cbTempoMinutos.getSelectedIndex() == 1;
+    private boolean isSameCBNull(boolean avisa) {
+        boolean a = cbTempoHoras.getSelectedIndex() == 0;
+        boolean b = cbTempoMinutos.getSelectedIndex() == 0;
         if (a == true && b == true) {
-            JOptionPane.showInternalMessageDialog(rootPane, "As Horas e Minutos não podem ser ambos igual a zero!");
+            if (avisa == true) {
+                JOptionPane.showInternalMessageDialog(rootPane, "As Horas e Minutos não podem ser ambos igual a zero!");
+            }
             return true;
         }
         return false;
@@ -1172,9 +1483,13 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbIntensidade;
     private javax.swing.JComboBox<String> cbTempoHoras;
     private javax.swing.JComboBox<String> cbTempoMinutos;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JCheckBox ckAtivo;
+    private javax.swing.JCheckBox ckAtivoTipo;
+    private javax.swing.JCheckBox ckAvancado;
     private javax.swing.JLabel lblBusca;
     private javax.swing.JLabel lblBuscaNovo;
+    private javax.swing.JLabel lblDataFim;
+    private javax.swing.JLabel lblDataInicio;
     private javax.swing.JLabel lblDoisPontos;
     private javax.swing.JLabel lblPesqReacaoCorporal;
     private javax.swing.JLabel lblPesqTipoExer;
@@ -1182,6 +1497,7 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblTituloRegExer;
     private javax.swing.JLabel lblTituloRegTipoExer;
     private javax.swing.JLabel lblTituloTipoNovo;
+    private javax.swing.ButtonGroup ordem;
     private javax.swing.JPanel pnExerciciosNovo;
     private javax.swing.JPanel pnPesqExer;
     private javax.swing.JPanel pnPesqExerTBL;
@@ -1205,5 +1521,8 @@ public class IfrExercicio extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField tffCodReacaoCorpo;
     private javax.swing.JFormattedTextField tffCodTipoExer;
     private javax.swing.JFormattedTextField tffData;
+    private javax.swing.JFormattedTextField tffDataFim;
+    private javax.swing.JFormattedTextField tffDataIni;
+    private javax.swing.ButtonGroup variaveis;
     // End of variables declaration//GEN-END:variables
 }

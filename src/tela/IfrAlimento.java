@@ -8,37 +8,50 @@ import entidade.ReacaoCorporal;
 import entidade.Consumo;
 import java.awt.Color;
 import java.awt.Frame;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import util.Formatacao;
-import static util.Formatacao.ajustaDataDMA;
+import static util.Formatacao.formatDate;
+import static util.Formatacao.formatarData;
+import static util.Formatacao.parseDMADate;
 import util.Validacao;
 import util.TableDataModel;
+import static util.Verificacoes.isDataValida;
 import static util.Verificacoes.isDataVazia;
 import static util.Verificacoes.isHoraVazia;
 import static util.Verificacoes.isVazioCB;
 import static util.Verificacoes.isVazioTF;
+import static util.Verificacoes.verificaNomeComposto;
 import static util.Verificacoes.verificaNumeros;
 
 public class IfrAlimento extends javax.swing.JInternalFrame {
 
     int id = 0;
-    Alimento alimentoPadrao = new Alimento();
+    Alimento alimentoPadrao = null;
     AlimentoDAO daoAli = new AlimentoDAO();
 
-    Consumo consumoPadrao = new Consumo();
+    Consumo consumoPadrao = null;
     ConsumoDAO daoCons = new ConsumoDAO();
 
-    ReacaoCorporal reacaoCorporalPadrao = new ReacaoCorporal();
+    ReacaoCorporal reacaoCorporalPadrao = null;
     ReacaoCorporalDAO daoRC = new ReacaoCorporalDAO();
+    LocalDateTime agora = LocalDateTime.now();
+    DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+    String dataFormatada = formatterData.format(agora);
+    String ativoAli = "ativo";
+    String ativoCons = "ativo";
 
     public IfrAlimento() {
         initComponents();
         Formatacao.formatarData((JFormattedTextField) tffData);
         Formatacao.formatarHora(tffHorario);
+        formatarData(tffDataIni);
+        formatarData(tffDataFim);
         colocaIcone(lblAli, "pesq");
         colocaIcone(lblRC, "pesq");
         updateAli();
@@ -80,6 +93,12 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         lblBuscaPesqCons = new javax.swing.JLabel();
         tfBuscaPesqCons = new javax.swing.JTextField();
         btnPesquisarPesqCons = new javax.swing.JButton();
+        tffDataIni = new javax.swing.JFormattedTextField();
+        lblDataInicio = new javax.swing.JLabel();
+        lblDataFim = new javax.swing.JLabel();
+        tffDataFim = new javax.swing.JFormattedTextField();
+        ckAtivo = new javax.swing.JCheckBox();
+        ckAvancado = new javax.swing.JCheckBox();
         btnExcluirPesqCons = new javax.swing.JButton();
         btnEditarPesqCons = new javax.swing.JButton();
         pnRegAli = new javax.swing.JPanel();
@@ -102,6 +121,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         lblBuscaPesqAli = new javax.swing.JLabel();
         tfBuscaPesqAli = new javax.swing.JTextField();
         btnPesquisarPesqAli = new javax.swing.JButton();
+        ckAtivoAli = new javax.swing.JCheckBox();
         btnEditarPesqAli = new javax.swing.JButton();
         btnExcluirPesqAli = new javax.swing.JButton();
 
@@ -112,6 +132,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         pnRegCons.setBackground(new java.awt.Color(255, 255, 255));
 
         lblConsumoDeAlimento.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+        lblConsumoDeAlimento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblConsumoDeAlimento.setText("Consumo de Alimento");
 
         tfAlimentoConsumido.setEditable(false);
@@ -138,6 +159,11 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         tffData.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tffDataFocusLost(evt);
+            }
+        });
+        tffData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tffDataKeyTyped(evt);
             }
         });
 
@@ -254,89 +280,86 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         pnRegCons.setLayout(pnRegConsLayout);
         pnRegConsLayout.setHorizontalGroup(
             pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegConsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblConsumoDeAlimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(pnRegConsLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnRegConsLayout.createSequentialGroup()
-                        .addComponent(tffCodigoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegConsLayout.createSequentialGroup()
-                                .addComponent(btnFecharCons, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(10, 10, 10)
-                                .addComponent(btnSalvarCons, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblRC, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnRegConsLayout.createSequentialGroup()
-                                .addComponent(lblConsumoDeAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(86, 86, 86))))
-                    .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(pnRegConsLayout.createSequentialGroup()
-                            .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(tffPorcaoPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tffKcalAli, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(128, 128, 128))
+                            .addComponent(tffKcalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnRegConsLayout.createSequentialGroup()
+                                .addComponent(tffPorcaoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tffData, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tffHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(pnRegConsLayout.createSequentialGroup()
-                                    .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(pnRegConsLayout.createSequentialGroup()
-                                            .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(tffPorcaoPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(tffPorcaoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(tffData)
-                                                .addComponent(tffKcalAli, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tffQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tffHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(tfAlimentoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lblAli, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnRegConsLayout.createSequentialGroup()
-                            .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(tffKcalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(pnRegConsLayout.createSequentialGroup()
+                                    .addComponent(btnFecharCons, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(160, 160, 160)
+                                    .addComponent(btnSalvarCons, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegConsLayout.createSequentialGroup()
                                     .addComponent(tffCodigoRC, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(tffReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lblRC, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                                    .addComponent(tffReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(pnRegConsLayout.createSequentialGroup()
+                        .addComponent(lblAli, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tffCodigoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfAlimentoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnRegConsLayout.createSequentialGroup()
+                        .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tffQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 106, Short.MAX_VALUE))
         );
         pnRegConsLayout.setVerticalGroup(
             pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnRegConsLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(19, 19, 19)
                 .addComponent(lblConsumoDeAlimento)
                 .addGap(18, 18, 18)
                 .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfAlimentoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tffCodigoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tffQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tffData, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tffHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tffPorcaoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblRC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnRegConsLayout.createSequentialGroup()
-                        .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfAlimentoConsumido, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tffCodigoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbTipoAlimentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tffQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tffData, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tffHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tffPorcaoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
                         .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tffKcalAli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tffPorcaoPadrao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tffKcalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblAli, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnRegConsLayout.createSequentialGroup()
+                            .addComponent(tffKcalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
                         .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tffReacaoCorporal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tffCodigoRC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(68, 68, 68)
-                        .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnFecharCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSalvarCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblRC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tffCodigoRC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(111, 111, 111)
+                .addGroup(pnRegConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFecharCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalvarCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -345,6 +368,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         pnPesqCons.setBackground(new java.awt.Color(255, 255, 255));
 
         lblPesquisaConsumo.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+        lblPesquisaConsumo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPesquisaConsumo.setText("Pesquisa de Consumo");
 
         pnBuscaCons.setBackground(new java.awt.Color(255, 255, 255));
@@ -374,30 +398,104 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
             }
         });
 
+        tffDataIni.setEditable(false);
+        tffDataIni.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tffDataIniFocusLost(evt);
+            }
+        });
+        tffDataIni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tffDataIniKeyTyped(evt);
+            }
+        });
+
+        lblDataInicio.setText("Data início:");
+
+        lblDataFim.setText("Data fim:");
+
+        tffDataFim.setEditable(false);
+        tffDataFim.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tffDataFimFocusLost(evt);
+            }
+        });
+        tffDataFim.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tffDataFimKeyTyped(evt);
+            }
+        });
+
+        ckAtivo.setSelected(true);
+        ckAtivo.setText("Ativo");
+        ckAtivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAtivoActionPerformed(evt);
+            }
+        });
+
+        ckAvancado.setText("Avançado");
+        ckAvancado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAvancadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnBuscaConsLayout = new javax.swing.GroupLayout(pnBuscaCons);
         pnBuscaCons.setLayout(pnBuscaConsLayout);
         pnBuscaConsLayout.setHorizontalGroup(
             pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PainelDeRolagemPesqCons, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(pnBuscaConsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblBuscaPesqCons)
+                .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnBuscaConsLayout.createSequentialGroup()
+                        .addContainerGap(48, Short.MAX_VALUE)
+                        .addComponent(lblBuscaPesqCons)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfBuscaPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPesquisarPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnBuscaConsLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataInicio))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tffDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tffDataIni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfBuscaPesqCons)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPesquisarPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ckAvancado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ckAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addComponent(PainelDeRolagemPesqCons)
         );
         pnBuscaConsLayout.setVerticalGroup(
             pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnBuscaConsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBuscaPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfBuscaPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisarPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PainelDeRolagemPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnBuscaConsLayout.createSequentialGroup()
+                        .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblBuscaPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBuscaPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tffDataIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataInicio))
+                        .addGap(10, 10, 10)
+                        .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tffDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataFim))
+                        .addGap(22, 22, 22))
+                    .addGroup(pnBuscaConsLayout.createSequentialGroup()
+                        .addGroup(pnBuscaConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ckAvancado)
+                            .addComponent(btnPesquisarPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ckAtivo)
+                        .addGap(48, 48, 48)))
+                .addComponent(PainelDeRolagemPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         btnExcluirPesqCons.setText("Excluir");
@@ -421,29 +519,25 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         pnPesqConsLayout.setHorizontalGroup(
             pnPesqConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnBuscaCons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblPesquisaConsumo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqConsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnPesqConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqConsLayout.createSequentialGroup()
-                        .addComponent(lblPesquisaConsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqConsLayout.createSequentialGroup()
-                        .addComponent(btnExcluirPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(btnEditarPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addGap(98, 98, 98)
+                .addComponent(btnExcluirPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditarPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         pnPesqConsLayout.setVerticalGroup(
             pnPesqConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnPesqConsLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(19, 19, 19)
                 .addComponent(lblPesquisaConsumo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnBuscaCons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addComponent(pnBuscaCons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnPesqConsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditarPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExcluirPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExcluirPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarPesqCons, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -452,9 +546,15 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         pnRegAli.setBackground(new java.awt.Color(255, 255, 255));
 
         lblRegistrarAlimento.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+        lblRegistrarAlimento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblRegistrarAlimento.setText("Registrar Alimento");
 
         tfDescricao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Descrição*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
+        tfDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDescricaoKeyTyped(evt);
+            }
+        });
 
         tfPorcao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Porção (gramas)*", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Lucida Calligraphy", 0, 11))); // NOI18N
         tfPorcao.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -523,37 +623,32 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         pnRegAli.setLayout(pnRegAliLayout);
         pnRegAliLayout.setHorizontalGroup(
             pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnRegAliLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pnRegAliLayout.createSequentialGroup()
-                        .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfPorcao, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfGordTrans, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                            .addComponent(tfAcucares)))
-                    .addGroup(pnRegAliLayout.createSequentialGroup()
-                        .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfKcal, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfProteina, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfGordSatur, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                            .addComponent(tfSodio))))
-                .addContainerGap(47, Short.MAX_VALUE))
+            .addComponent(lblRegistrarAlimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegAliLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegAliLayout.createSequentialGroup()
-                        .addComponent(lblRegistrarAlimento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnRegAliLayout.createSequentialGroup()
-                        .addComponent(btnFecharAli, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSalvarAli, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addGap(75, 75, 75)
+                .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnRegAliLayout.createSequentialGroup()
+                            .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfPorcao, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfGordTrans, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfAcucares, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnRegAliLayout.createSequentialGroup()
+                            .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfKcal, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfProteina, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tfGordSatur)
+                                .addComponent(tfSodio, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnRegAliLayout.createSequentialGroup()
+                        .addComponent(btnFecharAli, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(147, 147, 147)
+                        .addComponent(btnSalvarAli, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(88, 88, 88))
         );
         pnRegAliLayout.setVerticalGroup(
             pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,11 +671,11 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
                 .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfSodio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfProteina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(149, 149, 149)
+                .addGap(156, 156, 156)
                 .addGroup(pnRegAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFecharAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                .addContainerGap())
         );
 
         tbPainel.addTab("Registrar Alimento", pnRegAli);
@@ -588,6 +683,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         pnPesqAli.setBackground(new java.awt.Color(255, 255, 255));
 
         lblPesqAli.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
+        lblPesqAli.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPesqAli.setText("Pesquisa de Alimento");
 
         pnPesquisa.setBackground(new java.awt.Color(255, 255, 255));
@@ -617,18 +713,28 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
             }
         });
 
+        ckAtivoAli.setSelected(true);
+        ckAtivoAli.setText("Ativo");
+        ckAtivoAli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAtivoAliActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnPesquisaLayout = new javax.swing.GroupLayout(pnPesquisa);
         pnPesquisa.setLayout(pnPesquisaLayout);
         pnPesquisaLayout.setHorizontalGroup(
             pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PainelDeRolagemPesqAli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(pnPesquisaLayout.createSequentialGroup()
+            .addComponent(PainelDeRolagemPesqAli, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesquisaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblBuscaPesqAli)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfBuscaPesqAli)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPesquisarPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ckAtivoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisarPesqAli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnPesquisaLayout.setVerticalGroup(
@@ -640,8 +746,9 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
                     .addComponent(tfBuscaPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisarPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PainelDeRolagemPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(ckAtivoAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(PainelDeRolagemPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         btnEditarPesqAli.setText("Editar");
@@ -665,29 +772,25 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         pnPesqAliLayout.setHorizontalGroup(
             pnPesqAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqAliLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnPesqAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqAliLayout.createSequentialGroup()
-                        .addComponent(lblPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(85, 85, 85))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnPesqAliLayout.createSequentialGroup()
-                        .addComponent(btnExcluirPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEditarPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+            .addComponent(lblPesqAli, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnPesqAliLayout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(btnExcluirPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEditarPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         pnPesqAliLayout.setVerticalGroup(
             pnPesqAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnPesqAliLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(19, 19, 19)
                 .addComponent(lblPesqAli)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnPesqAliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditarPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExcluirPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExcluirPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarPesqAli, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10))
         );
 
@@ -697,7 +800,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(tbPainel)
                 .addGap(0, 0, 0))
         );
@@ -717,7 +820,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
         btnSalvarCons.setText("Atualizar");
         //id = getValueAtExe(tblResumo.getSelectedRow()).id;
         String idString = String.valueOf(tblResumoConsumo.getValueAt(tblResumoConsumo.getSelectedRow(), 0));
-        int id = Integer.parseInt(idString);
+        id = Integer.parseInt(idString);
         consumoPadrao = daoCons.consultar(id);
 
         if (consumoPadrao != null) {
@@ -725,17 +828,16 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
             tffCodigoAli.setText(String.valueOf(consumoPadrao.alimento_id));
             cbTipoAlimentacao.setSelectedItem(consumoPadrao.refeicao);
             tffQuantidade.setText(String.valueOf(consumoPadrao.quantidade));
-            tffPorcaoPadrao.setText(String.valueOf(consumoPadrao.porcaoConsumida));
-            tffData.setText(ajustaDataDMA(consumoPadrao.data.toString()));
+            tffPorcaoAli.setText(String.valueOf(consumoPadrao.porcaoConsumida));
+            tffData.setText(formatDate(consumoPadrao.data));
             tffHorario.setText(String.valueOf(consumoPadrao.horario));
+            tffKcalTotal.setText(String.valueOf(consumoPadrao.kcalTotal));
             tffCodigoRC.setText(String.valueOf(consumoPadrao.reacaoCorporal_id));
 
             tbPainel.setSelectedIndex(0);
 
             tffData.requestFocus();
         }
-
-
     }//GEN-LAST:event_btnEditarPesqConsActionPerformed
 
     private boolean isCamposConsumosPreenchidos() {
@@ -778,7 +880,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     private void verificarAlimento() {
         Alimento t = daoAli.consultar(Integer.parseInt(tffCodigoAli.getText()));
         if (t != null) {
-            consumoPadrao.alimento_id = t.id;
+            alimentoPadrao = t;
             tfAlimentoConsumido.setText(t.descricao);
             tffPorcaoPadrao.setText(String.valueOf(t.porcao));
             tffKcalAli.setText(String.valueOf(t.valorEner));
@@ -786,7 +888,21 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     }
 
     private void btnExcluirPesqConsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPesqConsActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
 
+            String idString = String.valueOf(tblResumoConsumo.getValueAt(tblResumoConsumo.getSelectedRow(), 0));
+
+            int idExclusao = Integer.parseInt(idString);
+
+            ConsumoDAO cons = new ConsumoDAO();
+
+            if (cons.excluir(idExclusao)) {
+                JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
+                updateCons();
+            } else {
+                JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
+            }
+        }
     }//GEN-LAST:event_btnExcluirPesqConsActionPerformed
 
     private void tffDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataFocusLost
@@ -802,18 +918,6 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     private void tffReacaoCorporalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffReacaoCorporalFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_tffReacaoCorporalFocusLost
-
-    private void btnPesquisarPesqAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarPesqAliActionPerformed
-        updateAli();
-    }//GEN-LAST:event_btnPesquisarPesqAliActionPerformed
-
-    private void btnEditarPesqAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPesqAliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarPesqAliActionPerformed
-
-    private void btnExcluirPesqAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPesqAliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExcluirPesqAliActionPerformed
 
     private void tffHorarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffHorarioFocusLost
         if (tffHorario.getText().trim().length() == 5) {
@@ -848,7 +952,7 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     private void verificarRC() {
         ReacaoCorporal t = daoRC.consultar(Integer.parseInt(tffCodigoRC.getText()));
         if (t != null) {
-            consumoPadrao.reacaoCorporal_id = t.id;
+            reacaoCorporalPadrao = t;
             tffReacaoCorporal.setText(t.nome);
         }
     }
@@ -1047,14 +1151,14 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
             cons.alimento_id = Integer.parseInt(tffCodigoAli.getText());
             cons.refeicao = cbTipoAlimentacao.getSelectedItem().toString();
             cons.quantidade = Integer.parseInt(tffQuantidade.getText());
-            cons.porcaoConsumida = tffPorcaoPadrao.getText();
-            String[] data = tffData.getText().trim().split("/"); // [dia, mes, ano]
-            cons.data = java.sql.Date.valueOf(String.format("%s-%s-%s", data[2], data[1], data[0])); // ano-mes-dia
+            cons.porcaoConsumida = tffPorcaoAli.getText();
+            cons.data = parseDMADate(tffData.getText().trim());
             cons.horario = java.sql.Time.valueOf(tffHorario.getText().trim() + ":00");
+            cons.kcalTotal = Integer.parseInt(tffKcalTotal.getText());
             cons.reacaoCorporal_id = Integer.parseInt(tffCodigoRC.getText());
             cons.status = "ativo";
             //verifica se é um novo registro e efetua o salvamento
-            if (id == 0) {
+            if (consumoPadrao == null) {
                 Integer id = daoCons.salvar(cons);
                 //se o id não for nulo, salva
                 if (id != null) {
@@ -1065,11 +1169,12 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
                 }
             } else {
                 //se o id não for nulo (consulta -> atualização), atualiza
-                cons.id = id;
+                cons.id = consumoPadrao.id;
                 if (daoCons.atualizar(cons)) {
+                    cons.id = id;
                     JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
                     btnSalvarCons.setText("Salvar");
-                    id = 0;
+                    consumoPadrao = null;
                 } else {
                     JOptionPane.showMessageDialog(null, "Problemas ao atualizar!");
                 }
@@ -1094,12 +1199,116 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     private void tffHorarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffHorarioKeyTyped
         verificaNumeros(evt);
     }//GEN-LAST:event_tffHorarioKeyTyped
+
+    private void btnExcluirPesqAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPesqAliActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir?") == JOptionPane.OK_OPTION) {
+
+            String idString = String.valueOf(tblResumoAlimento.getValueAt(tblResumoAlimento.getSelectedRow(), 0));
+
+            int idExclusao = Integer.parseInt(idString);
+
+            AlimentoDAO ali = new AlimentoDAO();
+
+            if (ali.excluir(idExclusao)) {
+                JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
+                updateAli();
+            } else {
+                JOptionPane.showMessageDialog(null, "Problemas ao excluir registro.");
+            }
+        }
+    }//GEN-LAST:event_btnExcluirPesqAliActionPerformed
+
+    private void btnEditarPesqAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPesqAliActionPerformed
+        btnSalvarAli.setText("Atualizar");
+        //id = getValueAtExe(tblResumo.getSelectedRow()).id;
+        String idString = String.valueOf(tblResumoAlimento.getValueAt(tblResumoAlimento.getSelectedRow(), 0));
+        id = Integer.parseInt(idString);
+        alimentoPadrao = daoAli.consultar(id);
+
+        if (alimentoPadrao != null) {
+
+            tfDescricao.setText(String.valueOf(alimentoPadrao.descricao));
+            tfPorcao.setText(String.valueOf(alimentoPadrao.porcao));
+            tfKcal.setText(String.valueOf(alimentoPadrao.valorEner));
+            tfProteina.setText(String.valueOf(alimentoPadrao.proteina));
+            tfAcucares.setText(String.valueOf(alimentoPadrao.acucares));
+            tfGordTrans.setText(String.valueOf(alimentoPadrao.gordTrans));
+            tfGordSatur.setText(String.valueOf(alimentoPadrao.gordSaturada));
+            tfSodio.setText(String.valueOf(alimentoPadrao.sodio));
+
+            tbPainel.setSelectedIndex(2);
+
+            tfDescricao.requestFocus();
+        }
+    }//GEN-LAST:event_btnEditarPesqAliActionPerformed
+
+    private void btnPesquisarPesqAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarPesqAliActionPerformed
+        updateAli();
+    }//GEN-LAST:event_btnPesquisarPesqAliActionPerformed
+
+    private void ckAtivoAliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAtivoAliActionPerformed
+        if(ckAtivoAli.isSelected()){
+            ativoAli = "ativo";
+        } else {
+            ativoAli = "inativo";
+        }
+    }//GEN-LAST:event_ckAtivoAliActionPerformed
+
+    private void tffDataIniFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataIniFocusLost
+        if (!(isDataValida(tffDataIni))) {//INVALIDO
+            tffDataIni.setText("");
+            return;
+        } //VALIDO
+        tffDataIni.setForeground(Color.BLUE);
+    }//GEN-LAST:event_tffDataIniFocusLost
+
+    private void tffDataIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataIniKeyTyped
+        verificaNumeros(evt);
+    }//GEN-LAST:event_tffDataIniKeyTyped
+
+    private void tffDataFimFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tffDataFimFocusLost
+        if (!(isDataValida(tffDataFim))) {//INVALIDO
+            tffDataFim.setText("");
+            return;
+        } //VALIDO
+        tffDataIni.setForeground(Color.BLUE);
+    }//GEN-LAST:event_tffDataFimFocusLost
+
+    private void tffDataFimKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataFimKeyTyped
+        verificaNumeros(evt);
+    }//GEN-LAST:event_tffDataFimKeyTyped
+
+    private void ckAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAtivoActionPerformed
+        if(ckAtivo.isSelected()){
+            ativoCons = "ativo";
+        } else {
+            ativoCons = "inativo";
+        }
+    }//GEN-LAST:event_ckAtivoActionPerformed
+
+    private void ckAvancadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAvancadoActionPerformed
+        if (ckAvancado.isSelected()) {
+            tffDataIni.setEditable(true);
+            tffDataFim.setEditable(true);
+        } else {
+            tffDataIni.setEditable(false);
+            tffDataFim.setEditable(false);
+        }
+    }//GEN-LAST:event_ckAvancadoActionPerformed
+
+    private void tffDataKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tffDataKeyTyped
+        verificaNumeros(evt);
+    }//GEN-LAST:event_tffDataKeyTyped
+
+    private void tfDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDescricaoKeyTyped
+        verificaNomeComposto(evt);
+    }//GEN-LAST:event_tfDescricaoKeyTyped
     private void cleanCons() {
         tffCodigoAli.setText("");
         tfAlimentoConsumido.setText("");
         cbTipoAlimentacao.setSelectedIndex(0);
         tffQuantidade.setText("");
-        tffPorcaoPadrao.setText("");
+        tffPorcaoAli.setText("");
         tffData.setText("");
         tffHorario.setText("");
         tffPorcaoPadrao.setText("");
@@ -1121,11 +1330,22 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     }
 
     private void updateAli() {
-        new AlimentoDAO().popularTabela(tblResumoAlimento, tfBuscaPesqAli.getText());
+        new AlimentoDAO().popularTabela(tblResumoAlimento, tfBuscaPesqAli.getText(), ativoAli);
     }
 
     private void updateCons() {
-        new ConsumoDAO().popularTabela(tblResumoConsumo, tfBuscaPesqCons.getText());
+        if (isDataVazia(tffDataIni)) {
+            new ConsumoDAO().popularTabela(tblResumoConsumo, tfBuscaPesqCons.getText(), null, null, ativoCons);
+            return;
+        }
+        if (isDataVazia(tffDataFim)) {
+            new ConsumoDAO().popularTabela(tblResumoConsumo, tfBuscaPesqCons.getText(),tffDataIni.getText(), dataFormatada, ativoCons);
+            return;
+        }
+        if (!isDataValida(tffDataIni) && isDataValida(tffDataFim)) {
+            return;
+        }
+        new ConsumoDAO().popularTabela(tblResumoConsumo, tfBuscaPesqCons.getText(), tffDataIni.getText(), tffDataFim.getText(), ativoCons);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1142,10 +1362,15 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     private javax.swing.JToggleButton btnSalvarAli;
     private javax.swing.JToggleButton btnSalvarCons;
     private javax.swing.JComboBox<String> cbTipoAlimentacao;
+    private javax.swing.JCheckBox ckAtivo;
+    private javax.swing.JCheckBox ckAtivoAli;
+    private javax.swing.JCheckBox ckAvancado;
     private javax.swing.JLabel lblAli;
     private javax.swing.JLabel lblBuscaPesqAli;
     private javax.swing.JLabel lblBuscaPesqCons;
     private javax.swing.JLabel lblConsumoDeAlimento;
+    private javax.swing.JLabel lblDataFim;
+    private javax.swing.JLabel lblDataInicio;
     private javax.swing.JLabel lblPesqAli;
     private javax.swing.JLabel lblPesquisaConsumo;
     private javax.swing.JLabel lblRC;
@@ -1173,6 +1398,8 @@ public class IfrAlimento extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField tffCodigoAli;
     private javax.swing.JFormattedTextField tffCodigoRC;
     private javax.swing.JFormattedTextField tffData;
+    private javax.swing.JFormattedTextField tffDataFim;
+    private javax.swing.JFormattedTextField tffDataIni;
     private javax.swing.JFormattedTextField tffHorario;
     private javax.swing.JFormattedTextField tffKcalAli;
     private javax.swing.JFormattedTextField tffKcalTotal;
